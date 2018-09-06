@@ -1,0 +1,140 @@
+.phone-number > .country-selector {
+    width: auto;
+    display: inline-block;
+}
+
+.country-selector .form-control {
+    border-radius: 4px 0 0 4px;
+}
+
+.phone-number > .form-control {
+    width: auto;
+    display: inline-block;
+    margin-left: -4px;
+    padding-top: 4px;
+    border-radius: 0 4px 4px 0;
+}
+
+#country > div > span {
+    padding-right: 15px;
+}
+
+#country > div > span > i {
+    right: 4px;
+}
+
+.field-error {
+    font-size: 13px;
+    color: #FF4444;
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+
+.form-error {
+    font-size: 17px;
+    color: #FF4444;
+    padding-top: 20px;
+}
+
+canvas.canvas {
+    cursor: crosshair;
+    position: absolute;
+    display: none;
+}
+
+img.mjpeg {
+    position: absolute;
+    -webkit-user-select: none;
+    background-size: 20px 20px;
+    background: white linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%) 0px 0px, 10px 10px;
+    display: none;
+}
+
+.save-rectangle {
+    opacity: 0;
+    font-size: 20px;
+    position: absolute;
+}
+
+.video-container {
+    position: absolute;
+    width: 1280px;
+}
+
+.controls {
+    position: absolute;
+    top: -45px;
+}
+
+.controls > button {
+    margin-right: 10px;
+}
+
+.tickets-table > tbody > tr > td {
+    font-size: 11px;
+}
+
+.form-group > .row {
+    padding-top: 5px;
+}
+
+.form-control.ui-select-container {
+    padding: 0 !important;
+}
+
+.ui-select-match > span,
+input.form-control.ui-select-search.ng-pristine.ng-valid {
+    border: none;
+    height: 32px;
+    border-radius: 5px;
+}
+
+.col-md-4 {
+    padding-left: 25px;
+}
+
+.tab-pane > .row > .portlet {
+    margin-left: 15px;
+}
+
+.fine-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+ticket-field > div {
+    padding: 10px;
+    min-width: 250px;
+}
+
+ticket-field > div > span:nth-child(1) {
+    font-weight: bold;
+}
+
+ticket-field > div > span:nth-child(2) {
+    float: right;
+}
+
+td > ticket-field > div > span:nth-child(2) {
+    float: left;
+}
+
+.fine-panes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.fine-panes > div > .portlet {
+    min-width: 500px;
+    margin-right: 10px;
+}
+
+.portlet-body > .row {
+    margin: 0 0 0 0;
+}
+
+.portlet-body > .row > button {
+    margin: 10px 5px 5px 0;
+}

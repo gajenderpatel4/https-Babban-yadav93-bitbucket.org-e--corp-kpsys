@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src='assets/global/plugins/tinymce/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '#kpsys-textarea'
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="StaticPageController" data-ng-init="init()">
+        <div ng-show="failed" class="alert-error alert-warning">
+            <p>{{errorMessage}}</p>
+        </div>
+        <div>
+            <label class="control-label">Page Title:</label>
+            <input class="form-control" type="text" ng-model="pageForm.page.title">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="pageType">Page Type:</label>
+            <select id="pageType" class="bs-select form-control" data-width="125px"
+                    ng-init="pageForm.page.pageType = pageType || enums.defaultPageType.value"
+                    ng-options="item.value as item.name for item in enums.pageType"
+                    ng-model="pageForm.page.pageType">
+            </select>
+        </div>
+        <label>{{ 'cust.langcode' | translate }}:</label>
+        <div class="form-group">
+            <div class="input-group" style="width: 200px;">
+                <ui-select id="language" ng-model="language.selected" search-enabled="false">
+                    <ui-select-match placeholder="{{ 'language' | translate }}">
+                        <img ng-src="/assets/global/img/flags/{{$select.selected.code}}.png"/>
+                        <span ng-bind-html="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="language in languages">
+                        <img ng-src="/assets/global/img/flags/{{language.code}}.png"/>
+                        <span ng-bind-html="language.name"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <br />
+        <form id="staticPage" method="post" ng-submit="saveStaticPage(pageForm.page)">
+            <textarea id="kpsys-textarea"></textarea>
+        </form>
+        <br>
+        <div>
+            <input type="submit" class="btn btn-primary" form="staticPage" value="Save"/>
+        </div>
+    </div>
+</body>
+</html>

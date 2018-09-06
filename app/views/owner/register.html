@@ -1,0 +1,74 @@
+<form novalidate name="form" id="form" ng-controller="RegisterCtrl" ng-submit="register(registerData)" data-ng-init="init()">
+    <div class="portlet col-md-4">
+        <div class="form-group">
+            <label for="firstName">{{ 'First name'}}:</label>
+            <input class="form-control" type="text" id="firstName" ng-model="registerData.firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastName">{{ 'Last name'}}:</label>
+            <input class="form-control" type="text" id="lastName" ng-model="registerData.lastName">
+        </div>
+        <div class="form-group">
+            <label for="email">{{ 'user_maintenance.email' | translate}}:</label>
+            <input class="form-control"
+                   required
+                   name="email"
+                   type="email"
+                   id="email"
+                   ng-model="registerData.email"
+                   ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[-A-Za-z]{2,24})$/">
+        </div>
+
+        <div ng-if="form.email.$error.required && (form.email.$dirty || submitted[0])">
+            <div class="field-error">
+                User email is required.
+            </div>
+        </div>
+        <div ng-if="form.email.$error.pattern && (form.email.$dirty || submitted[0])">
+            <div class="field-error">
+                Entered email is invalid.
+            </div>
+        </div>
+
+        <div class="form-group phone-number">
+            <label for="phone">{{ 'cust.phonnmbr' | translate}}:</label><br>
+            <div class="country-selector">
+                <ui-select id="country" ng-model="country.selected" search-enabled="false">
+                    <ui-select-match placeholder="{{ 'country' | translate }}">
+                        <img ng-src="/assets/global/img/flags/{{$select.selected.code}}.png"/>
+                        <span ng-bind-html="$select.selected.phoneCode"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="country in countries">
+                        <img ng-src="/assets/global/img/flags/{{country.code}}.png"/>
+                        <span ng-bind-html="country.name"></span>
+                        <span ng-bind-html="country.phoneCode"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <input class="form-control"
+                   required
+                   type="tel"
+                   name="phone"
+                   id="phone"
+                   ng-model="registerData.phoneNumber"
+                   ng-pattern="/^[0-9\-]+$/">
+        </div>
+        <div ng-if="form.phone.$error.required && (form.phone.$dirty || submitted[0])">
+            <div class="field-error">
+                Phone number is required.
+            </div>
+        </div>
+        <div ng-if="form.phone.$error.pattern && (form.phone.$dirty || submitted[0])">
+            <div class="field-error">
+                Entered phone number is invalid.
+            </div>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-default">Register</button>
+        <br/><br/>
+        Have an account? <a href="/#/login">Log in</a>
+        <div ng-if="registerError && submitted[0]">
+            <div class="form-error" ng-bind="registerError.message"></div>
+        </div>
+    </div>
+</form>

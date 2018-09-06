@@ -1,0 +1,54 @@
+<div ng-controller="AnprEventsController" data-ng-init="init()">
+
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase">ANPR Events</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <span ng-if="eventId">
+                        Direction: <b>{{event.direction}}</b><br/> Status: <b>{{event.status}}</b><br/> Payment Status: <b>{{event.paymentStatus}}</b>
+                    <br/>
+                    <br/>
+                    <img ng-if="event.imageAddr" style="max-width: 100%" ng-src="/api/anpr/events/image/{{ event.id }}">
+                </span>
+            </div>
+            <div class="col-lg-5">
+                <div ng-style="tableStyle">
+                    <table id="eventsTable" class="table table-striped table-bordered table-hover" style="margin-bottom: 0;">
+                        <thead fix-head>
+                        <tr>
+                            <th colspan="2">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4" for="deviceId">ANPR Devices</label>
+                                    <select id="deviceId" class="bs-select form-control" data-width="125px"
+                                            ng-options="device.id as device.deviceName for device in devices"
+                                            ng-model="deviceId" ng-change="selectDevice(deviceId)">
+                                    </select>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>License Plate</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="deviceId" ng-repeat="event in events" ng-click="selectEvent(event.id)"
+                            class="{{ eventRowClass(event.id) }}">
+                            <td>{{ event.numberPlate }}</td>
+                            <td>{{ event.time }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

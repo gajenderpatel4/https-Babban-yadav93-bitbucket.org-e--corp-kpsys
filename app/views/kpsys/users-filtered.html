@@ -1,0 +1,187 @@
+<div ng-controller="UserController" data-ng-init="init()">
+
+    <div>
+        <button class="btn btn-success ng-pristine ng-valid ng-touched" type="button" ng-click="openAddUserDialog()">{{ 'user_maintenance.add_user' | translate }}</button>
+        <script type="text/ng-template" id="user-add-dialog-content.html">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ 'user_maintenance.add_user' | translate }}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <form id="addUserForm" ng-submit="saveUser(userForm.user)">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" ng-model="userForm.user.userType">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="login">Login:</label>
+                                <input id="login" class="form-control" type="text" placeholder="Login" ng-model="userForm.user.login">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="password">{{ 'cust.custpswd' | translate }}:</label>
+                                <input id="password" class="form-control" type="password" placeholder="{{ 'cust.custpswd' | translate }}" ng-model="userForm.user.plainPassword">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="email">{{ 'user_maintenance.email' | translate }}:</label>
+                                <input id="email" class="form-control" type="email" placeholder="{{ 'user_maintenance.email' | translate }}" ng-model="userForm.user.email">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="phone">{{ 'tckt.ownerphonnmbr' | translate }}:</label>
+                                <input id="phone" class="form-control" type="tel" placeholder="{{ 'tckt.ownerphonnmbr' | translate }}" ng-model="userForm.user.phone">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="username">{{ 'tckt.ownrname' | translate }}:</label>
+                                <input id="username" class="form-control" type="text" placeholder="{{ 'tckt.ownrname' | translate }}" ng-model="userForm.user.username" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="userStatus">{{ 'tckt.busnstatnmbr' | translate }}:</label>
+                                <select id="userStatus" class="bs-select form-control" data-width="125px"
+                                        ng-options="item.value as item.name for item in enums.userStatus"
+                                        ng-model="userForm.user.userStatus">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="clientId">{{ 'clnt.title' | translate }}:</label>
+                                <select id="clientId" class="bs-select form-control" data-width="125px"
+                                        ng-options="client.clientId as client.name for client in clients"
+                                        ng-model="userForm.user.clientId">
+                                </select>
+                            </div>
+
+                            <div class="form-group" ng-if="userType === 'external-user'">
+                                <div class="input-group">
+                                    <ui-select id="locationId" multiple ng-model="userForm.user.locations" theme="bootstrap" class="form-control">
+                                        <ui-select-match placeholder="{{ 'user_maintenance.select_location' | translate }}">
+                                            <div ng-bind-html="$item.name | highlight: $select.search"></div>
+                                            <small class="line-break">{{$item.description | limitTo: 150}}</small>
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="location in locations | propsFilter: {name: $select.search}">
+                                            <div ng-bind-html="location.name | highlight: $select.search"></div>
+                                            <small class="line-break">{{location.description | limitTo: 150}}</small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="userForm.user.locations = undefined" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="userType === 'traffic-warden'">
+                                <label class="control-label col-md-4" for="externalLogin">External login:</label>
+                                <input id="externalLogin" class="form-control" type="text" placeholder="External login" ng-init="userForm.user.externalLogin = externalLogin" ng-model="userForm.user.externalLogin">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="datePattern">Date format:</label>
+                                <input id="datePattern" class="form-control" type="text" placeholder="Date format" ng-model="userForm.user.datePattern">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" form="addUserForm" value="Save"/>
+                <button type="button" class="btn" ng-click="clearForm()">Clear form</button>
+                <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="user-view-dialog-content.html">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ user.username }}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.phone }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.login }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.phone }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.userStatus }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.userType }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.clientId }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.externalLogin }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ user.datePattern }}</td>
+                            </tr>
+
+                        </table>
+                        <h3 class="modal-title">{{ 'user.location_list' | translate }}</h3>
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr ng-repeat="location in user.locations">
+                                <td>{{ location.locationId }}</td>
+                                <td>{{ location.name}}</td>
+                                <td>{{ location.description}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <div class="col-md-5">
+            <input ng-keyup="$event.keyCode == 13 && search()" ng-model="searchQuery" type="text" id="searchQuery" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default" ng-click="search()">{{ 'search' | translate }}</button>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <th>{{ 'user_maintenance.username' | translate }}</th>
+            <th>{{ 'user_maintenance.email' | translate }}</th>
+            <th>{{ 'tckt.ownerphonnmbr' | translate }}</th>
+        </thead>
+        <tr ng-repeat="user in users.list" ng-click="openViewUserDialog(user)">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+        </tr>
+    </table>
+
+    <ul uib-pagination
+        total-items="users.count"
+        ng-model="pagination.currentPage"
+        ng-change="pageChanged()"
+        items-per-page="8"
+        template-url="tpl/pagination.html">
+    </ul>
+</div>
+
+<script>
+    //    ComponentsBootstrapSelect.init();
+</script>

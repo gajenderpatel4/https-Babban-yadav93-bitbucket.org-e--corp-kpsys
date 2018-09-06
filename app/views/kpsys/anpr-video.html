@@ -1,0 +1,53 @@
+<div id="video-controller" ng-controller="AnprVideoController" ng-init="loadDevices()">
+
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase">ANPR Stream</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="deviceId">ANPR Devices</label>
+                    <select id="deviceId" class="bs-select form-control" data-width="125px"
+                            ng-options="device.id as device.deviceName for device in devices"
+                            ng-model="deviceId" ng-change="selectDevice(deviceId)">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="deviceId != null"
+             ng-repeat="camera in cameras"
+             ng-controller="AnprVideoController as videoCtrl"
+             data-ng-init="init(camera)">
+
+            <div id="{{ 'video-container' + camera }}" class="video-container">
+                <span id="{{ 'void' + camera }}"></span>
+                <img id="{{ 'video' + camera }}"
+                     class="mjpeg"
+                     src="{{ $parent.cameraUrl + $parent.cameraUrlSuffix[camera]}}"
+                     width="1280"
+                     height="720">
+                <canvas id="{{ 'canvas' + camera }}" class="canvas" width="1280" height="720"></canvas>
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary fa fa-check"
+                            ng-disabled="currentRectangle == null"
+                            ng-click="saveRectangle()"> Save
+                    </button>
+                    <button type="submit" class="btn btn-warning fa fa-undo"
+                            ng-disabled="rectangle == null || currentRectangle == null"
+                            ng-click="discardRectangle()"> Discard
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,10 @@
+<div ng-controller="PagesController" data-ng-init="init()">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <th>Page Title</th>
+        </thead>
+        <tr ng-repeat="page in pages">
+            <td>{{ page.title }}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,101 @@
+<div ng-controller="SidebarController" data-ng-init="init()">
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+        <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+        <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+        <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200"
+            ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+            <li class="nav-item" ng-show="homePageAnonymous || homePageAuthenticated">
+                <a href="#/home">
+                    <i class="icon-check"></i>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li class="nav-item" ng-show="additionalPage">
+                <a href="#/static-page/additional">
+                    <i class="icon-check"></i>
+                    <span class="title">Additional Page</span>
+                </a>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisationUser">
+                <a href="javascript:;">
+                    <i class="icon-users"></i>
+                    <span class="title">{{ 'user_maintenance' | translate }}</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#/user/users">
+                            <i class="icon-user"></i>{{ 'user_maintenance.users' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/user/traffic-warden">
+                            <i class="icon-user"></i>{{ 'user_maintenance.traffic_warden' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/user/external-user">
+                            <i class="icon-user"></i>{{ 'user_maintenance.external_user' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisation('TCKT')">
+                <a href="#/fines">
+                    <i class="icon-exclamation"></i>
+                    <span class="title">Fines</span>
+                </a>
+            </li>
+
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisation('ANPRGATE')">
+                <a href="#/anpr">
+                    <i class="icon-camcorder"></i>
+                    <span class="title">ANPR Maintenance</span>
+                </a>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisation('ANPRGATE')">
+                <a href="#/anpr/events">
+                    <i class="icon-camcorder"></i>
+                    <span class="title">ANPR Events</span>
+                </a>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisation('ANPRGATE')">
+                <a href="#/anpr/video">
+                    <i class="icon-camcorder"></i>
+                    <span class="title">ANPR Stream</span>
+                </a>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated() && hasRoleAuthorisationPages">
+                <a href="javascript:;">
+                    <i class="icon-users"></i>
+                    <span class="title">Pages Maintenance</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#/editor">
+                            <i class="icon-user"></i>Add Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/pages">
+                            <i class="icon-user"></i>View Pages</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" ng-show="isAuthenticated()">
+                <a href="#/profile/dashboard" id="sidebar_menu_link_profile">
+                    <i class="icon-user"></i>
+                    <span class="title">{{ 'user_profile' | translate }}</span>
+                </a>
+            </li>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>

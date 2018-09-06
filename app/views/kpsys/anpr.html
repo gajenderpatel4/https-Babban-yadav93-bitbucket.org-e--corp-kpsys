@@ -1,0 +1,331 @@
+<div ng-controller="AnprController" data-ng-init="init()">
+
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase">Anpr cameras and devices</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div js-tree="treeConfig"
+                 ng-model="treeData"
+                 should-apply="ignoreModelChanges()"
+                 tree="treeInstance"
+                 tree-events="ready:ready;create_node:createNode">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="anpr-add-device-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add device</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <form novalidate id="addDeviceForm" name="form" ng-submit="saveDevice(item.device)">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceId">Device ID:</label>
+                            <input id="deviceId" name="deviceId" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="item.device.deviceId"
+                                   maxlength="35">
+                        </div>
+                        <div ng-if="form.deviceId.$error.required && (form.deviceId.$dirty || submitted[0])">
+                            <div class="field-error">
+                                Device ID is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceName">Device name:</label>
+                            <input id="deviceName" name="deviceName" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="item.device.deviceName"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.deviceName.$error.required && (form.deviceName.$dirty || submitted[0])">
+                            <div class="field-error">
+                                Device name is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceType">Device type:</label>
+                            <select id="deviceType" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.deviceType"
+                                    ng-model="item.device.deviceType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceStatus">Device status:</label>
+                            <select id="deviceStatus" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.deviceStatus"
+                                    ng-model="item.device.deviceStatus">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="addDeviceForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="anpr-add-rule-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add rule</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1" ng-bind="form.rule.deviceName"></div>
+                <div class="col-md-10">
+                    <form novalidate id="addRuleForm" name="form" ng-submit="saveRule(item.rule)">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="value">Value:</label>
+                            <input id="value" name="value" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="item.rule.value"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.value.$error.required && (form.value.$dirty || submitted[1])">
+                            <div class="field-error">
+                                Rule value is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="ruleType">Rule type:</label>
+                            <select id="ruleType" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.ruleType"
+                                    ng-model="item.rule.ruleType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="stopType">Stop type:</label>
+                            <select id="stopType" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.stopType"
+                                    ng-model="item.rule.stopType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="direction">Direction:</label>
+                            <select id="direction" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.direction"
+                                    ng-model="item.rule.direction">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="addRuleForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="anpr-add-action-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add action</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1" ng-bind="form.action.deviceName"></div>
+                <div class="col-md-10">
+                    <form novalidate id="addActionForm" name="form" ng-submit="saveAction(item.action)">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="actionValue">Value:</label>
+                            <input id="actionValue" name="value" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="item.action.value"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.value.$error.required && (form.value.$dirty || submitted[2])">
+                            <div class="field-error">
+                                Action value is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="actionType">Action type:</label>
+                            <select id="actionType" class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.actionType"
+                                    ng-model="item.action.actionType">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="addActionForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="anpr-delete-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title" ng-bind="modalData.itemName"></h3>
+        </div>
+        <div class="modal-body">
+
+            <div ng-if="error" class="form-error" ng-bind="error"></div>
+
+            <div ng-if="!error" class="row">
+                <div class="col-md-10">
+                    Please confirm {{modalData.type}} removal.
+                </div>
+            </div>
+
+        </div>
+        <div ng-if="!error" class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="delete()">Delete</button>
+            <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+        </div>
+        <div ng-if="error" class="modal-footer">
+            <button type="button" class="btn" ng-click="cancel()">Ok</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="anpr-edit-device-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit device</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <form novalidate id="editDeviceForm" name="form" ng-submit="update()">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceName">Device name:</label>
+                            <input name="deviceName" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="obj.deviceName"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.deviceName.$error.required && (form.deviceName.$dirty || submitted[0])">
+                            <div class="field-error">
+                                Device name is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceType">Device type:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.deviceType"
+                                    ng-model="obj.deviceType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceId">Device address:</label>
+                            <input id="deviceAddress" name="address" disabled class="form-control" type="text"
+                                   ng-model="item.device.address"
+                                   maxlength="32">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="deviceStatus">Device status:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.deviceStatus"
+                                    ng-model="obj.deviceStatus">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="editDeviceForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="anpr-edit-rule-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit rule</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1" ng-bind="form.rule.deviceName"></div>
+                <div class="col-md-10">
+                    <form novalidate id="editRuleForm" name="form" ng-submit="update()">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="value">Value:</label>
+                            <input name="value" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="obj.value"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.value.$error.required && (form.value.$dirty || submitted[0])">
+                            <div class="field-error">
+                                Rule value is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="ruleType">Rule type:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.ruleType"
+                                    ng-model="obj.ruleType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="stopType">Stop type:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.stopType"
+                                    ng-model="obj.stopType">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="direction">Direction:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.direction"
+                                    ng-model="obj.direction">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="editRuleForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="anpr-edit-action-dialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit action</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-1" ng-bind="form.action.deviceName"></div>
+                <div class="col-md-10">
+                    <form novalidate id="editActionForm" name="form" ng-submit="update()">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="actionValue">Value:</label>
+                            <input name="value" required class="form-control" type="text" placeholder="Value"
+                                   ng-model="obj.value"
+                                   maxlength="70">
+                        </div>
+                        <div ng-if="form.value.$error.required && (form.value.$dirty || submitted[0])">
+                            <div class="field-error">
+                                Action value is required.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="actionType">Action type:</label>
+                            <select class="bs-select form-control" data-width="125px"
+                                    ng-options="item.value as item.name for item in enums.actionType"
+                                    ng-model="obj.actionType">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" form="editActionForm" value="Save"/>
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+</div>

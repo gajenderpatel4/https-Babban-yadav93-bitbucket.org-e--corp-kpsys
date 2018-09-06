@@ -1,0 +1,23 @@
+/* line break in select2 dropdown */
+.select2-drop li {
+    white-space: pre-line;
+}
+
+/* the same for ui-select */
+.ui-select-bootstrap .ui-select-choices-row > a,
+span.ui-select-match-item > span > span {
+    white-space: normal;
+}
+
+#locationId {
+    min-height: 34px;
+}
+
+.ui-select-highlight {
+    font-weight: bold;
+    background-color: #337ab7;
+}
+
+.line-break {
+    white-space: normal;
+}
