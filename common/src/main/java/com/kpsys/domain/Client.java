@@ -20,7 +20,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
  * @version $Id$
  */
 @Entity
-@Table(name = "kp_client")
+//@Table(name = "kp_client")
 @JsonInclude(NON_NULL)
 @Data
 @NamedQueries({
@@ -28,6 +28,10 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 })
 public class Client implements Tenant<Long> {
 
+    @Id
+    private Long clientId;
+
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLNTIDNO") // INT PRIMARY KEY NOT NULL IDENTITY,
@@ -40,7 +44,7 @@ public class Client implements Tenant<Long> {
     private Integer statNumber;
 
     @Column(name = "DATEPTRN", length = 15) // VARCHAR(15)
-    private String datePattern;
+    private String datePattern;*/
 
     @Override
     public Long getId() {
