@@ -48,7 +48,7 @@ public class AuthResource {
         Optional<User> userOptional = userLoginDao.findUserByUsernameAndPassword(loginRequest.getLogin(), loginRequest.getPassword());
         User user = userOptional.orElseThrow(() -> new KpsysException("Incorrect login/password", Response.Status.UNAUTHORIZED));
         AccessToken token = authDao.generateNewAccessToken(user, new DateTime());
-        loginLogDao.logLogin(user, req.getRemoteAddr());
+        //loginLogDao.logLogin(user, req.getRemoteAddr());
         return token;
     }
 

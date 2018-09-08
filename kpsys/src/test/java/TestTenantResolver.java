@@ -17,8 +17,8 @@ public class TestTenantResolver implements TenantResolver {
         client = new Client();
         client.setClientId(25L);
         client.setId("25");
-        client.setName("Test client");
-        client.setStatNumber(1);
+        //client.setName("Test client");
+        //client.setStatNumber(1);
     }
 
     public Client resolve() {

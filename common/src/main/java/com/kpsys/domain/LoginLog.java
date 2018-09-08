@@ -28,7 +28,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
  */
 @EqualsAndHashCode
 @Entity
-@Table(name = "kp_user_login_log")
+@Table(name = "user_login_log")
 @JsonInclude(NON_NULL)
 @Data
 @NamedQueries({

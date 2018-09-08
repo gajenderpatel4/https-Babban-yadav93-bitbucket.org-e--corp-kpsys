@@ -17,20 +17,7 @@ import lombok.ToString;
 import lombok.experimental.Tolerate;
 import org.joda.time.DateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.security.Principal;
 import java.util.List;
 
@@ -41,7 +28,7 @@ import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_USERNAME_AND_PASS
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "User")
-@Table(name = "kp_user")
+@Table(name = "users")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 @Getter
@@ -57,10 +44,10 @@ public class User extends MainClientAware implements Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USERIDNO")
+    @Column(name = "ID")
     private Long userId;
 
-    @Column(name = "USERPSWD", length = 256)
+    @Column(name = "PASSWORD", length = 256)
     @JsonIgnore
     private String password;
 
@@ -68,30 +55,34 @@ public class User extends MainClientAware implements Principal {
     @JsonProperty
     private String plainPassword;
 
-    @Column(name = "USERSIONIDFC", length = 128)
+    @Column(name = "NAME", length = 128)
     private String login;
 
-    @Column(name = "USERNAME", length = 35)
-    private String username;
+    //@Column(name = "USERNAME", length = 35)
+    //private String username;
 
-    @Column(name = "USERSTATNMBR")
+    @Column(name = "STATUS")
     private UserStatus userStatus;
 
-    @Column(name = "USERTYPENMBR")
+    @Column(name = "TYPE")
     private UserType userType;
 
-    @JoinColumn(name = "MAINCLNTIDNO")
-    @JsonIgnore
-    @ManyToOne(targetEntity = Client.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Client client;
+    //@JoinColumn(name = "MAINCLNTIDNO")
+    //@JsonIgnore
+    //@ManyToOne(targetEntity = Client.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    //private Client client;
+
+    @Column
+    @Transient
+    private Client client = new Client();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", targetEntity = AccessToken.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AccessToken> accessToken;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", targetEntity = LoginLog.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LoginLog> loginLog;
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "user", targetEntity = LoginLog.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<LoginLog> loginLog;
 
     @Transient
     @JsonProperty
@@ -101,46 +92,42 @@ public class User extends MainClientAware implements Principal {
     @JsonProperty
     private List<Long> locationIds;
 
-    @Column(name = "EXTNUSERSIONIDFC", length = 20)
-    private String externalLogin;
+    //@Column(name = "EXTNUSERSIONIDFC", length = 20)
+    //private String externalLogin;
 
-    @Column(name = "EMALADDR", length = 70)
+    @Column(name = "EMAIL", length = 70)
     private String email;
 
-    @Column(name = "PSWDTOKN", length = 30)
+    @Column(name = "PASSWORD_TOKEN", length = 30)
     private String passwordToken;
 
-    @Column(name = "USERADDR", length = 70)
+    @Column(name = "ADDRESS", length = 70)
     private String address;
 
-    @Column(name = "USERPOOFNMBR", length = 12)
+    @Column(name = "POSTOFFICE_ID", length = 12)
     private String postOfficeId;
 
-    @Column(name = "USERPOOFNAME", length = 25)
-    private String postOfficeName;
 
-    @Column(name = "USERPHONNMBR", length = 25)
+    @Column(name = "PHONE", length = 25)
     private String phone;
 
-    @Column(name = "DATEPTRN", length = 15)
-    private String datePattern;
+    //@Column(name = "DATEPTRN", length = 15)
+    //private String datePattern;
 
-    @Column(name = "LASTSEENTMST")
+    @Column(name = "LAST_SEEN")
     private DateTime lastSeen;
 
-    @Column(name = "REGNIDNO")
-    private Long regionId;
 
-    @Column(name = "PRNTUSERIDNO")
+    //@Column(name = "PRNTUSERIDNO")
     // USERIDNO of the user that created the record if USERTYPENMBR is 16
-    private Long createdBy;
+    //private Long createdBy;
 
-    @Column(name = "PSWDCHNGTYPENMBR")
-    private Long passwordChangeType;
+    //@Column(name = "PSWDCHNGTYPENMBR")
+    //private Long passwordChangeType;
 
-    @Column(name = "RSETPSWDITRU")
+    //@Column(name = "RSETPSWDITRU")
     // User must reset password before he can proceed.
-    private Boolean resetPassword;
+    //private Boolean resetPassword;
 
     @Tolerate
     public User() {
