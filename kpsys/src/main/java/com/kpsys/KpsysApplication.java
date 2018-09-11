@@ -12,7 +12,6 @@ import com.kpsys.common.resource.AuthResource;
 import com.kpsys.common.security.OAuth2Authenticator;
 import com.kpsys.domain.User;
 import com.kpsys.resource.ApplicationResource;
-import com.kpsys.resource.StaticPageResource;
 import com.kpsys.security.UserRoleAuthorizer;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -32,7 +31,6 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new ApplicationResource());
-        environment.jersey().register(new StaticPageResource());
         environment.jersey().register(new AuthResource());
 
         environment.jersey().register(new KpsysExceptionMapper());
