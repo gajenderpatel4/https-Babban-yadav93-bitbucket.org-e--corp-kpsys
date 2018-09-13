@@ -33,7 +33,7 @@ import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_USERNAME_AND_PASS
 @JsonInclude(NON_NULL)
 @Getter
 @Setter
-@ToString(exclude = {"accessToken", "loginLog"})
+@ToString(exclude = {"accessToken"})
 @Builder
 @NamedQueries({
     @NamedQuery(name = GET_USER_BY_USERNAME_AND_PASSWORD, query = "from User where login = :login and password = :password and userStatus = 0"),
