@@ -36,15 +36,21 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
 
     @Valid
     @NotNull
-    private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
+    private JerseyClientConfiguration jerseyClientConfiguration = new JerseyClientConfiguration();
 
     @JsonProperty("jerseyClient")
     public JerseyClientConfiguration getJerseyClientConfiguration() {
-        return jerseyClient;
+        return jerseyClientConfiguration;
     }
 
     @JsonProperty("jerseyClient")
-    public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClient) {
-        this.jerseyClient = jerseyClient;
+    public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
+        this.jerseyClientConfiguration = jerseyClientConfiguration;
+    }
+
+    public KpsysConfiguration() {
+        super();
+        jerseyClientConfiguration.setChunkedEncodingEnabled(false);
+        jerseyClientConfiguration.setGzipEnabledForRequests(false);
     }
 }
