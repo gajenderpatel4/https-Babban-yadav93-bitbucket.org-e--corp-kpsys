@@ -24,6 +24,28 @@ public class ExternalServiceResource {
         this.client = client;
     }
 
+    private <RequestType> String doPost(WebTarget target, RequestType requestType) {
+
+        Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);
+        Response response = null;
+        try {
+            response = invocationBuilder.post(Entity.json(requestType));
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                LOGGER.error("Error during external service request");
+                return Response.status(Response.Status.BAD_REQUEST).build().toString();
+            } else {
+                return response.readEntity(String.class);
+            }
+        } catch (ProcessingException e) {
+            LOGGER.error("Error during external service request", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build().toString();
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+        }
+    }
+
     @POST
     @Path("/payment")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -31,28 +53,8 @@ public class ExternalServiceResource {
     public String payment(PaymentRequest payment) {
 
         String url = String.format(EXTERNAL_SERVICE_URL, "payment");
-
         WebTarget target = client.target(url);
-        Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);
-
-        Response response = null;
-
-        try {
-            response = invocationBuilder.post(Entity.json(payment));
-            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                LOGGER.error("Error during payment operation request");
-                return Response.status(Response.Status.BAD_REQUEST).build().toString();
-            } else {
-                return response.readEntity(String.class);
-            }
-        } catch (ProcessingException e) {
-            LOGGER.error("Error during payment operation request", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build().toString();
-        } finally {
-            if (response != null) {
-                response.close();
-            }
-        }
+        return doPost(target, payment);
     }
 
     @POST
@@ -65,26 +67,7 @@ public class ExternalServiceResource {
         query.setParkingZone("Z01");
 
         String url = String.format(EXTERNAL_SERVICE_URL, "query");
-
         WebTarget target = client.target(url);
-        Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);
-
-        Response response = null;
-        try {
-            response = invocationBuilder.post(Entity.json(query));
-            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                LOGGER.error("Error querying license plate");
-                return Response.status(Response.Status.BAD_REQUEST).build().toString();
-            } else {
-                return response.readEntity(String.class);
-            }
-        } catch (ProcessingException e) {
-            LOGGER.error("Error querying license plate", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build().toString();
-        } finally {
-            if (response != null) {
-                response.close();
-            }
-        }
+        return doPost(target, query);
     }
 }
