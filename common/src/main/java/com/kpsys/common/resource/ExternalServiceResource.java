@@ -2,6 +2,8 @@ package com.kpsys.common.resource;
 
 import com.kpsys.common.Requests.PaymentRequest;
 import com.kpsys.common.Requests.QueryRequest;
+import com.kpsys.domain.User;
+import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +52,7 @@ public class ExternalServiceResource {
     @Path("/payment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String payment(PaymentRequest payment) {
+    public String payment(@Auth User principal, PaymentRequest payment) {
 
         String url = String.format(EXTERNAL_SERVICE_URL, "payment");
         WebTarget target = client.target(url);
