@@ -34,7 +34,7 @@ public class ExternalServiceResource {
             response = invocationBuilder.post(Entity.json(requestType));
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 LOGGER.error("Error during external service request");
-                return Response.status(Response.Status.BAD_REQUEST).build().toString();
+                return response.toString();
             } else {
                 return response.readEntity(String.class);
             }
