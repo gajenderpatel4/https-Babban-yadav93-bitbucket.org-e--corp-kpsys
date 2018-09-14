@@ -31,7 +31,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
     }
 
     @Override
-    public void run(KpsysConfiguration kpsysConfiguration, Environment environment) throws Exception {
+    public void run(KpsysConfiguration kpsysConfiguration, Environment environment) {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new ApplicationResource());
