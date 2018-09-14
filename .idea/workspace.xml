@@ -2,232 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fcaf2ea5-9503-48e8-b524-4bfedd7b3a93" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_access_1_1_7.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_7.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_7.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_3_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_guava_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_hibernate5_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_joda_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_base_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_jaxrs_jackson_jaxrs_json_provider_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_afterburner_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_8.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_annotations_3_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_extensions_guice_multibindings_4_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_extensions_guice_servlet_4_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_guice_4_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_hubspot_dropwizard_dropwizard_guice_1_0_0_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squarespace_jersey2_guice_0_jersey2_guice_spi_1_0_6.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squarespace_jersey2_guice_jersey2_guice_impl_1_0_6.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_bundles_dropwizard_configurable_assets_bundle_1_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_assets_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_auth_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_configuration_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_core_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_db_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_hibernate_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_jackson_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_jdbi_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_jersey_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_jetty_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_lifecycle_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_logging_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_metrics_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_request_logging_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_servlets_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_testing_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_util_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_dropwizard_validation_1_0_5.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_annotation_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_core_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_healthchecks_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_jdbi_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_jersey2_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_jetty9_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_json_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_jvm_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_logback_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_metrics_metrics_servlets_3_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_dropwizard_modules_dropwizard_flyway_1_3_0_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_transaction_jta_1_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_1_1_0_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_ws_rs_javax_ws_rs_api_2_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_9_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_3_16.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_argparse4j_argparse4j_0_7_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_jdbc_8_5_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_juli_8_5_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_4_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_continuation_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_http_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_io_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_security_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_server_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_servlet_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_servlets_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_util_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_webapp_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_xml_9_3_9_v20160517.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_toolchain_setuid_jetty_setuid_java_1_0_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_flywaydb_flyway_core_5_1_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_2_5_0_b05.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_javax_inject_2_5_0_b05.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_2_5_0_b05.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_2_5_0_b05.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_2_5_0_b05.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_osgi_resource_locator_1_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_javax_el_3_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_bundles_repackaged_jersey_guava_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_containers_jersey_container_servlet_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_containers_jersey_container_servlet_core_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_client_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_common_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_server_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_ext_jersey_bean_validation_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_ext_jersey_metainf_services_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_media_jersey_media_jaxb_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_test_framework_jersey_test_framework_core_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_test_framework_providers_jersey_test_framework_provider_inmemory_2_23_2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_1_0_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_2_4_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jadira_usertype_usertype_core_5_0_0_GA.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jadira_usertype_usertype_spi_5_0_0_GA.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_20_0_GA.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jdbi_jdbi_2_73.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_0_54_beta.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_debug_all_5_0_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_16_12.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reflections_reflections_0_9_10.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_21.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_21.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_21.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__sqljdbc_sqljdbc_42.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sqljdbc42.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/CommonApplication.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/KpsysModule$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/KpsysModule$2.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/KpsysModule.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/config/KpsysConfiguration.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/AuthDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/BaseDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/ClientAwareDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/ClientDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/LoginLogDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/MainClientAwareDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/MultitenantDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/NamedHQLQueries.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/RoleAuthorisationDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/UserDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dao/UserLoginDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dto/BaseResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dto/EntityResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/dto/PageableResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/exceptions/ErrorInfo.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/exceptions/KpsysException.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/exceptions/KpsysExceptionMapper.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/ClientAware.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/ClientFilter.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/ClientProvider.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/KpsysTenantResolver.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/MainClientAware.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/MultitenantHibernateBundle.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/MultitenantInterceptor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/Tenant.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/TenantAware.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/TenantProvider.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/multitenancy/TenantResolver.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/resource/AuthResource.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/security/LoginRequest.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/common/security/OAuth2Authenticator.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/AccessToken.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/Client.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/LoginLog$LoginLogBuilder.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/LoginLog.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/RoleAuthorisation.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/User$UserBuilder.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/User.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/enums/OrderType.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/enums/UserStatus.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/domain/enums/UserType.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/test/IntegrationTestBase.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/kpsys/test/TestBase.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/common-0.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-archiver/pom.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/Constants.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/KpsysApplication.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/dao/StaticPageDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/domain/CoreEntity.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/domain/StaticPage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/resource/ApplicationResource.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/resource/StaticPageResource.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/security/UserRoleAuthorizer$Actions.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/com/kpsys/security/UserRoleAuthorizer.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V00__Initial-1.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V01__Initial-2.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V02__Initial-3.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V03__Add_AccessToken_Table.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V04__make_EXTNUSERSIONIDFC_nullable.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V05__create_table_kp_static_page.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V06__add_page_editor_role.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V07__guru_anprgate.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V08__create_table_kp_anpr_log.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V09__update_guru_anprgate_device.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/db/migration/V10__add_tckt_role.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/classes/test-config.yml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/dependency-reduced-pom.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/kpsys-0.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/maven-archiver/pom.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/original-kpsys-0.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/test-classes/KpsysTestApplication.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/test-classes/KpsysTestModule.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/kpsys/target/test-classes/TestTenantResolver.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/CommonApplication.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/KpsysModule.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/config/KpsysConfiguration.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/AuthDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/ClientAwareDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/ClientDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/LoginLogDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/MainClientAwareDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/MultitenantDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/NamedHQLQueries.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/RoleAuthorisationDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/UserDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/dao/UserLoginDao.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/exceptions/ErrorInfo.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/exceptions/KpsysException.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/exceptions/KpsysExceptionMapper.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/ClientAware.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/ClientFilter.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/ClientProvider.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/MainClientAware.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/MultitenantHibernateBundle.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/MultitenantInterceptor.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/Tenant.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/TenantAware.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/TenantProvider.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/multitenancy/TenantResolver.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/resource/AuthResource.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/security/LoginRequest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/common/security/OAuth2Authenticator.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/AccessToken.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/Client.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/LoginLog.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/RoleAuthorisation.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/User.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/enums/OrderType.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/enums/UserStatus.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/common/src/com/kpsys/domain/enums/UserType.java" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -291,6 +103,12 @@
               <item name="kpsys" type="b2602c69:ProjectViewProjectNode" />
               <item name="kpsys" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kpsys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kpsys" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kpsys" type="b2602c69:ProjectViewProjectNode" />
@@ -411,6 +229,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="fcaf2ea5-9503-48e8-b524-4bfedd7b3a93" name="Default" comment="" />
@@ -418,12 +239,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1536952053090</updated>
-      <workItem from="1536952061416" duration="71000" />
+      <workItem from="1536952061416" duration="166000" />
     </task>
+    <task id="LOCAL-00001" summary="Cleanup git repo">
+      <created>1536952170987</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1536952170987</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71000" />
+    <option name="totallyTimeSpent" value="166000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1060" extended-state="6" />
@@ -462,6 +291,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cleanup git repo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup git repo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
