@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fcaf2ea5-9503-48e8-b524-4bfedd7b3a93" name="Default" comment="Remove .idea files">
+    <list default="true" id="fcaf2ea5-9503-48e8-b524-4bfedd7b3a93" name="Default" comment="Update readme.md, remove .idea files">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/common/common.iml" afterPath="$PROJECT_DIR$/common/common.iml" />
-      <change beforePath="$PROJECT_DIR$/kpsys-root.iml" afterPath="$PROJECT_DIR$/kpsys-root.iml" />
-      <change beforePath="$PROJECT_DIR$/kpsys/kpsys.iml" afterPath="$PROJECT_DIR$/kpsys/kpsys.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/kpsys/target/" />
@@ -127,8 +123,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="291">
-                <caret line="60" column="23" lean-forward="true" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+              <first_editor relative-caret-position="391">
+                <caret line="65" column="7" lean-forward="true" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -486,7 +482,7 @@
       <option name="presentableId" value="Default" />
       <updated>1536952053090</updated>
       <workItem from="1536952061416" duration="9199000" />
-      <workItem from="1537039444283" duration="1075000" />
+      <workItem from="1537039444283" duration="1148000" />
     </task>
     <task id="LOCAL-00001" summary="Cleanup git repo">
       <created>1536952170987</created>
@@ -509,11 +505,18 @@
       <option name="project" value="LOCAL" />
       <updated>1536952840642</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update readme.md, remove .idea files">
+      <created>1537040544136</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1537040544137</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10274000" />
+    <option name="totallyTimeSpent" value="10347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1060" extended-state="6" />
@@ -566,7 +569,8 @@
     <MESSAGE value="Cleanup git repo" />
     <MESSAGE value="Remove duplicate files" />
     <MESSAGE value="Remove .idea files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove .idea files" />
+    <MESSAGE value="Update readme.md, remove .idea files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update readme.md, remove .idea files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -672,6 +676,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -761,8 +766,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="291">
-            <caret line="60" column="23" lean-forward="true" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+          <first_editor relative-caret-position="391">
+            <caret line="65" column="7" lean-forward="true" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
             <folding />
           </first_editor>
           <second_editor>
