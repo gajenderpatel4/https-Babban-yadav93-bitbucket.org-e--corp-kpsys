@@ -2,6 +2,7 @@ package com.kpsys.common.resource;
 
 import com.kpsys.common.Requests.PaymentRequest;
 import com.kpsys.common.Requests.QueryRequest;
+import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.User;
 import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
@@ -26,21 +27,20 @@ public class ExternalServiceResource {
         this.client = client;
     }
 
-    private <RequestType> String doPost(WebTarget target, RequestType requestType) {
-
+    private <RequestType> String doPost(WebTarget target, RequestType requestType) throws KpsysException {
         Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);
         Response response = null;
         try {
             response = invocationBuilder.post(Entity.json(requestType));
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 LOGGER.error("Error during external service request");
-                return response.toString();
+                throw new KpsysException("Error during external service request", Response.Status.fromStatusCode(response.getStatus()));
             } else {
                 return response.readEntity(String.class);
             }
         } catch (ProcessingException e) {
             LOGGER.error("Error during external service request", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build().toString();
+            throw new KpsysException(e, Response.Status.INTERNAL_SERVER_ERROR);
         } finally {
             if (response != null) {
                 response.close();
@@ -52,7 +52,7 @@ public class ExternalServiceResource {
     @Path("/payment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String payment(@Auth User principal, PaymentRequest payment) {
+    public String payment(@Auth User principal, PaymentRequest payment) throws KpsysException {
 
         String url = String.format(EXTERNAL_SERVICE_URL, "payment");
         WebTarget target = client.target(url);
@@ -63,7 +63,7 @@ public class ExternalServiceResource {
     @Path("/query")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String query(QueryRequest query) {
+    public String query(QueryRequest query) throws KpsysException {
 
         query.setApiKey("12345");
         query.setParkingZone("Z01");

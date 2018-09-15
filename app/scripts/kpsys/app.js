@@ -114,11 +114,11 @@ kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, 
         delete $window.localStorage["home-page-authenticated"];
         delete $window.localStorage["additional-page"];
         delete $window.localStorage["home-page-anonymous"];
-        getStaticPages()
+        //getStaticPages()
     });
 
     $scope.init = function () {
-        getStaticPages();
+        //getStaticPages();
     };
 
     $scope.isAuthenticated = function () {
@@ -1019,6 +1019,42 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        });
+        })
+        .state('search', {
+                    url: '/search',
+                    templateUrl: 'views/kpsys/search.html',
+                    controller: 'SearchCtrl',
+                    data: {pageTitle: 'Search license plates'},
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                {
+                                    name: 'ui.select',
+                                    insertBefore: '#ng_load_plugins_before',
+                                    files: [
+                                        '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                        '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                                        '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+                                        '../assets/global/plugins/select2/css/select2.min.css',
+                                        '../assets/global/plugins/select2/css/select2-bootstrap.min.css',
+
+                                        '../assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js',
+                                        '../assets/global/plugins/select2/js/select2.full.min.js',
+
+                                        '../assets/pages/scripts/components-bootstrap-select.min.js',
+                                        '../assets/pages/scripts/components-select2.min.js',
+
+
+                                        '../assets/pages/css/required-field-block.css',
+
+                                        'scripts/kpsys/resources/license-plates-resource.js',
+                                        'scripts/kpsys/services/license-plates-service.js',
+                                        'scripts/kpsys/controllers/SearchController.js'
+                                    ]
+                                }]);
+                        }]
+
+                    }
+                });
 
 });
