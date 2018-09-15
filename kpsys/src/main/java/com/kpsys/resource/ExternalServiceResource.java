@@ -1,7 +1,7 @@
-package com.kpsys.common.resource;
+package com.kpsys.resource;
 
-import com.kpsys.common.Requests.PaymentRequest;
-import com.kpsys.common.Requests.QueryRequest;
+import com.kpsys.requests.PaymentRequest;
+import com.kpsys.requests.QueryRequest;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.User;
 import io.dropwizard.auth.Auth;

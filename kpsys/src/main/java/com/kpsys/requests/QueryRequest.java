@@ -1,4 +1,4 @@
-package com.kpsys.common.Requests;
+package com.kpsys.requests;
 
 import lombok.Data;
 

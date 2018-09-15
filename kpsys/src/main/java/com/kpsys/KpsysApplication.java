@@ -9,7 +9,7 @@ import com.kpsys.common.dao.RoleAuthorisationDao;
 import com.kpsys.common.exceptions.KpsysExceptionMapper;
 import com.kpsys.common.multitenancy.MultitenantHibernateBundle;
 import com.kpsys.common.resource.AuthResource;
-import com.kpsys.common.resource.ExternalServiceResource;
+import com.kpsys.resource.ExternalServiceResource;
 import com.kpsys.common.security.OAuth2Authenticator;
 import com.kpsys.domain.User;
 import com.kpsys.resource.ApplicationResource;
