@@ -20,7 +20,7 @@ Important parameters:
 ### Build
 Download 4.2 package: https://www.microsoft.com/en-us/download/details.aspx?id=11774 (OR /lib folder)
 Install sqljdbc42.jar library to the local maven repository:
-`mvn install:install-file -Dfile=sqljdbc42.jar -DgroupId=sqljdbc -DartifactId=sqljdbc -Dversion=42 -Dpackaging=jar`
+`mvn install:install-file -Dfile=lib/sqljdbc42.jar -DgroupId=sqljdbc -DartifactId=sqljdbc -Dversion=42 -Dpackaging=jar`
 
 Validate with maven: 
 
@@ -40,7 +40,7 @@ This will generate uber-jar containing all dependencies and web assets at `targe
 
 Run server:
 
-`java -jar target/kpsys-0.1.jar server kpsys.yml`
+`java -jar kpsys/target/kpsys-0.1.jar server kpsys.yml`
 
 Login to the application: 
 
