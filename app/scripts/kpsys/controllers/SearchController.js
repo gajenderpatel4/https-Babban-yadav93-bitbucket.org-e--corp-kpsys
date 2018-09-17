@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('kpsysApp').controller('SearchCtrl', function($scope, LicensePlatesService) {
-    $scope.query = {value: ""};
+    $scope.query = "";
     $scope.licensePlates = null;
     $scope.responseError = "";
     $scope.submit = function() {
-        $scope.licensePlates = [];
+        $scope.licensePlates = null;
         $scope.responseError = "";
-        if ($scope.query.value.length > 0) {
-            var val = $scope.query.value;
+        if ($scope.query.length > 0) {
+            var val = $scope.query;
+            $scope.submittedQuery = val;
             LicensePlatesService.query(val)
                 .then(function (response) {
                     $scope.licensePlates = response.items;

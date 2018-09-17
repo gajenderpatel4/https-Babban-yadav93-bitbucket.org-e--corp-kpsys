@@ -4,7 +4,7 @@
             <div class="portlet col-md-4">
                 <h3>License Plate Search</h3>
                 <div class="required-field-block">
-                    <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query.value" placeholder="License Plate" required>
+                    <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" required>
                     <div class="required-icon" data-original-title="" title="">
                         <div class="text">*</div>
                     </div>
@@ -21,8 +21,8 @@
         </form>
     </div>
 
-    <div ng-show='licensePlates != null && licensePlates.length == 0' class="row col-md-4">
-        We could not find any results for {{query.value}}.
+    <div ng-show='licensePlates != null && licensePlates.length == 0' class="row">
+        We could not find any results for {{submittedQuery}}.
     </div>
 
     <table ng-show='licensePlates != null && licensePlates.length > 0' class="table">
