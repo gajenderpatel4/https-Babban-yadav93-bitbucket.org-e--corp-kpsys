@@ -9,6 +9,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function($scope, LicensePlat
             return;
         }
         locked = true;
+        $scope.loading = true;
         $scope.responseError = "";
 
         var val = $scope.query;
@@ -17,11 +18,13 @@ angular.module('kpsysApp').controller('SearchCtrl', function($scope, LicensePlat
                 $scope.submittedQuery = val;
                 $scope.licensePlates = response.items;
                 locked = false;
+                $scope.loading = false;
             }, function (ex) {
                 console.log(ex);
                 $scope.submittedQuery = val;
                 $scope.responseError = ex.data.error.message;
                 locked = false;
+                $scope.loading = false;
              });
     }
 });
