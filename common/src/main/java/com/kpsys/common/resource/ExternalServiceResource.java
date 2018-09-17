@@ -34,13 +34,13 @@ public class ExternalServiceResource {
             response = invocationBuilder.post(Entity.json(requestType));
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 LOGGER.error("Error during external service request");
-                throw new KpsysException("Error during external service request", Response.Status.fromStatusCode(response.getStatus()));
+                throw new KpsysException("Error during external service request", Response.Status.INTERNAL_SERVER_ERROR);
             } else {
                 return response.readEntity(String.class);
             }
         } catch (ProcessingException e) {
             LOGGER.error("Error during external service request", e);
-            throw new KpsysException(e, Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during external service request", Response.Status.INTERNAL_SERVER_ERROR);
         } finally {
             if (response != null) {
                 response.close();
