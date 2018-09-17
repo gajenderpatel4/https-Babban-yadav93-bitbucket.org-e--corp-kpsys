@@ -27,7 +27,7 @@ public class ExternalServiceResource {
         this.client = client;
     }
 
-    private <RequestType> String doPost(WebTarget target, RequestType requestType) throws KpsysException {
+    private <RequestType> String doPost(WebTarget target, RequestType requestType) {
         Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);
         Response response = null;
         try {
@@ -52,7 +52,7 @@ public class ExternalServiceResource {
     @Path("/payment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String payment(@Auth User principal, PaymentRequest payment) throws KpsysException {
+    public String payment(@Auth User principal, PaymentRequest payment) {
 
         String url = String.format(EXTERNAL_SERVICE_URL, "payment");
         WebTarget target = client.target(url);
@@ -63,7 +63,7 @@ public class ExternalServiceResource {
     @Path("/query")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String query(QueryRequest query) throws KpsysException {
+    public String query(QueryRequest query) {
 
         query.setApiKey("12345");
         query.setParkingZone("Z01");
