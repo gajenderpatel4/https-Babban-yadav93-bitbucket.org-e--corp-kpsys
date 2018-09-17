@@ -20,12 +20,11 @@
             </div>
         </form>
     </div>
-
-    <div ng-show='licensePlates != null && licensePlates.length == 0' class="row">
+    <div ng-show='searchForm.$submitted && licensePlates.length == 0' class="row">
         We could not find any results for {{submittedQuery}}.
     </div>
 
-    <table ng-show='licensePlates != null && licensePlates.length > 0' class="table">
+    <table ng-show='searchForm.$submitted && licensePlates.length > 0' class="table">
         <thead>
             <tr>
                 <th>LicensePlate</th>
