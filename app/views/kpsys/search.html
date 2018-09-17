@@ -19,7 +19,8 @@
         </div>
     </form>
 
-    <table ng-show='licensePlates != null'>
+    <table ng-show='licensePlates != null && licensePlates.length > 0' class="table">
+        <thead>
         <tr>
             <th>LicensePlate</th>
             <th>Currency</th>
@@ -29,6 +30,8 @@
             <th>StartTimestamp</th>
             <th>EndTimestamp</th>
         </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="lp in licensePlates">
             <td>{{lp.licensePlate}}</td>
             <td>{{lp.currency}}</td>
@@ -38,5 +41,6 @@
             <td>{{lp.startTimestamp}}</td>
             <td>{{lp.endTimestamp}}</td>
         </tr>
+        </tbody>
     </table>
 </div>
