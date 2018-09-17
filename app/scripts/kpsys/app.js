@@ -59,7 +59,7 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
     });
 
-    $scope.hasSidebar = true;
+    $scope.hasSidebar = false;
 
     $rootScope.currentUser = null;
     $rootScope.userRoles = USER_ROLES;
