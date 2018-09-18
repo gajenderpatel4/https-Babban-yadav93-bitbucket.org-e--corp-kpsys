@@ -3,19 +3,20 @@
         <form name="searchForm" ng-submit="submitted = true" novalidate data-ng-init="init()">
             <div class="portlet col-md-5">
                 <h3>License Plate Search</h3>
-                <div class="required-field-block">
-                    <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" required>
-                    <div class="required-icon" data-original-title="" title="">
-                        <div class="text">*</div>
+                <div class="form-group">
+                    <div class="required-field-block">
+                        <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" required>
+                        <div class="required-icon" data-original-title="" title="">
+                            <div class="text">*</div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <span ng-if="submitted && searchForm.q.$error.required" class="text-danger">License Plate required</span>
+                <div class="form-group" ng-if="submitted && searchForm.q.$error.required">
+                    <span class="text-danger">License Plate required</span>
                 </div>
-                <div class="form-group">
-                    <span ng-if="submitted && responseError" class="text-danger">{{responseError}}</span>
+                <div class="form-group" ng-if="submitted && responseError">
+                    <span class="text-danger">{{responseError}}</span>
                 </div>
-
                 <button type="submit" class="btn btn-default" ng-click="searchForm.$valid && submit(q)">Find</button>
             </div>
         </form>
@@ -31,6 +32,7 @@
         We could not find any results for {{submittedQuery}}.
     </div>
 
+    <div class="row">
     <table ng-show='searchForm.$submitted && licensePlates.length > 0' class="table">
         <thead>
             <tr>
@@ -55,4 +57,5 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
