@@ -10,10 +10,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <span ng-if="submitted && searchForm.q.$error.required" style="color:red;">License Plate required</span>
+                    <span ng-if="submitted && searchForm.q.$error.required" class="text-danger">License Plate required</span>
                 </div>
                 <div class="form-group">
-                    <span ng-if="submitted && responseError" style="color:red;">{{responseError}}</span>
+                    <span ng-if="submitted && responseError" class="text-danger">{{responseError}}</span>
                 </div>
 
                 <button type="submit" class="btn btn-default" ng-click="searchForm.$valid && submit(q)">Find</button>
