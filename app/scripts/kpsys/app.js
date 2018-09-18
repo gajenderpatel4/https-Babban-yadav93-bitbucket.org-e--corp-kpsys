@@ -102,9 +102,9 @@ kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, 
     $scope.additionalPage = undefined;
 
     $scope.pages = [];
-    $scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
-    $scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
-    $scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
+    //$scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
+    //$scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
+    //$scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
 
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar();
@@ -229,7 +229,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-
+        /*
         .state('home', {
             url: '/home',
             templateUrl: 'views/kpsys/static-page-viewer.html',
@@ -246,7 +246,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        })
+        })*/
 
         // Editor
         .state('editor', {
@@ -1020,8 +1020,8 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-        .state('search', {
-                    url: '/search',
+        .state('home', {
+                    url: '/home',
                     templateUrl: 'views/kpsys/search.html',
                     controller: 'SearchCtrl',
                     data: {pageTitle: 'Search license plates'},
