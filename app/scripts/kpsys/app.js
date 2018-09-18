@@ -1046,6 +1046,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
 
                                         '../assets/pages/css/required-field-block.css',
+                                        '../assets/apps/css/search.css',
 
                                         'scripts/kpsys/resources/license-plates-resource.js',
                                         'scripts/kpsys/services/license-plates-service.js',
