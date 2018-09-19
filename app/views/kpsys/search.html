@@ -43,6 +43,7 @@
                     <th>Description</th>
                     <th>Start Timestamp</th>
                     <th>End Timestamp</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,7 @@
                     <td>{{lp.description}}</td>
                     <td>{{lp.startTimestamp}}</td>
                     <td>{{lp.endTimestamp}}</td>
+                    <td><button type='button' class="btn btn-default" ng-click='pay($index)'>Make payment</button></td>
                 </tr>
             </tbody>
         </table>
