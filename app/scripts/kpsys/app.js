@@ -992,6 +992,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
+        /*
         .state('todo', {
             url: "/todo",
             templateUrl: "views/kpsys/todo.html",
@@ -1019,7 +1020,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        })
+        })*/
         .state('home', {
                     url: '/home',
                     templateUrl: 'views/kpsys/search.html',
