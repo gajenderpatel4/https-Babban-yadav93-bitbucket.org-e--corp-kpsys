@@ -32,8 +32,8 @@
         We could not find any results for {{submittedQuery}}.
     </div>
 
-    <div class="row">
-        <table ng-show='searchForm.$submitted && licensePlates.length > 0' class="table" id="license-plates-tbl">
+    <div ng-show='searchForm.$submitted && licensePlates.length > 0' class="row">
+        <table class="table" id="license-plates-tbl">
             <thead>
                 <tr>
                     <th>LicensePlate</th>
