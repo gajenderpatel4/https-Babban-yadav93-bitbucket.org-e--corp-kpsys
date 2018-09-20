@@ -41,3 +41,9 @@ logging:
 jerseyClient:
   gzipEnabled: false
   gzipEnabledForRequests: false
+
+paypal:
+  mode: sandbox
+  clientId: AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS
+  clientSecret: EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL
+

@@ -21,6 +21,11 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     @JsonProperty
     private String imageDir;
 
+    @Valid
+    @NotNull
+    @JsonProperty
+    private PayPalConfiguration paypal;
+
     @Override
     public AssetsConfiguration getAssetsConfiguration() {
         return assets;
@@ -46,5 +51,10 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     @JsonProperty("jerseyClient")
     public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
         this.jerseyClientConfiguration = jerseyClientConfiguration;
+    }
+
+    @JsonProperty("paypal")
+    public PayPalConfiguration getPaypal() {
+        return paypal;
     }
 }
