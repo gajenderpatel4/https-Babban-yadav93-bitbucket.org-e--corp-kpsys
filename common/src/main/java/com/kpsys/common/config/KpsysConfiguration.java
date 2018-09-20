@@ -47,10 +47,4 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
         this.jerseyClientConfiguration = jerseyClientConfiguration;
     }
-
-    public KpsysConfiguration() {
-        super();
-        jerseyClientConfiguration.setChunkedEncodingEnabled(false);
-        jerseyClientConfiguration.setGzipEnabledForRequests(false);
-    }
 }
