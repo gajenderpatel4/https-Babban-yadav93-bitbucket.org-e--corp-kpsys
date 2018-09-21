@@ -16,6 +16,10 @@ Important parameters:
     * `database.user` -- defines database user
     * `database.password` -- database password
     * `database.url` -- specifies database connection url, which includes host, port and database name. Default value is `jdbc:sqlserver://db.kpsys.com:1433;databaseName=kpsys`, where jdbc:sqlserver is a constant value for this type of database, db.kpsys.com is a hostname, 1433 is a port number and `kpsys` is a database name. 
+* paypal:
+    * `mode` -- defines PayPal mode, which is `sandbox` for testing or `live` for production
+    * `clientId` -- To get a client ID and secret, use the developer dashboard to create a PayPal app: `https://developer.paypal.com/docs/api/overview/#make-your-first-call`
+    * `clientSecret` -- To get a client ID and secret, use the developer dashboard to create a PayPal app: `https://developer.paypal.com/docs/api/overview/#make-your-first-call`
 
 ### Build
 Download 4.2 package: https://www.microsoft.com/en-us/download/details.aspx?id=11774 (OR /lib folder)
