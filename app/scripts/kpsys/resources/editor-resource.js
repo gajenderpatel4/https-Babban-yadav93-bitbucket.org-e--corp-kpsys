@@ -6,6 +6,6 @@ angular.module('kpsysApp').factory('EditorResource', function ($resource) {
             save : {
                 method:'POST', data: { page: {} }
             }
-        }),
+        })
     };
 });
