@@ -10,6 +10,7 @@ import com.kpsys.common.exceptions.KpsysExceptionMapper;
 import com.kpsys.common.multitenancy.MultitenantHibernateBundle;
 import com.kpsys.common.resource.AuthResource;
 import com.kpsys.common.resource.ExternalServiceResource;
+import com.kpsys.common.resource.PayPalResource;
 import com.kpsys.common.security.OAuth2Authenticator;
 import com.kpsys.domain.User;
 import com.kpsys.resource.ApplicationResource;
@@ -36,6 +37,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
         environment.jersey().register(new ApplicationResource());
         environment.jersey().register(new AuthResource());
+        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal()));
 
         environment.jersey().register(new KpsysExceptionMapper());
 

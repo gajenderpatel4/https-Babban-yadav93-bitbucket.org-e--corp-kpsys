@@ -1,6 +1,6 @@
 <div ng-controller="SearchCtrl">
     <div class="row">
-        <form name="searchForm" ng-submit="submitted = true" novalidate data-ng-init="init()">
+        <form name="searchForm" novalidate data-ng-init="init()">
             <div class="portlet col-md-5">
                 <h3>License Plate Search</h3>
                 <div class="form-group">
@@ -28,11 +28,14 @@
             <div class="bounce3"></div>
         </div>
     </div>
-    <div ng-show='searchForm.$submitted && licensePlates.length == 0' class="row">
+    <div ng-show='submitted && licensePlates.length == 0' class="row">
         We could not find any results for {{submittedQuery}}.
     </div>
+    <div class="form-group" ng-if="paypalResponseError">
+        <span class="text-danger">{{paypalResponseError}}</span>
+    </div>
 
-    <div ng-show='searchForm.$submitted && licensePlates.length > 0' class="row">
+    <div ng-show='submitted && licensePlates.length > 0' class="row">
         <table class="table" id="license-plates-tbl">
             <thead>
                 <tr>
@@ -47,7 +50,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="lp in licensePlates">
+                <tr ng-repeat="lp in licensePlates"
+                    ng-class="{'danger': checkErrorStatus($index) == true } ">
                     <td>{{lp.licensePlate}}</td>
                     <td>{{lp.currency}}</td>
                     <td>{{lp.dueAmount}}</td>
