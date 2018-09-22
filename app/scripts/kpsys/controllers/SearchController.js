@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope, LicensePlatesService, PayPalService) {
+angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope, $rootScope, LicensePlatesService, PayPalService) {
 
     $scope.init = function () {
         if ($scope.query.length > 0) {
@@ -16,27 +16,27 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
 
     var submitLocked = false;
     $scope.submit = function () {
+        $scope.submitted = true;
         if (submitLocked || $scope.query.length === 0) {
             return;
         }
         submitLocked = true;
-        $scope.submitted = true;
+
         $scope.loading = true;
         $scope.responseError = "";
         $scope.paypalResponseError = "";
         $scope.errorRowIndex = null;
 
         var val = $scope.query;
+        $rootScope.query = val;
 
         LicensePlatesService.query(val)
             .then(function (response) {
-                $scope.submittedQuery = val;
                 $scope.licensePlates = response.items;
                 submitLocked = false;
                 $scope.loading = false;
             }, function (ex) {
                 console.log(ex);
-                $scope.submittedQuery = val;
                 $scope.responseError = ex.data.error.message;
                 submitLocked = false;
                 $scope.loading = false;
@@ -69,7 +69,11 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
                     payLocked = false;
                 }, function (ex) {
                     console.log(ex);
-                    $scope.paypalResponseError = ex.data.error.message;
+                    if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
+                        $scope.paypalResponseError = ex.data.error.message;
+                    } else {
+                        $scope.paypalResponseError = "";
+                    }
                     $scope.errorRowIndex = index;
                     payLocked = false;
                 });

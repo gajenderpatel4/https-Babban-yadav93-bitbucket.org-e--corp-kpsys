@@ -8,7 +8,7 @@ app.factory('AuthService', function ($rootScope, $http, $state, AUTH_EVENTS, Ses
             .post('/api/auth', credentials)
             .success(function (res) {
                 Session.create(res.token, res.user.userId, res.user.userType, res.user.tenant.clientId);
-                $state.go('home');
+                $state.go('home', {query: $rootScope.query || ""});
                 return res.user;
             })
             .error(function () {

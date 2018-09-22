@@ -61,6 +61,7 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER
 
     $scope.hasSidebar = false;
 
+    $rootScope.query = null;
     $rootScope.currentUser = null;
     $rootScope.userRoles = USER_ROLES;
     $rootScope.isAuthorized = AuthService.isAuthorized;
@@ -1022,7 +1023,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
             }
         })*/
         .state('home', {
-                    url: '/home',
+                    url: '/home?query',
                     templateUrl: 'views/kpsys/search.html',
                     controller: 'SearchCtrl',
                     data: {pageTitle: 'Search license plates'},
@@ -1057,8 +1058,6 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                                     ]
                                 }]);
                         }]
-
                     }
                 });
-
 });
