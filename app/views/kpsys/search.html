@@ -5,13 +5,13 @@
                 <h3>License Plate Search</h3>
                 <div class="form-group">
                     <div class="required-field-block">
-                        <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" required>
+                        <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" >
                         <div class="required-icon" data-original-title="" title="">
                             <div class="text">*</div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group" ng-if="submitted && searchForm.q.$error.required">
+                <div class="form-group" ng-if="submitted && query.length == 0">
                     <span class="text-danger">License Plate required</span>
                 </div>
                 <div class="form-group" ng-if="submitted && responseError">
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div ng-show='submitted && licensePlates.length == 0' class="row">
-        We could not find any results for {{submittedQuery}}.
+        We could not find any results for {{query}}.
     </div>
     <div class="form-group" ng-if="paypalResponseError">
         <span class="text-danger">{{paypalResponseError}}</span>
