@@ -1,10 +1,8 @@
 package com.kpsys.common.Requests;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
 public class PayPalInitRequest {
     int amount;
     String description;
