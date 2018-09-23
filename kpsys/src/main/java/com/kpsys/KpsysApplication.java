@@ -33,11 +33,16 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
     @Override
     public void run(KpsysConfiguration kpsysConfiguration, Environment environment) {
+
+        final Client client = new JerseyClientBuilder(environment).using(kpsysConfiguration.getJerseyClientConfiguration())
+            .using(environment)
+            .build(getName());
+
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new ApplicationResource());
         environment.jersey().register(new AuthResource());
-        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal()));
+        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client));
 
         environment.jersey().register(new KpsysExceptionMapper());
 
@@ -56,10 +61,6 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 
         environment.jersey().getResourceConfig().register(getTenantFilter());
-
-        final Client client = new JerseyClientBuilder(environment).using(kpsysConfiguration.getJerseyClientConfiguration())
-            .using(environment)
-            .build(getName());
         environment.jersey().register(new ExternalServiceResource(client));
     }
 
