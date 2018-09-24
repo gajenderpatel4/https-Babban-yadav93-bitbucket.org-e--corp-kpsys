@@ -41,8 +41,8 @@ logging:
 jerseyClient:
   gzipEnabled: false
   gzipEnabledForRequests: false
-  timeout: 2s
-  connectionTimeout: 2s
+  timeout: 3s
+  connectionTimeout: 3s
 
 paypal:
   mode: sandbox
