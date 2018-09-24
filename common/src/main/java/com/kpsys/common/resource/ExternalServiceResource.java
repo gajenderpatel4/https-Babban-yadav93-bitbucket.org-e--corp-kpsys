@@ -1,6 +1,7 @@
 package com.kpsys.common.resource;
 
-import com.kpsys.common.Requests.PaymentRequest;
+import com.kpsys.common.Requests.PayPalCheckoutRequest;
+import com.kpsys.common.Requests.PayPalInitRequest;
 import com.kpsys.common.Requests.QueryRequest;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.User;
@@ -8,6 +9,7 @@ import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -47,23 +49,23 @@ public class ExternalServiceResource {
             }
         }
     }
-
+    /*
     @POST
     @Path("/payment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String payment(@Auth User principal, PaymentRequest payment) {
+    public String payment(@Auth User principal, PayPalInitRequest payment) {
 
         String url = String.format(EXTERNAL_SERVICE_URL, "payment");
         WebTarget target = client.target(url);
         return doPost(target, payment);
-    }
+    }*/
 
     @POST
     @Path("/query")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String query(QueryRequest query) {
+    public String query(@Valid QueryRequest query) {
 
         query.setApiKey("12345");
         query.setParkingZone("Z01");
