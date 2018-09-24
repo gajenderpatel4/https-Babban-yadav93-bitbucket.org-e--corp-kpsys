@@ -42,7 +42,7 @@ public class ExternalServiceResource {
             }
         } catch (ProcessingException e) {
             LOGGER.error("Error during external service request", e);
-            throw new KpsysException("Error during external service request", Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during external service request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         } finally {
             if (response != null) {
                 response.close();
