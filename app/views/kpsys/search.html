@@ -11,14 +11,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group" ng-if="submitted && query.length == 0">
+                <div class="form-group alert alert-danger" ng-if="submitted && query.length == 0">
                     <span class="text-danger">License Plate required</span>
                 </div>
-                <div class="form-group" ng-if="submitted && responseError">
+                <div class="form-group alert alert-danger" ng-if="submitted && responseError">
                     <span class="text-danger" ng-if="responseError|isArray" ng-repeat="error in responseError">
                         {{error}}<br/>
                     </span>
-                    <span class="text-danger" ng-if="!(responseError|isArray)">{{responseError}}</span>
+                    <span class="text-danger alert alert-danger" ng-if="!(responseError|isArray)">{{responseError}}</span>
+                </div>
+                <div class="form-group alert alert-info" ng-if='submitted && licensePlates.length == 0 && query.length > 0'>
+                    <span class="text-info">We could not find any results for {{query}}.</span>
+                </div>
+                <div class="form-group alert alert-danger" ng-if="paypalResponseError">
+                    <span class="text-danger" ng-if="paypalResponseError|isArray" ng-repeat="error in paypalResponseError">
+                        {{error}}<br/>
+                    </span>
+                    <span class="text-danger alert alert-danger" ng-if="!(paypalResponseError|isArray)">{{paypalResponseError}}</span>
                 </div>
                 <button type="submit" class="btn btn-default" ng-click="searchForm.$valid && submit(q)">Find</button>
             </div>
@@ -30,15 +39,6 @@
             <div class="bounce2"></div>
             <div class="bounce3"></div>
         </div>
-    </div>
-    <div ng-show='submitted && licensePlates.length == 0 && query.length > 0' class="row">
-        We could not find any results for {{query}}.
-    </div>
-    <div class="form-group" ng-if="paypalResponseError">
-        <span class="text-danger" ng-if="paypalResponseError|isArray" ng-repeat="error in responseError">
-            {{error}}<br/>
-        </span>
-        <span class="text-danger" ng-if="!(paypalResponseError|isArray)">{{paypalResponseError}}</span>
     </div>
 
     <div ng-show='submitted && licensePlates.length > 0' class="row">
