@@ -1,0 +1,33 @@
+<div ng-controller="CheckoutCtrl" ng-init="init()">
+    <div class="row" ng-if="false">
+        CHECKOUT: {{guid}} {{paymentId}} {{payerID}}
+    </div>
+    <div class="portlet col-md-8">
+
+        <div ng-if="loading" class="row loading-message">
+            <div  class="page-spinner-bar">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+
+        <div class="form-group alert alert-info" ng-if="loading">
+            <h4>Status</h4>
+            <span>Your request is processing... Please wait.</span>
+        </div>
+
+        <div class="form-group alert alert-danger" ng-if="responseError">
+            <h4>Error occurred</h4>
+            <span class="text-danger" ng-if="responseError|isArray" ng-repeat="error in responseError">
+                {{error}}<br/>
+            </span>
+            <span class="text-danger" ng-if="!(responseError|isArray)">{{responseError}}</span>
+        </div>
+
+        <div class="form-group alert alert-success" ng-if="showSuccessMessage">
+            <h4>Your transaction is complete</h4>
+            <span class="text-success">Your payment has been successfully processed. Thank you.</span>
+        </div>
+    </div>
+</div>
