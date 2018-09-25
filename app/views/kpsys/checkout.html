@@ -17,12 +17,18 @@
             <span>Your request is processing... Please wait.</span>
         </div>
 
-        <div class="form-group alert alert-danger" ng-if="responseError">
+        <div class="form-group alert alert-danger" ng-if="responseError && isArray(responseError)">
             <h4>Error occurred</h4>
-            <span class="text-danger" ng-if="responseError|isArray" ng-repeat="error in responseError">
+            <span class="text-danger" ng-repeat="error in responseError">
                 {{error}}<br/>
             </span>
-            <span class="text-danger" ng-if="!(responseError|isArray)">{{responseError}}</span>
+        </div>
+
+        <div class="form-group alert alert-danger" ng-if="responseError && !isArray(responseError)">
+            <h4>Error occurred</h4>
+            <span class="text-danger">
+                {{responseError}}
+            </span>
         </div>
 
         <div class="form-group alert alert-success" ng-if="showSuccessMessage">

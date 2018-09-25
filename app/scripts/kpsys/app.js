@@ -52,12 +52,6 @@ kpsysApp.factory('settings', ['$rootScope', function ($rootScope) {
     return settings;
 }]);
 
-kpsysApp.filter("isArray", function () {
-    return function (input) {
-        return angular.isArray(input);
-    };
-});
-
 /* Setup App Main Controller */
 kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER_ROLES, AuthService) {
     $scope.$on('$viewContentLoaded', function () {

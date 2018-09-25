@@ -8,79 +8,97 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
         }
     };
 
+    $scope.isArray = angular.isArray;
+
+    $scope.queryChanged = function() {
+        $scope.submitted = false;
+    };
+
     $scope.submitted = false;
     $scope.query = $location.search().query || "";
     $scope.responseError = "";
-    $scope.paypalResponseError = "";
     $scope.errorRowIndex = null;
+    $scope.loading = false;
 
-    var submitLocked = false;
     $scope.submit = function () {
         $scope.submitted = true;
-        if (submitLocked || $scope.query.length === 0) {
+        if ($scope.loading || $scope.query.length === 0) {
             return;
         }
-        submitLocked = true;
 
         $scope.loading = true;
         $scope.responseError = "";
-        $scope.paypalResponseError = "";
         $scope.errorRowIndex = null;
+        $scope.licensePlates = null;
 
         var val = $scope.query;
         $rootScope.query = val;
 
-        LicensePlatesService.query(val)
+        LicensePlatesService.search(val)
             .then(function (response) {
                 $scope.licensePlates = response.items;
-                submitLocked = false;
                 $scope.loading = false;
             }, function (ex) {
                 console.log(ex);
-                $scope.responseError = ex.data.error.message;
-                submitLocked = false;
+
+                if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
+                    $scope.responseError = ex.data.error.message;
+                } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
+                    $scope.responseError = ex.data.errors;
+                } else {
+                    $scope.responseError = "something bad happened";
+                }
+
                 $scope.loading = false;
             });
     };
 
-    var payLocked = false;
     $scope.pay = function (index) {
-        if (payLocked) {
+        if ($scope.loading) {
             return;
         }
         if (index >= 0 && index < $scope.licensePlates.length) {
-            payLocked = true;
-            $scope.paypalResponseError = "";
+            $scope.loading = true;
+            $scope.responseError = "";
 
             var licensePlate = $scope.licensePlates[index];
 
             var p = {
                 amount: licensePlate.dueAmount,
-                currency: licensePlate.currency,
                 description: licensePlate.description,
-                query: $scope.query
+                query: $scope.query,
+                currency: licensePlate.currency,
+                licensePlate: licensePlate.licensePlate,
+                parkingId: licensePlate.parkingId,
+                paymentFromTimestamp: licensePlate.startTimestamp,
+                paymentUntilTimestamp: licensePlate.endTimestamp,
+                paymentId: ""
             };
 
             PayPalService.proceed(p)
                 .then(function (response) {
                     var redirectUrl = response.entity.url;
                     console.log("url: " + redirectUrl);
+                    $scope.loading = false;
                     window.location = redirectUrl;
-                    payLocked = false;
                 }, function (ex) {
                     console.log(ex);
+
                     if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
-                        $scope.paypalResponseError = ex.data.error.message;
+                        $scope.responseError = ex.data.error.message;
+                    } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
+                        $scope.responseError = ex.data.errors;
                     } else {
-                        $scope.paypalResponseError = "";
+                        $scope.responseError = "something bad happened";
                     }
+
                     $scope.errorRowIndex = index;
-                    payLocked = false;
+                    $scope.loading = false;
                 });
         }
     };
 
     $scope.checkErrorStatus = function (index) {
-        return $scope.errorRowIndex != null && $scope.errorRowIndex === index;
+        return $scope.errorRowIndex === index;
     };
 });

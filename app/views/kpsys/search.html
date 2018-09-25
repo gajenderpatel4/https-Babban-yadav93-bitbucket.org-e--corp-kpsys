@@ -5,29 +5,25 @@
                 <h3>License Plate Search</h3>
                 <div class="form-group">
                     <div class="required-field-block">
-                        <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query" placeholder="License Plate" ng-change="licensePlateChanged()">
+                        <input class="form-control" type="text" ng-model="query" placeholder="License Plate" ng-change="queryChanged()">
                         <div class="required-icon" data-original-title="" title="">
                             <div class="text">*</div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group alert alert-danger" ng-if="submitted && query.length == 0">
+                <div class="form-group alert alert-danger" ng-if="submitted && query.length === 0">
                     <span class="text-danger">License Plate required</span>
                 </div>
-                <div class="form-group alert alert-danger" ng-if="submitted && responseError">
-                    <span class="text-danger" ng-if="responseError|isArray" ng-repeat="error in responseError">
-                        {{error}}<br/>
-                    </span>
-                    <span class="text-danger alert alert-danger" ng-if="!(responseError|isArray)">{{responseError}}</span>
-                </div>
-                <div class="form-group alert alert-info" ng-if='submitted && licensePlates.length == 0 && query.length > 0'>
+                <div class="form-group alert alert-info" ng-if='submitted && licensePlates.length === 0 && query.length > 0'>
                     <span class="text-info">We could not find any results for {{query}}.</span>
                 </div>
-                <div class="form-group alert alert-danger" ng-if="paypalResponseError">
-                    <span class="text-danger" ng-if="paypalResponseError|isArray" ng-repeat="error in paypalResponseError">
-                        {{error}}<br/>
+                <div class="form-group alert alert-danger" ng-if="responseError && isArray(responseError)">
+                    <span class="text-danger" ng-repeat="e in responseError">
+                        {{e}}<br/>
                     </span>
-                    <span class="text-danger alert alert-danger" ng-if="!(paypalResponseError|isArray)">{{paypalResponseError}}</span>
+                    <span class="text-danger" ng-if="responseError && !isArray(responseError)">
+                        {{responseError}}
+                    </span>
                 </div>
                 <button type="submit" class="btn btn-default" ng-click="searchForm.$valid && submit(q)">Find</button>
             </div>
