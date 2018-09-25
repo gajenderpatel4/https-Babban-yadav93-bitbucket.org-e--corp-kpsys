@@ -16,6 +16,7 @@ import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -48,20 +49,14 @@ public class PayPalResource {
     @Path("/checkout")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<Result> checkout(PayPalCheckoutRequest payPalCheckoutRequest) {
+    public EntityResponse<Result> checkout(@Valid PayPalCheckoutRequest payPalCheckoutRequest) {
 
         String guid = payPalCheckoutRequest.getGuid();
         String paymentId = payPalCheckoutRequest.getPaymentId();
         String payerID = payPalCheckoutRequest.getPayerID();
 
-        boolean checkFailed;
-        PayPalInitRequest payPalInitRequest = null;
-        if (guid.isEmpty() || paymentId.isEmpty()) {
-            checkFailed = true;
-        } else {
-            payPalInitRequest = Storage.getInstance().get(guid);
-            checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
-        }
+        PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
+        boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
 
         if (checkFailed) {
             LOGGER.error("Error during preparing checkout PayPal request: wrong parameters");
@@ -104,7 +99,7 @@ public class PayPalResource {
     @Path("/proceed")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<Url> proceed(@Auth User principal, PayPalInitRequest payPalInitRequest) {
+    public EntityResponse<Url> proceed(@Auth User principal, @Valid PayPalInitRequest payPalInitRequest) {
 
         Amount amount = new Amount();
         amount.setCurrency(payPalInitRequest.getCurrency());
@@ -112,7 +107,9 @@ public class PayPalResource {
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(payPalInitRequest.getDescription());
+        if (payPalInitRequest.getDescription() != null) {
+            transaction.setDescription(payPalInitRequest.getDescription());
+        }
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
 
