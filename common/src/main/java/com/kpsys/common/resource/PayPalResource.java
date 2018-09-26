@@ -85,7 +85,7 @@ public class PayPalResource {
             // make a request to an external service api ("/payment")
             String result = externalServicePayment(payPalInitRequest);
             if (!result.equals(EXTERNAL_SERVICE_PAYMENT_SUCCESS_MESSAGE)) {
-                throw new KpsysException("Error during performing invocation of an external server API after PayPal payment was successfully processed. External Server API returned error status.");
+                throw new KpsysException("Error during invocation of an external service API after PayPal payment was successfully processed. The external service API returned error status.");
             }
 
             return EntityResponse.of(new Result(result));
