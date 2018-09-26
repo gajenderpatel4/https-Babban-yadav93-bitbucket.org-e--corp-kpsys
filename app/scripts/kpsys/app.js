@@ -1059,5 +1059,37 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                         }]);
                 }]
             }
+        })
+        .state('checkout', {
+            url: '/checkout?guid&paymentId&PayerID',
+            templateUrl: 'views/kpsys/checkout.html',
+            controller: 'CheckoutCtrl',
+            data: {pageTitle: 'Checkout'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                                '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+                                '../assets/global/plugins/select2/css/select2.min.css',
+                                '../assets/global/plugins/select2/css/select2-bootstrap.min.css',
+
+                                '../assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js',
+                                '../assets/global/plugins/select2/js/select2.full.min.js',
+
+                                '../assets/pages/scripts/components-bootstrap-select.min.js',
+                                '../assets/pages/scripts/components-select2.min.js',
+
+                                'scripts/kpsys/resources/paypal-resource.js',
+                                'scripts/kpsys/services/paypal-service.js',
+                                'scripts/kpsys/controllers/CheckoutController.js'
+                            ]
+                        }]);
+                }]
+            }
         });
 });
