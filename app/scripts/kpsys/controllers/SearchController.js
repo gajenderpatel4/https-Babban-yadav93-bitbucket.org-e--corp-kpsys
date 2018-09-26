@@ -4,24 +4,20 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
 
     $scope.init = function () {
         if ($scope.query.length > 0) {
+            $scope.submitted = true;
             $scope.submit();
         }
     };
 
     $scope.isArray = angular.isArray;
 
-    $scope.queryChanged = function() {
-        $scope.submitted = false;
-    };
-
-    $scope.submitted = false;
     $scope.query = $location.search().query || "";
     $scope.responseError = "";
     $scope.errorRowIndex = null;
     $scope.loading = false;
 
     $scope.submit = function () {
-        $scope.submitted = true;
+
         if ($scope.loading || $scope.query.length === 0) {
             return;
         }
@@ -31,10 +27,9 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
         $scope.errorRowIndex = null;
         $scope.licensePlates = null;
 
-        var val = $scope.query;
-        $rootScope.query = val;
+        $rootScope.query = $scope.query;
 
-        LicensePlatesService.search(val)
+        LicensePlatesService.search($scope.query)
             .then(function (response) {
                 $scope.licensePlates = response.items;
                 $scope.loading = false;
