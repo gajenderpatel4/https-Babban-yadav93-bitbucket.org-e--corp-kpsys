@@ -31,19 +31,19 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
 
         LicensePlatesService.search($scope.query)
             .then(function (response) {
-                $scope.licensePlates = response.items;
+                $scope.licensePlates = response.entity.items;
                 $scope.loading = false;
             }, function (ex) {
-                console.log(ex);
-
                 if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
                     $scope.responseError = ex.data.error.message;
                 } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                    $scope.responseError = ex.data.errors;
+                    $scope.responseError = [];
+                    for (var i = 0; i < ex.data.errors.length; i++) {
+                        $scope.responseError.push(ex.data.errors[i]);
+                    }
                 } else {
                     $scope.responseError = "something bad happened";
                 }
-
                 $scope.loading = false;
             });
     };
