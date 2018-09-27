@@ -1,6 +1,6 @@
 package com.kpsys.common.resource;
 
-import com.kpsys.common.Requests.PayPalCheckoutRequest;
+import com.kpsys.common.Requests.PayPalConfirmRequest;
 import com.kpsys.common.Requests.PayPalInitRequest;
 import com.kpsys.common.config.PayPalConfiguration;
 import com.kpsys.common.dto.EntityResponse;
@@ -49,10 +49,10 @@ public class PayPalResource {
     @Path("/check")
     @Consumes
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<PayPalInitRequest> check(@Valid PayPalCheckoutRequest payPalCheckoutRequest) {
+    public EntityResponse<PayPalInitRequest> check(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
-        String guid = payPalCheckoutRequest.getGuid();
-        String paymentId = payPalCheckoutRequest.getPaymentId();
+        String guid = payPalConfirmRequest.getGuid();
+        String paymentId = payPalConfirmRequest.getPaymentId();
 
         PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
         boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
@@ -66,21 +66,21 @@ public class PayPalResource {
     }
 
     @POST
-    @Path("/checkout")
+    @Path("/confirm")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<Result> checkout(@Valid PayPalCheckoutRequest payPalCheckoutRequest) {
+    public EntityResponse<Result> confirm(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
-        String guid = payPalCheckoutRequest.getGuid();
-        String paymentId = payPalCheckoutRequest.getPaymentId();
-        String payerID = payPalCheckoutRequest.getPayerID();
+        String guid = payPalConfirmRequest.getGuid();
+        String paymentId = payPalConfirmRequest.getPaymentId();
+        String payerID = payPalConfirmRequest.getPayerID();
 
         PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
         boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
 
         if (checkFailed) {
-            LOGGER.error("Error during preparing checkout PayPal request: wrong parameters");
-            throw new KpsysException("Error during preparing checkout PayPal request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+            LOGGER.error("Error during preparing confirm PayPal request: wrong parameters");
+            throw new KpsysException("Error during preparing confirm PayPal request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
         }
 
         Payment payment = new Payment();
@@ -110,8 +110,8 @@ public class PayPalResource {
 
             return EntityResponse.of(new Result(result));
         } catch (PayPalRESTException e) {
-            LOGGER.error("Error during performing checkout PayPal request: " + e.getDetails());
-            throw new KpsysException("Error during performing checkout PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
+            LOGGER.error("Error during performing confirm PayPal request: " + e.getDetails());
+            throw new KpsysException("Error during performing confirm PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -153,7 +153,7 @@ public class PayPalResource {
 
             //TODO: provide hostname and port programmatically
             // an url for user pressed "continue" during "Paypal checkout - review your payment"
-            String returnUrl = "http://localhost:8087/#/checkout?guid=" + URLEncoder.encode(guid, "UTF-8");
+            String returnUrl = "http://localhost:8087/#/confirm?guid=" + URLEncoder.encode(guid, "UTF-8");
             redirectUrls.setReturnUrl(returnUrl);
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied");

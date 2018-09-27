@@ -13,8 +13,8 @@ angular.module('kpsysApp').factory('PayPalResource', function ($resource) {
                 }
             }
         }),
-        paypalCheckout: $resource('/api/paypal/checkout', {}, {
-            'checkout': {
+        paypalConfirm: $resource('/api/paypal/confirm', {}, {
+            'confirm': {
                 method: 'POST', data: {}, transformResponse: function (data) {
                     try {
                         return JSON.parse(data);

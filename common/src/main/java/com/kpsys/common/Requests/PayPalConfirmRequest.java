@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class PayPalCheckoutRequest {
+public class PayPalConfirmRequest {
     @NotNull
     @NotEmpty
     String guid;

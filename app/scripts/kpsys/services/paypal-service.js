@@ -11,9 +11,9 @@ angular.module('kpsysApp').service('PayPalService', function (PayPalResource, $q
         return defer.promise;
     };
 
-    this.checkout = function (p) {
+    this.confirm = function (p) {
         var defer = $q.defer();
-        PayPalResource.paypalCheckout.checkout(p, function (result) {
+        PayPalResource.paypalConfirm.confirm(p, function (result) {
             defer.resolve(result);
         }, function (ex) {
             defer.reject(ex);

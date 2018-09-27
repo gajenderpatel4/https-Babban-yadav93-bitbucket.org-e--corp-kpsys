@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kpsysApp').controller('CheckoutCtrl', function ($location, $scope, $rootScope, $state, PayPalService) {
+angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope, $rootScope, $state, PayPalService) {
 
     $scope.isArray = angular.isArray;
 
@@ -33,7 +33,7 @@ angular.module('kpsysApp').controller('CheckoutCtrl', function ($location, $scop
 
         $scope.loading = true;
 
-        PayPalService.checkout($scope.paypalParams)
+        PayPalService.confirm($scope.paypalParams)
             .then(function (response) {
                 $scope.loading = false;
                 $scope.showSuccessMessage = true;

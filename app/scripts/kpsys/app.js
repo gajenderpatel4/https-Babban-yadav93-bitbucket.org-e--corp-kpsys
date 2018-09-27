@@ -1060,11 +1060,11 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-        .state('checkout', {
-            url: '/checkout?guid&paymentId&PayerID',
-            templateUrl: 'views/kpsys/checkout.html',
-            controller: 'CheckoutCtrl',
-            data: {pageTitle: 'Checkout'},
+        .state('confirm', {
+            url: '/confirm?guid&paymentId&PayerID',
+            templateUrl: 'views/kpsys/confirm.html',
+            controller: 'ConfirmCtrl',
+            data: {pageTitle: 'Confirm'},
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -1086,7 +1086,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
                                 'scripts/kpsys/resources/paypal-resource.js',
                                 'scripts/kpsys/services/paypal-service.js',
-                                'scripts/kpsys/controllers/CheckoutController.js'
+                                'scripts/kpsys/controllers/ConfirmController.js'
                             ]
                         }]);
                 }]

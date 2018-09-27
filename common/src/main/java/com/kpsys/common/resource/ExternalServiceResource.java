@@ -1,15 +1,11 @@
 package com.kpsys.common.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kpsys.common.Requests.PayPalCheckoutRequest;
-import com.kpsys.common.Requests.PayPalInitRequest;
 import com.kpsys.common.Requests.QueryRequest;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.LicensePlateResponse;
 import com.kpsys.domain.LicensePlateResponseList;
-import com.kpsys.domain.User;
-import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
