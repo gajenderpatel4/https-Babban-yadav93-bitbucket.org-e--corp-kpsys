@@ -37,10 +37,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
                 if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
                     $scope.responseError = ex.data.error.message;
                 } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                    $scope.responseError = [];
-                    for (var i = 0; i < ex.data.errors.length; i++) {
-                        $scope.responseError.push(ex.data.errors[i]);
-                    }
+                    $scope.responseError = ex.data.errors;
                 } else {
                     $scope.responseError = "something bad happened";
                 }
