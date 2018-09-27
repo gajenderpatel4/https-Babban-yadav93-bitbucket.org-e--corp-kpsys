@@ -107,7 +107,7 @@ public class PayPalResource {
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        if (payPalInitRequest.getDescription() != null) {
+        if (payPalInitRequest.getDescription() != null && !payPalInitRequest.getDescription().isEmpty()) {
             transaction.setDescription(payPalInitRequest.getDescription());
         }
         List<Transaction> transactions = new ArrayList<>();
