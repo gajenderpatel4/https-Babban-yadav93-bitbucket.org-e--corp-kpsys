@@ -20,4 +20,14 @@ angular.module('kpsysApp').service('PayPalService', function (PayPalResource, $q
         });
         return defer.promise;
     };
+
+    this.check = function (p) {
+        var defer = $q.defer();
+        PayPalResource.paypalCheck.check(p, function (result) {
+            defer.resolve(result);
+        }, function (ex) {
+            defer.reject(ex);
+        });
+        return defer.promise;
+    };
 });

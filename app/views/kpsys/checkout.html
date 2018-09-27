@@ -32,5 +32,26 @@
             <h4>Your transaction is complete</h4>
             <span class="text-success">Your payment has been successfully processed. Thank you.</span>
         </div>
+
+        <div ng-if="showConfirm && !showSuccessMessage">
+            <form name="confirmForm" novalidate>
+                <div class="portlet">
+                    <h3>Confirm payment:</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item text-info"><b>License Plate:</b> {{paypalResponse.licensePlate}}</li>
+                        <li class="list-group-item text-info"><b>Parking Id:</b> {{paypalResponse.parkingId}}</li>
+                        <li class="list-group-item text-info"><b>Currency:</b> {{paypalResponse.currency}}</li>
+                        <li class="list-group-item text-info"><b>Amount:</b> {{paypalResponse.amount}}</li>
+                        <li class="list-group-item text-info"><b>Start Timestamp:</b> {{paypalResponse.paymentFromTimestamp}}</li>
+                        <li class="list-group-item text-info"><b>End Timestamp:</b> {{paypalResponse.paymentUntilTimestamp}}</li>
+                    </ul>
+
+                    <button type="submit" class="btn btn-default" ng-click="confirm()">
+                        Confirm
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>

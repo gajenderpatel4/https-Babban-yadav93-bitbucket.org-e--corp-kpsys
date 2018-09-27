@@ -23,6 +23,17 @@ angular.module('kpsysApp').factory('PayPalResource', function ($resource) {
                     }
                 }
             }
+        }),
+        paypalCheck: $resource('/api/paypal/check', {}, {
+            'check': {
+                method: 'POST', data: {}, transformResponse: function (data) {
+                    try {
+                        return JSON.parse(data);
+                    } catch (e) {
+                        return {};
+                    }
+                }
+            }
         })
     };
 });

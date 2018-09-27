@@ -46,6 +46,26 @@ public class PayPalResource {
     }
 
     @POST
+    @Path("/check")
+    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    public EntityResponse<PayPalInitRequest> check(@Valid PayPalCheckoutRequest payPalCheckoutRequest) {
+
+        String guid = payPalCheckoutRequest.getGuid();
+        String paymentId = payPalCheckoutRequest.getPaymentId();
+
+        PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
+        boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
+
+        if (checkFailed) {
+            LOGGER.error("Error during checking PayPal request: wrong parameters");
+            throw new KpsysException("Error during checking PayPal request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+        }
+
+        return EntityResponse.of(payPalInitRequest);
+    }
+
+    @POST
     @Path("/checkout")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
