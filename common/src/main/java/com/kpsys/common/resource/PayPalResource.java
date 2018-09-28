@@ -13,10 +13,16 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import io.dropwizard.auth.Auth;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -24,6 +30,8 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -190,6 +198,100 @@ public class PayPalResource {
         } catch (Exception ex) {
             LOGGER.error("Error during PayPal request: " + ex.getMessage());
             throw new KpsysException("Error during PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GET
+    @Path("/pdf")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadPdfReceipt(@QueryParam("guid") @NotNull @NotEmpty String guid,
+                                       @QueryParam("paymentId") @NotNull @NotEmpty String paymentId,
+                                       @QueryParam("PayerID") @NotNull @NotEmpty String PayerID) {
+
+        PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
+        boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
+
+        if (checkFailed) {
+            LOGGER.error("Error during creating PDF request: wrong parameters");
+            throw new KpsysException("Error during creating PDF request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+        }
+
+        final PDDocument doc = new PDDocument();
+        PDPage page = new PDPage();
+        doc.addPage(page);
+
+        PDPageContentStream content = null;
+        try {
+            content = new PDPageContentStream(doc, page);
+            content.beginText();
+
+            content.setFont(PDType1Font.TIMES_BOLD, 12);
+            content.setLeading(14.5f);
+
+            content.newLineAtOffset(25, 700);
+            content.showText("Receipt:");
+            content.newLine();
+
+            content.setFont(PDType1Font.TIMES_ROMAN, 12);
+
+            content.showText("License Plate: " + payPalInitRequest.getLicensePlate());
+            content.newLine();
+
+            content.showText("Amount: " + payPalInitRequest.getAmount());
+            content.newLine();
+
+            content.showText("Currency: " + payPalInitRequest.getCurrency());
+            content.newLine();
+
+            content.showText("Parking Id: " + payPalInitRequest.getParkingId());
+            content.newLine();
+
+            if (payPalInitRequest.getPaymentFromTimestamp() != null) {
+                content.showText("Payment From Timestamp: " + payPalInitRequest.getPaymentFromTimestamp());
+                content.newLine();
+            }
+
+            if (payPalInitRequest.getPaymentUntilTimestamp() != null) {
+                content.showText("Payment Until Timestamp: " + payPalInitRequest.getPaymentUntilTimestamp());
+                content.newLine();
+            }
+
+            if (payPalInitRequest.getParkingZone() != null) {
+                content.showText("Parking Zone: " + payPalInitRequest.getParkingZone());
+                content.newLine();
+            }
+
+            content.showText("Payment Id: " + payPalInitRequest.getPaymentId());
+            content.newLine();
+
+            content.endText();
+
+            content.close();
+
+            StreamingOutput stream = output -> {
+                try {
+                    doc.save(output);
+                    doc.close();
+                } catch (Exception e) {
+                    throw new WebApplicationException(e);
+                }
+            };
+
+            return Response.ok(stream, MediaType.APPLICATION_OCTET_STREAM)
+                .header("content-disposition", "attachment; filename = receipt.pdf")
+                .build();
+        } catch (IOException e) {
+            try {
+                if (content != null) {
+                    content.close();
+                }
+                doc.close();
+            } catch (IOException ignored) {
+
+            }
+
+            LOGGER.error("Error during creating PDF request", e);
+            throw new KpsysException("Error during creating PDF request", e, Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 
