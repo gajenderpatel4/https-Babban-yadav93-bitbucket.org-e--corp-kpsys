@@ -67,7 +67,7 @@ public class PayPalResource {
 
         if (checkFailed) {
             LOGGER.error("Error during checking PayPal request: wrong parameters");
-            throw new KpsysException("Error during checking PayPal request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during checking PayPal request: wrong parameters", Response.Status.BAD_REQUEST);
         }
 
         return EntityResponse.of(payPalInitRequest);
@@ -88,7 +88,7 @@ public class PayPalResource {
 
         if (checkFailed) {
             LOGGER.error("Error during preparing confirm PayPal request: wrong parameters");
-            throw new KpsysException("Error during preparing confirm PayPal request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during preparing confirm PayPal request: wrong parameters", Response.Status.BAD_REQUEST);
         }
 
         Payment payment = new Payment();
