@@ -212,7 +212,7 @@ public class PayPalResource {
 
         if (checkFailed) {
             LOGGER.error("Error during creating PDF request: wrong parameters");
-            throw new KpsysException("Error during creating PDF request: wrong parameters", Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during creating PDF request: wrong parameters", Response.Status.BAD_REQUEST);
         }
 
         final PDDocument doc = new PDDocument();
