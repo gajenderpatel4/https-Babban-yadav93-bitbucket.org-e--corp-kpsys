@@ -71,8 +71,8 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
                 .then(function (response) {
                     var redirectUrl = response.entity.url;
                     console.log("url: " + redirectUrl);
-                    $scope.loading = false;
                     window.location = redirectUrl;
+                    $scope.loading = false;
                 }, function (ex) {
                     console.log(ex);
 
