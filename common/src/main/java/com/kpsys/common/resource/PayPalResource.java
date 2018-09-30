@@ -219,55 +219,54 @@ public class PayPalResource {
         PDPage page = new PDPage();
         doc.addPage(page);
 
-        PDPageContentStream content = null;
+        PDPageContentStream pageContentStream = null;
         try {
-            content = new PDPageContentStream(doc, page);
-            content.beginText();
+            pageContentStream = new PDPageContentStream(doc, page);
+            pageContentStream.beginText();
 
-            content.setFont(PDType1Font.TIMES_BOLD, 12);
-            content.setLeading(14.5f);
+            pageContentStream.setFont(PDType1Font.TIMES_BOLD, 12);
+            pageContentStream.setLeading(14.5f);
 
-            content.newLineAtOffset(25, 700);
-            content.showText("Receipt:");
-            content.newLine();
+            pageContentStream.newLineAtOffset(25, 700);
+            pageContentStream.showText("Receipt:");
+            pageContentStream.newLine();
 
-            content.setFont(PDType1Font.TIMES_ROMAN, 12);
+            pageContentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
+            pageContentStream.showText("License Plate: " + payPalInitRequest.getLicensePlate());
+            pageContentStream.newLine();
 
-            content.showText("License Plate: " + payPalInitRequest.getLicensePlate());
-            content.newLine();
+            pageContentStream.showText("Amount: " + payPalInitRequest.getAmount());
+            pageContentStream.newLine();
 
-            content.showText("Amount: " + payPalInitRequest.getAmount());
-            content.newLine();
+            pageContentStream.showText("Currency: " + payPalInitRequest.getCurrency());
+            pageContentStream.newLine();
 
-            content.showText("Currency: " + payPalInitRequest.getCurrency());
-            content.newLine();
+            pageContentStream.showText("Parking Id: " + payPalInitRequest.getParkingId());
+            pageContentStream.newLine();
 
-            content.showText("Parking Id: " + payPalInitRequest.getParkingId());
-            content.newLine();
-
-            if (payPalInitRequest.getPaymentFromTimestamp() != null) {
-                content.showText("Payment From Timestamp: " + payPalInitRequest.getPaymentFromTimestamp());
-                content.newLine();
+            if (payPalInitRequest.getPaymentFromTimestamp() != null && !payPalInitRequest.getPaymentFromTimestamp().isEmpty()) {
+                pageContentStream.showText("Payment From Timestamp: " + payPalInitRequest.getPaymentFromTimestamp());
+                pageContentStream.newLine();
             }
 
-            if (payPalInitRequest.getPaymentUntilTimestamp() != null) {
-                content.showText("Payment Until Timestamp: " + payPalInitRequest.getPaymentUntilTimestamp());
-                content.newLine();
+            if (payPalInitRequest.getPaymentUntilTimestamp() != null && !payPalInitRequest.getPaymentUntilTimestamp().isEmpty()) {
+                pageContentStream.showText("Payment Until Timestamp: " + payPalInitRequest.getPaymentUntilTimestamp());
+                pageContentStream.newLine();
             }
 
             if (payPalInitRequest.getParkingZone() != null) {
-                content.showText("Parking Zone: " + payPalInitRequest.getParkingZone());
-                content.newLine();
+                pageContentStream.showText("Parking Zone: " + payPalInitRequest.getParkingZone());
+                pageContentStream.newLine();
             }
 
-            content.showText("Payment Id: " + payPalInitRequest.getPaymentId());
-            content.newLine();
+            pageContentStream.showText("Payment Id: " + payPalInitRequest.getPaymentId());
+            pageContentStream.newLine();
 
-            content.endText();
+            pageContentStream.endText();
 
-            content.close();
+            pageContentStream.close();
 
-            StreamingOutput stream = output -> {
+            StreamingOutput streamingOutput = output -> {
                 try {
                     doc.save(output);
                     doc.close();
@@ -276,13 +275,13 @@ public class PayPalResource {
                 }
             };
 
-            return Response.ok(stream, MediaType.APPLICATION_OCTET_STREAM)
+            return Response.ok(streamingOutput, MediaType.APPLICATION_OCTET_STREAM)
                 .header("content-disposition", "attachment; filename = receipt.pdf")
                 .build();
         } catch (IOException e) {
             try {
-                if (content != null) {
-                    content.close();
+                if (pageContentStream != null) {
+                    pageContentStream.close();
                 }
                 doc.close();
             } catch (IOException ignored) {
