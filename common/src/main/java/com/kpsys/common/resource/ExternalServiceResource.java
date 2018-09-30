@@ -52,17 +52,6 @@ public class ExternalServiceResource {
             }
         }
     }
-    /*
-    @POST
-    @Path("/payment")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String payment(@Auth User principal, PayPalInitRequest payment) {
-
-        String url = String.format(EXTERNAL_SERVICE_URL, "payment");
-        WebTarget target = client.target(url);
-        return doPost(target, payment);
-    }*/
 
     @POST
     @Path("/query")
