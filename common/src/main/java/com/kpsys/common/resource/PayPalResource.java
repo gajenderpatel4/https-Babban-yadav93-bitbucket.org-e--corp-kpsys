@@ -237,13 +237,13 @@ public class PayPalResource {
             pageContentStream.showText("License Plate: " + payPalInitRequest.getLicensePlate());
             pageContentStream.newLine();
 
-            pageContentStream.showText("Amount: " + payPalInitRequest.getAmount());
+            pageContentStream.showText("Parking Id: " + payPalInitRequest.getParkingId());
             pageContentStream.newLine();
 
             pageContentStream.showText("Currency: " + payPalInitRequest.getCurrency());
             pageContentStream.newLine();
 
-            pageContentStream.showText("Parking Id: " + payPalInitRequest.getParkingId());
+            pageContentStream.showText("Amount: " + payPalInitRequest.getAmount());
             pageContentStream.newLine();
 
             if (payPalInitRequest.getPaymentFromTimestamp() != null && !payPalInitRequest.getPaymentFromTimestamp().isEmpty()) {
