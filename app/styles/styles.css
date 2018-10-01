@@ -138,3 +138,8 @@ td > ticket-field > div > span:nth-child(2) {
 .portlet-body > .row > button {
     margin: 10px 5px 5px 0;
 }
+
+.page-header.navbar {
+    height: 82px;
+    min-height: 82px;
+}
