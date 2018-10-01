@@ -34,30 +34,28 @@
         </div>
 
         <div ng-if="showConfirm && !showSuccessMessage">
-            <form name="confirmForm" novalidate>
-                <div class="portlet">
-                    <h3>Confirm payment:</h3>
-                    <ul class="list-group">
-                        <li class="list-group-item text-info"><b>License Plate:</b> {{paypalResponse.licensePlate}}</li>
-                        <li class="list-group-item text-info"><b>Parking Id:</b> {{paypalResponse.parkingId}}</li>
-                        <li class="list-group-item text-info"><b>Currency:</b> {{paypalResponse.currency}}</li>
-                        <li class="list-group-item text-info"><b>Amount:</b> {{paypalResponse.amount}}</li>
-                        <li class="list-group-item text-info"><b>Start Timestamp:</b>
-                            {{paypalResponse.paymentFromTimestamp}}
-                        </li>
-                        <li class="list-group-item text-info"><b>End Timestamp:</b>
-                            {{paypalResponse.paymentUntilTimestamp}}
-                        </li>
-                    </ul>
+            <div class="portlet">
+                <h3>Confirm payment:</h3>
+                <ul class="list-group">
+                    <li class="list-group-item text-info"><b>License Plate:</b> {{paypalResponse.licensePlate}}</li>
+                    <li class="list-group-item text-info"><b>Parking Id:</b> {{paypalResponse.parkingId}}</li>
+                    <li class="list-group-item text-info"><b>Currency:</b> {{paypalResponse.currency}}</li>
+                    <li class="list-group-item text-info"><b>Amount:</b> {{paypalResponse.amount}}</li>
+                    <li class="list-group-item text-info"><b>Payment From Timestamp:</b>
+                        {{paypalResponse.paymentFromTimestamp}}
+                    </li>
+                    <li class="list-group-item text-info"><b>Payment Until Timestamp:</b>
+                        {{paypalResponse.paymentUntilTimestamp}}
+                    </li>
+                </ul>
 
-                    <button type="button" class="btn btn-default" ng-click="confirm()">
-                        Confirm
-                    </button>
+                <button type="button" class="btn btn-default" ng-click="confirm()">
+                    Confirm
+                </button>
 
-                    <a href="/api/paypal/pdf?guid={{guid}}&paymentId={{paymentId}}&&PayerID={{payerID}}"
-                       class="btn btn-info" role="button">Download PDF receipt</a>
-                </div>
-            </form>
+                <a href="/api/paypal/pdf?guid={{guid}}&paymentId={{paymentId}}&&PayerID={{payerID}}"
+                   class="btn btn-info" role="button">Download PDF receipt</a>
+            </div>
         </div>
 
     </div>
