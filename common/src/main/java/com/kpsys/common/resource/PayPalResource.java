@@ -47,10 +47,12 @@ public class PayPalResource {
 
     private final PayPalConfiguration payPalConfiguration;
     private final Client client;
+    private final int httpPort;
 
-    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client) {
+    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort) {
         this.payPalConfiguration = payPalConfiguration;
         this.client = client;
+        this.httpPort = httpPort;
     }
 
     @POST
@@ -156,12 +158,12 @@ public class PayPalResource {
         try {
             //TODO: provide hostname and port programmatically
             // an url for user cancelled payment during "Paypal checkout - review your payment"
-            String cancelUrl = "http://localhost:8087/#/home?query=" + URLEncoder.encode(query, "UTF-8");
+            String cancelUrl = String.format("http://localhost:%d/#/home?query=%s", httpPort, URLEncoder.encode(query, "UTF-8"));
             redirectUrls.setCancelUrl(cancelUrl);
 
             //TODO: provide hostname and port programmatically
             // an url for user pressed "continue" during "Paypal checkout - review your payment"
-            String returnUrl = "http://localhost:8087/#/confirm?guid=" + URLEncoder.encode(guid, "UTF-8");
+            String returnUrl = String.format("http://localhost:%d/#/confirm?guid=%s", httpPort, URLEncoder.encode(guid, "UTF-8"));
             redirectUrls.setReturnUrl(returnUrl);
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied");

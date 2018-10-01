@@ -13,13 +13,14 @@ import com.kpsys.common.resource.ExternalServiceResource;
 import com.kpsys.common.resource.PayPalResource;
 import com.kpsys.common.security.OAuth2Authenticator;
 import com.kpsys.domain.User;
-import com.kpsys.resource.ApplicationResource;
 import com.kpsys.security.UserRoleAuthorizer;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.jetty.HttpConnectorFactory;
+import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
@@ -34,6 +35,8 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
     @Override
     public void run(KpsysConfiguration kpsysConfiguration, Environment environment) {
 
+        final int httpPort = findApplicationPort(kpsysConfiguration);
+
         final Client client = new JerseyClientBuilder(environment).using(kpsysConfiguration.getJerseyClientConfiguration())
             .using(environment)
             .build(getName());
@@ -41,7 +44,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new AuthResource());
-        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client));
+        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, httpPort));
 
         environment.jersey().register(new KpsysExceptionMapper());
 
@@ -71,5 +74,15 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
     @Override
     protected Module[] getModules() {
         return new Module[]{new KpsysModule()};
+    }
+
+    private int findApplicationPort(KpsysConfiguration kpsysConfiguration) {
+        return ((DefaultServerFactory) kpsysConfiguration.getServerFactory())
+            .getApplicationConnectors()
+            .stream()
+            .filter(connector -> connector.getClass().isAssignableFrom(HttpConnectorFactory.class))
+            .map(connector -> ((HttpConnectorFactory) connector).getPort())
+            .findFirst()
+            .orElse(8087);
     }
 }
