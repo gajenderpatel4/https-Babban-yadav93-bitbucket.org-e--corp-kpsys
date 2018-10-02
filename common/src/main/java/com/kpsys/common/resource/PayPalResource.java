@@ -59,7 +59,7 @@ public class PayPalResource {
     @Path("/check")
     @Consumes
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<PayPalInitRequest> check(@Auth User principal, @Valid PayPalConfirmRequest payPalConfirmRequest) {
+    public EntityResponse<PayPalInitRequest> check(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
         String guid = payPalConfirmRequest.getGuid();
         String paymentId = payPalConfirmRequest.getPaymentId();
@@ -79,7 +79,7 @@ public class PayPalResource {
     @Path("/confirm")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<Result> confirm(@Auth User principal, @Valid PayPalConfirmRequest payPalConfirmRequest) {
+    public EntityResponse<Result> confirm(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
         String guid = payPalConfirmRequest.getGuid();
         String paymentId = payPalConfirmRequest.getPaymentId();
@@ -129,7 +129,7 @@ public class PayPalResource {
     @Path("/proceed")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<Url> proceed(@Auth User principal, @Valid PayPalInitRequest payPalInitRequest) {
+    public EntityResponse<Url> proceed(@Valid PayPalInitRequest payPalInitRequest) {
 
         Amount amount = new Amount();
         amount.setCurrency(payPalInitRequest.getCurrency());
