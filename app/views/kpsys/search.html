@@ -1,7 +1,7 @@
 <div ng-controller="SearchCtrl">
     <div class="row">
         <form name="searchForm" novalidate data-ng-init="init()">
-            <div class="portlet col-md-5">
+            <div class="col-md-5">
                 <h3>License Plate Search</h3>
 
                 <div class="form-group">
@@ -45,30 +45,32 @@
     </div>
 
     <div ng-show="submitted && searchForm.q.$valid && licensePlates.length > 0" class="row">
-        <table class="table" id="license-plates-tbl">
-            <thead>
-            <tr>
-                <th>License Plate</th>
-                <th>Currency</th>
-                <th>Due Amount</th>
-                <th>Start Timestamp</th>
-                <th>End Timestamp</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="lp in licensePlates"
-                ng-class="{'danger': checkErrorStatus($index) == true }">
-                <td>{{lp.licensePlate}}</td>
-                <td>{{lp.currency}}</td>
-                <td>{{lp.dueAmount}}</td>
-                <td>{{lp.startTimestamp}}</td>
-                <td>{{lp.endTimestamp}}</td>
-                <td>
-                    <button type="button" class="btn btn-default" ng-click="pay($index)">Make payment</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table" id="license-plates-tbl">
+                <thead>
+                <tr>
+                    <th>License Plate</th>
+                    <th>Currency</th>
+                    <th>Due Amount</th>
+                    <th>Start Timestamp</th>
+                    <th>End Timestamp</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="lp in licensePlates"
+                    ng-class="{'danger': checkErrorStatus($index) == true }">
+                    <td>{{lp.licensePlate}}</td>
+                    <td>{{lp.currency}}</td>
+                    <td>{{lp.dueAmount}}</td>
+                    <td>{{lp.startTimestamp}}</td>
+                    <td>{{lp.endTimestamp}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default" ng-click="pay($index)">Make payment</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
