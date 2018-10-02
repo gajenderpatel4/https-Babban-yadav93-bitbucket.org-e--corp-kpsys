@@ -28,6 +28,7 @@ import javax.ws.rs.client.Client;
 
 public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
+    private static final int DEFAULT_HTTP_PORT = 8087;
     public static void main(String[] args) throws Exception {
         new KpsysApplication().run(args);
     }
@@ -83,6 +84,6 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
             .filter(connector -> connector.getClass().isAssignableFrom(HttpConnectorFactory.class))
             .map(connector -> ((HttpConnectorFactory) connector).getPort())
             .findFirst()
-            .orElse(8087);
+            .orElse(DEFAULT_HTTP_PORT);
     }
 }
