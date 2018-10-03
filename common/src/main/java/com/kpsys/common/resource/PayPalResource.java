@@ -1,23 +1,29 @@
 package com.kpsys.common.resource;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.inject.Inject;
 import com.kpsys.common.Requests.PayPalConfirmRequest;
 import com.kpsys.common.Requests.PayPalInitRequest;
 import com.kpsys.common.config.PayPalConfiguration;
+import com.kpsys.common.dao.PaymentDao;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.common.utils.Storage;
 import com.kpsys.domain.Result;
 import com.kpsys.domain.Url;
-import com.kpsys.domain.User;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import io.dropwizard.auth.Auth;
+import io.dropwizard.hibernate.UnitOfWork;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,10 +50,11 @@ public class PayPalResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(PayPalResource.class);
     private static final String EXTERNAL_SERVICE_URL = "http://anpr01.parkingguru.com:8080/api/rest/parking/%s";
     private static final String EXTERNAL_SERVICE_PAYMENT_SUCCESS_MESSAGE = "Payment OK";
-
     private final PayPalConfiguration payPalConfiguration;
     private final Client client;
     private final int httpPort;
+    @Inject
+    private PaymentDao paymentDao;
 
     public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort) {
         this.payPalConfiguration = payPalConfiguration;
@@ -79,6 +86,8 @@ public class PayPalResource {
     @Path("/confirm")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Timed
+    @UnitOfWork
     public EntityResponse<Result> confirm(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
         String guid = payPalConfirmRequest.getGuid();
@@ -118,11 +127,44 @@ public class PayPalResource {
                 throw new KpsysException("Error during invocation of an external service API after PayPal payment was successfully processed. The external service API returned error status.");
             }
 
+            // save payment in our DB table
+            savePayment(payPalInitRequest, paymentId);
+
             return EntityResponse.of(new Result(result));
         } catch (PayPalRESTException e) {
             LOGGER.error("Error during performing confirm PayPal request: " + e.getDetails());
             throw new KpsysException("Error during performing confirm PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    private void savePayment(PayPalInitRequest payPalInitRequest, String paymentId) {
+        com.kpsys.domain.Payment.PaymentBuilder paymentBuilder = com.kpsys.domain.Payment.builder()
+            .licensePlate(payPalInitRequest.getLicensePlate())
+            .parkingId(payPalInitRequest.getParkingId())
+            .amount(payPalInitRequest.getAmount())
+            .currency(payPalInitRequest.getCurrency())
+            .paypalPaymentId(paymentId);
+
+        if (payPalInitRequest.getPaymentFromTimestamp() != null) {
+            DateTime dateTime = parseDate(payPalInitRequest.getPaymentFromTimestamp());
+            if (dateTime != null) {
+                paymentBuilder.paymentFromTimestamp(dateTime);
+            }
+        }
+
+        if (payPalInitRequest.getPaymentUntilTimestamp() != null) {
+            DateTime dateTime = parseDate(payPalInitRequest.getPaymentUntilTimestamp());
+            if (dateTime != null) {
+                paymentBuilder.paymentUntilTimestamp(dateTime);
+            }
+        }
+
+        DateTime dateTime = parseDate(payPalInitRequest.getPaymentTimestamp());
+        if (dateTime != null) {
+            paymentBuilder.paymentTimestamp(dateTime);
+        }
+
+        paymentDao.create(paymentBuilder.build());
     }
 
     @POST
@@ -315,6 +357,16 @@ public class PayPalResource {
             if (response != null) {
                 response.close();
             }
+        }
+    }
+
+    private DateTime parseDate(String src) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(src.endsWith("Z") ? "yyyy-MM-dd'T'HH:mm:ssZ" : "yyyy-MM-dd'T'HH:mm:ss")
+            .withZone(DateTimeZone.UTC);
+        try {
+            return dateTimeFormatter.parseDateTime(src);
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 }
