@@ -138,33 +138,16 @@ public class PayPalResource {
     }
 
     private void savePayment(PayPalInitRequest payPalInitRequest, String paymentId) {
-        com.kpsys.domain.Payment.PaymentBuilder paymentBuilder = com.kpsys.domain.Payment.builder()
+        paymentDao.create(com.kpsys.domain.Payment.builder()
             .licensePlate(payPalInitRequest.getLicensePlate())
             .parkingId(payPalInitRequest.getParkingId())
             .amount(payPalInitRequest.getAmount())
             .currency(payPalInitRequest.getCurrency())
-            .paypalPaymentId(paymentId);
-
-        if (payPalInitRequest.getPaymentFromTimestamp() != null) {
-            DateTime dateTime = parseDate(payPalInitRequest.getPaymentFromTimestamp());
-            if (dateTime != null) {
-                paymentBuilder.paymentFromTimestamp(dateTime);
-            }
-        }
-
-        if (payPalInitRequest.getPaymentUntilTimestamp() != null) {
-            DateTime dateTime = parseDate(payPalInitRequest.getPaymentUntilTimestamp());
-            if (dateTime != null) {
-                paymentBuilder.paymentUntilTimestamp(dateTime);
-            }
-        }
-
-        DateTime dateTime = parseDate(payPalInitRequest.getPaymentTimestamp());
-        if (dateTime != null) {
-            paymentBuilder.paymentTimestamp(dateTime);
-        }
-
-        paymentDao.create(paymentBuilder.build());
+            .paypalPaymentId(paymentId)
+            .paymentFromTimestamp(parseTimestamp(payPalInitRequest.getPaymentFromTimestamp()))
+            .paymentUntilTimestamp(parseTimestamp(payPalInitRequest.getPaymentUntilTimestamp()))
+            .paymentTimestamp(parseTimestamp(payPalInitRequest.getPaymentTimestamp()))
+            .build());
     }
 
     @POST
@@ -360,12 +343,17 @@ public class PayPalResource {
         }
     }
 
-    private DateTime parseDate(String src) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(src.endsWith("Z") ? "yyyy-MM-dd'T'HH:mm:ssZ" : "yyyy-MM-dd'T'HH:mm:ss")
-            .withZone(DateTimeZone.UTC);
+    private DateTime parseTimestamp(String src) {
+        if (src == null || src.isEmpty()) {
+            return null;
+        }
+
         try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(src.endsWith("Z") ? "yyyy-MM-dd'T'HH:mm:ssZ" : "yyyy-MM-dd'T'HH:mm:ss")
+                .withZone(DateTimeZone.UTC);
             return dateTimeFormatter.parseDateTime(src);
-        } catch (IllegalArgumentException e) {
+        } catch (UnsupportedOperationException | IllegalArgumentException e) {
+            LOGGER.error("Unable to parse timestamp: " + src, e);
             return null;
         }
     }
