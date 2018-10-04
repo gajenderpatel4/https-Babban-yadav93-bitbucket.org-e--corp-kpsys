@@ -3,6 +3,7 @@
 angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope, $rootScope, $state, PayPalService) {
 
     $scope.isArray = angular.isArray;
+    $scope.loading = false;
 
     var check = function () {
 
@@ -30,6 +31,10 @@ angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope
     };
 
     $scope.confirm = function () {
+
+        if ($scope.loading) {
+            return;
+        }
 
         $scope.loading = true;
 
