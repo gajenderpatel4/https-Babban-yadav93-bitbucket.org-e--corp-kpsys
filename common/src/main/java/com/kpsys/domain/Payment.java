@@ -1,18 +1,14 @@
 package com.kpsys.domain;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.Tolerate;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
-@EqualsAndHashCode
 @Entity(name = "Payment")
 @Table(name = "payment")
-@JsonInclude(NON_NULL)
 @Data
 @Builder
 public class Payment {
