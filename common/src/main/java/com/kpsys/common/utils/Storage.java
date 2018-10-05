@@ -25,6 +25,6 @@ public class Storage {
     }
 
     public static class SingletonHolder {
-        public static final Storage HOLDER_INSTANCE = new Storage();
+        static final Storage HOLDER_INSTANCE = new Storage();
     }
 }
