@@ -39,7 +39,7 @@ This will generate uber-jar containing all dependencies and web assets at `targe
 
 ### Run initial DB import
 
-`java -jar target/kpsys-0.1.jar db migrate kpsys.yml`
+`java -jar kpsys/target/kpsys-0.1.jar db migrate kpsys.yml`
 
 ### Run
 
