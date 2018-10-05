@@ -1,7 +1,7 @@
 package com.kpsys.common.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kpsys.common.Requests.QueryRequest;
+import com.kpsys.common.Requests.LicensePlateQueryRequest;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.LicensePlateResponse;
@@ -57,7 +57,7 @@ public class ExternalServiceResource {
     @Path("/query")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public EntityResponse<LicensePlateResponseList> query(@Valid QueryRequest query) {
+    public EntityResponse<LicensePlateResponseList> query(@Valid LicensePlateQueryRequest query) {
 
         query.setApiKey("12345");
         query.setParkingZone("Z01");
