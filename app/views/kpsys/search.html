@@ -1,7 +1,7 @@
 <div ng-controller="SearchCtrl">
     <div class="row">
         <form name="searchForm" novalidate data-ng-init="init()">
-            <div class="col-md-5">
+            <div class="col-md-5 bottom-space">
                 <h3>License Plate Search</h3>
 
                 <div class="form-group">
@@ -20,12 +20,14 @@
                      ng-if="submitted && searchForm.q.$valid && licensePlates.length === 0">
                     <span class="text-info">We could not find any results for {{query}}.</span>
                 </div>
-                <div class="form-group alert alert-danger" ng-if="responseError && isArray(responseError) && searchForm.$valid">
+                <div class="form-group alert alert-danger"
+                     ng-if="responseError && isArray(responseError) && searchForm.$valid">
                     <span class="text-danger" ng-repeat="e in responseError">
                         {{e}}<br/>
                     </span>
                 </div>
-                <div class="form-group alert alert-danger" ng-if="responseError && !isArray(responseError) && searchForm.$valid">
+                <div class="form-group alert alert-danger"
+                     ng-if="responseError && !isArray(responseError) && searchForm.$valid">
                     <span class="text-danger">
                         {{responseError}}
                     </span>
@@ -45,7 +47,7 @@
     </div>
 
     <div ng-show="submitted && searchForm.q.$valid && licensePlates.length > 0" class="row">
-        <div class="table-responsive">
+        <div class="table-responsive left-space-padding">
             <table class="table" id="license-plates-tbl">
                 <thead>
                 <tr>

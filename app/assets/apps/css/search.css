@@ -1,4 +1,14 @@
 /***
 License Plate Search form
 ***/
-#license-plates-tbl th {padding-left: 0 !important;}
+#license-plates-tbl th {
+    padding-left: 0 !important;
+}
+
+.bottom-space {
+    margin-bottom: 15px !important;
+}
+
+.left-space-padding {
+    padding-left: 15px;
+}
