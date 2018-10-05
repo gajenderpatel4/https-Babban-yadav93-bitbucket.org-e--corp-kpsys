@@ -63,10 +63,6 @@ angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope
         var paymentId = $location.search().paymentId || "";
         var payerID = $location.search().PayerID || "";
 
-        $scope.guid = guid;
-        $scope.paymentId = paymentId;
-        $scope.payerID = payerID;
-
         $scope.paypalParams = {
             guid: guid,
             paymentId: paymentId,
