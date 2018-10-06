@@ -296,7 +296,7 @@ public class PayPalResource {
                 try {
                     doc.save(output);
                     doc.close();
-                } catch (Exception e) {
+                } catch (IOException e) {
                     throw new WebApplicationException(e);
                 }
             };
