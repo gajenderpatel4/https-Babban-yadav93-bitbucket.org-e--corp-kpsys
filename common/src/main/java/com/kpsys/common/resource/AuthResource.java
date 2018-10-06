@@ -59,7 +59,7 @@ public class AuthResource {
     @UnitOfWork
     public void logout(@Auth User principal, String token) {
         authDao.deleteByAccessToken(token);
-        loginLogDao.logLogout(principal);
+        //loginLogDao.logLogout(principal);
     }
 
     @Path("roleAuthorisation")
