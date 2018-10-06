@@ -231,8 +231,7 @@ public class PayPalResource {
     @Path("/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadPdfReceipt(@QueryParam("guid") @NotNull @NotEmpty String guid,
-                                       @QueryParam("paymentId") @NotNull @NotEmpty String paymentId,
-                                       @QueryParam("PayerID") @NotNull @NotEmpty String PayerID) {
+                                       @QueryParam("paymentId") @NotNull @NotEmpty String paymentId) {
 
         PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
         boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
@@ -301,7 +300,6 @@ public class PayPalResource {
                     throw new WebApplicationException(e);
                 }
             };
-
             return Response.ok(streamingOutput, MediaType.APPLICATION_OCTET_STREAM)
                 .header("content-disposition", "attachment; filename = receipt.pdf")
                 .build();
