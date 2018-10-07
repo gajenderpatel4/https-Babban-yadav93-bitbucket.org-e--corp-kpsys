@@ -1,4 +1,4 @@
-package com.kpsys.common.Requests;
+package com.kpsys.common.requests;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;

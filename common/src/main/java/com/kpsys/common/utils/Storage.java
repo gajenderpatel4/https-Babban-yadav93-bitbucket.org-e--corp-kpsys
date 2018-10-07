@@ -1,6 +1,6 @@
 package com.kpsys.common.utils;
 
-import com.kpsys.common.Requests.PayPalInitRequest;
+import com.kpsys.common.requests.PayPalInitRequest;
 
 import java.util.concurrent.ConcurrentHashMap;
 

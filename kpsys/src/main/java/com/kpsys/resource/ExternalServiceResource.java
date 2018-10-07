@@ -1,7 +1,7 @@
 package com.kpsys.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kpsys.common.Requests.LicensePlateQueryRequest;
+import com.kpsys.common.requests.LicensePlateQueryRequest;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.domain.LicensePlateResponse;

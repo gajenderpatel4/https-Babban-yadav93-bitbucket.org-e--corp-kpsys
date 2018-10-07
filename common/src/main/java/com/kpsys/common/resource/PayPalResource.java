@@ -2,8 +2,8 @@ package com.kpsys.common.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import com.kpsys.common.Requests.PayPalConfirmRequest;
-import com.kpsys.common.Requests.PayPalInitRequest;
+import com.kpsys.common.requests.PayPalConfirmRequest;
+import com.kpsys.common.requests.PayPalInitRequest;
 import com.kpsys.common.config.PayPalConfiguration;
 import com.kpsys.common.dao.PaymentDao;
 import com.kpsys.common.dto.EntityResponse;
