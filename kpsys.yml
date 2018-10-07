@@ -14,9 +14,9 @@ assets:
 
 database:
   driverClass: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  user: kpsys
-  password: kpsys
-  url: jdbc:sqlserver://db.kpsys.com:1433;databaseName=kpsys
+  user: customerportal
+  password: 12345
+  url: jdbc:sqlserver://ec2-18-196-134-88.eu-central-1.compute.amazonaws.com:1433;databaseName=customerportal
   properties:
     charSet: UTF-8
     hibernate.dialect: org.hibernate.dialect.SQLServer2012Dialect
@@ -36,3 +36,16 @@ logging:
     com.kpsys: DEBUG
     org.hibernate.SQL:
       level: DEBUG
+
+#Jersey client settings
+jerseyClient:
+  gzipEnabled: false
+  gzipEnabledForRequests: false
+  timeout: 3s
+  connectionTimeout: 3s
+
+paypal:
+  mode: sandbox
+  clientId: AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS
+  clientSecret: EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL
+

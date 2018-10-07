@@ -20,7 +20,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $window, $state, $tran
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             $scope.setCurrentUser(res.data.user.userId);
             // role authorisation
-            AuthService.updateRoleAuthorisation();
+            //AuthService.updateRoleAuthorisation();
         }, function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });

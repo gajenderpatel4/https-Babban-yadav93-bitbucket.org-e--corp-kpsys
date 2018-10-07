@@ -1,42 +1,78 @@
 <div ng-controller="SearchCtrl">
-    <form name="searchForm"  ng-submit="submitted = true" novalidate data-ng-init="init()">
-        <div class="portlet col-md-4">
-            <h3>License Plate Search</h3>
-            <div class="required-field-block">
-                <input class="form-control" type="text" id="licensePlate" name="q" ng-model="query.value" placeholder="License Plate" required>
-                <div class="required-icon" data-original-title="" title="">
-                    <div class="text">*</div>
+    <div class="row">
+        <form name="searchForm" novalidate data-ng-init="init()">
+            <div class="col-md-5 bottom-space">
+                <h3>License Plate Search</h3>
+
+                <div class="form-group">
+                    <div class="required-field-block">
+                        <input class="form-control" type="text" name="q" ng-model="query" placeholder="License Plate"
+                               required ng-change="submitted=false">
+                        <div class="required-icon" data-original-title="" title="">
+                            <div class="text">*</div>
+                        </div>
+                    </div>
                 </div>
+                <div class="form-group alert alert-danger" ng-if="submitted && searchForm.q.$error.required">
+                    <span class="text-danger">License Plate required</span>
+                </div>
+                <div class="form-group alert alert-info"
+                     ng-if="submitted && searchForm.q.$valid && licensePlates.length === 0">
+                    <span class="text-info">We could not find any results for {{query}}.</span>
+                </div>
+                <div class="form-group alert alert-danger"
+                     ng-if="responseError && isArray(responseError) && searchForm.$valid">
+                    <span class="text-danger" ng-repeat="e in responseError">
+                        {{e}}<br/>
+                    </span>
+                </div>
+                <div class="form-group alert alert-danger"
+                     ng-if="responseError && !isArray(responseError) && searchForm.$valid">
+                    <span class="text-danger">
+                        {{responseError}}
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="submitted=true; searchForm.$valid && submit(q)">
+                    Find
+                </button>
             </div>
-            <div class="form-group">
-                <span ng-if="submitted && searchForm.q.$error.required" style="color:red;">License Plate required</span>
-            </div>
-            <div class="form-group">
-                <span ng-if="submitted && responseError" style="color:red;">{{responseError}}</span>
-            </div>
-
-            <button type="submit" class="btn btn-default" ng-click="searchForm.$valid && submit(q)">Find</button>
+        </form>
+    </div>
+    <div ng-if="loading" class="row loading-message">
+        <div class="page-spinner-bar">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
         </div>
-    </form>
+    </div>
 
-    <table ng-show='licensePlates != null'>
-        <tr>
-            <th>LicensePlate</th>
-            <th>Currency</th>
-            <th>DueAmount</th>
-            <th>ParkingId</th>
-            <th>Description</th>
-            <th>StartTimestamp</th>
-            <th>EndTimestamp</th>
-        </tr>
-        <tr ng-repeat="lp in licensePlates">
-            <td>{{lp.licensePlate}}</td>
-            <td>{{lp.currency}}</td>
-            <td>{{lp.dueAmount}}</td>
-            <td>{{lp.parkingId}}</td>
-            <td>{{lp.description}}</td>
-            <td>{{lp.startTimestamp}}</td>
-            <td>{{lp.endTimestamp}}</td>
-        </tr>
-    </table>
+    <div ng-show="submitted && searchForm.q.$valid && licensePlates.length > 0" class="row">
+        <div class="table-responsive left-space-padding">
+            <table class="table" id="license-plates-tbl">
+                <thead>
+                <tr>
+                    <th>License Plate</th>
+                    <th>Currency</th>
+                    <th>Due Amount</th>
+                    <th>Start Timestamp</th>
+                    <th>End Timestamp</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="lp in licensePlates"
+                    ng-class="{'danger': checkErrorStatus($index) == true }">
+                    <td>{{lp.licensePlate}}</td>
+                    <td>{{lp.currency}}</td>
+                    <td>{{lp.dueAmount}}</td>
+                    <td>{{lp.startTimestamp}}</td>
+                    <td>{{lp.endTimestamp}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default" ng-click="pay($index)">Make payment</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

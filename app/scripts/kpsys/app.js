@@ -59,8 +59,9 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
     });
 
-    $scope.hasSidebar = true;
+    $scope.hasSidebar = false;
 
+    $rootScope.query = null;
     $rootScope.currentUser = null;
     $rootScope.userRoles = USER_ROLES;
     $rootScope.isAuthorized = AuthService.isAuthorized;
@@ -102,9 +103,9 @@ kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, 
     $scope.additionalPage = undefined;
 
     $scope.pages = [];
-    $scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
-    $scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
-    $scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
+    //$scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
+    //$scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
+    //$scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
 
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar();
@@ -229,7 +230,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-
+        /*
         .state('home', {
             url: '/home',
             templateUrl: 'views/kpsys/static-page-viewer.html',
@@ -246,7 +247,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        })
+        })*/
 
         // Editor
         .state('editor', {
@@ -992,6 +993,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
+        /*
         .state('todo', {
             url: "/todo",
             templateUrl: "views/kpsys/todo.html",
@@ -1019,42 +1021,75 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
+        })*/
+        .state('home', {
+            url: '/home?query',
+            templateUrl: 'views/kpsys/search.html',
+            controller: 'SearchCtrl',
+            data: {pageTitle: 'Search license plates'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                                '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+                                '../assets/global/plugins/select2/css/select2.min.css',
+                                '../assets/global/plugins/select2/css/select2-bootstrap.min.css',
+
+                                '../assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js',
+                                '../assets/global/plugins/select2/js/select2.full.min.js',
+
+                                '../assets/pages/scripts/components-bootstrap-select.min.js',
+                                '../assets/pages/scripts/components-select2.min.js',
+
+
+                                '../assets/pages/css/required-field-block.css',
+                                '../assets/apps/css/search.css',
+
+                                'scripts/kpsys/resources/paypal-resource.js',
+                                'scripts/kpsys/services/paypal-service.js',
+                                'scripts/kpsys/resources/license-plates-resource.js',
+                                'scripts/kpsys/services/license-plates-service.js',
+                                'scripts/kpsys/controllers/SearchController.js'
+                            ]
+                        }]);
+                }]
+            }
         })
-        .state('search', {
-                    url: '/search',
-                    templateUrl: 'views/kpsys/search.html',
-                    controller: 'SearchCtrl',
-                    data: {pageTitle: 'Search license plates'},
-                    resolve: {
-                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                {
-                                    name: 'ui.select',
-                                    insertBefore: '#ng_load_plugins_before',
-                                    files: [
-                                        '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-                                        '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
-                                        '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
-                                        '../assets/global/plugins/select2/css/select2.min.css',
-                                        '../assets/global/plugins/select2/css/select2-bootstrap.min.css',
+        .state('confirm', {
+            url: '/confirm?guid&paymentId&PayerID',
+            templateUrl: 'views/kpsys/confirm.html',
+            controller: 'ConfirmCtrl',
+            data: {pageTitle: 'Confirm'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                                '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                                '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+                                '../assets/global/plugins/select2/css/select2.min.css',
+                                '../assets/global/plugins/select2/css/select2-bootstrap.min.css',
 
-                                        '../assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js',
-                                        '../assets/global/plugins/select2/js/select2.full.min.js',
+                                '../assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js',
+                                '../assets/global/plugins/select2/js/select2.full.min.js',
 
-                                        '../assets/pages/scripts/components-bootstrap-select.min.js',
-                                        '../assets/pages/scripts/components-select2.min.js',
+                                '../assets/pages/scripts/components-bootstrap-select.min.js',
+                                '../assets/pages/scripts/components-select2.min.js',
 
-
-                                        '../assets/pages/css/required-field-block.css',
-
-                                        'scripts/kpsys/resources/license-plates-resource.js',
-                                        'scripts/kpsys/services/license-plates-service.js',
-                                        'scripts/kpsys/controllers/SearchController.js'
-                                    ]
-                                }]);
-                        }]
-
-                    }
-                });
-
+                                'scripts/kpsys/resources/paypal-resource.js',
+                                'scripts/kpsys/services/paypal-service.js',
+                                'scripts/kpsys/controllers/ConfirmController.js'
+                            ]
+                        }]);
+                }]
+            }
+        });
 });
