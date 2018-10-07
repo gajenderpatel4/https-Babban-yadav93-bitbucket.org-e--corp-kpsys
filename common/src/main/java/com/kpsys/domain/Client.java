@@ -42,21 +42,6 @@ public class Client implements Tenant<Long> {
     @Column(name = "hostname", length = 255)
     private String hostname;
 
-    /*
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CLNTIDNO") // INT PRIMARY KEY NOT NULL IDENTITY,
-    private Long clientId;
-
-    @Column(name = "CLNTNAME", length = 35) // VARCHAR(35) NOT NULL,
-    private String name;
-
-    @Column(name = "CLNTSTATNMBR") // TINYINT,
-    private Integer statNumber;
-
-    @Column(name = "DATEPTRN", length = 15) // VARCHAR(15)
-    private String datePattern;*/
-
     @Override
     public Long getId() {
         return getClientId();
