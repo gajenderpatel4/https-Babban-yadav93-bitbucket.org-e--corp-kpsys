@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static com.kpsys.common.dao.NamedHQLQueries.GET_CLIENT_BY_HOSTNAME;
 
 /**
  * @author Dmitriy Khvatov (<i>dimax4@gmail.com</i>)
@@ -24,7 +25,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 @Data
 @NamedQueries({
-    @NamedQuery(name = "getClients", query = "from Client")
+    @NamedQuery(name = "getClients", query = "from Client"),
+    @NamedQuery(name = GET_CLIENT_BY_HOSTNAME, query = "select c from Client c where hostname = :hostname"),
 })
 public class Client implements Tenant<Long> {
 
