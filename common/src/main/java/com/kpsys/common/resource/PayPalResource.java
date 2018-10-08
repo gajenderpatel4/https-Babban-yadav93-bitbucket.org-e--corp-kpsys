@@ -88,7 +88,7 @@ public class PayPalResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @UnitOfWork
-    public EntityResponse<Result> confirm(@Valid PayPalConfirmRequest payPalConfirmRequest) {
+    public EntityResponse<Result<String>> confirm(@Valid PayPalConfirmRequest payPalConfirmRequest) {
 
         String guid = payPalConfirmRequest.getGuid();
         String paymentId = payPalConfirmRequest.getPaymentId();
@@ -130,7 +130,7 @@ public class PayPalResource {
             // save payment in our DB table
             savePayment(payPalInitRequest, paymentId);
 
-            return EntityResponse.of(new Result(result));
+            return EntityResponse.of(new Result<>(result));
         } catch (PayPalRESTException e) {
             LOGGER.error("Error during performing confirm PayPal request: " + e.getDetails());
             throw new KpsysException("Error during performing confirm PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);

@@ -5,6 +5,6 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class Result {
-    String result;
+public class Result<T> {
+    T result;
 }
