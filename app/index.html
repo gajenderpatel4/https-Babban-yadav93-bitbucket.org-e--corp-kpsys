@@ -35,7 +35,8 @@
 
 <body ng-controller="AppController"
       class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo page-on-load"
-      ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+      ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}"
+      data-ng-init="init()">
 <!-- BEGIN PAGE SPINNER -->
 <div ng-spinner-bar class="page-spinner-bar">
     <div class="bounce1"></div>
