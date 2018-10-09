@@ -9,6 +9,7 @@ import com.kpsys.common.dao.RoleAuthorisationDao;
 import com.kpsys.common.exceptions.KpsysExceptionMapper;
 import com.kpsys.common.multitenancy.MultitenantHibernateBundle;
 import com.kpsys.common.resource.AuthResource;
+import com.kpsys.common.resource.ClientResource;
 import com.kpsys.common.resource.PayPalResource;
 import com.kpsys.resource.ExternalServiceResource;
 import com.kpsys.common.security.OAuth2Authenticator;
@@ -65,6 +66,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
         environment.jersey().getResourceConfig().register(getTenantFilter());
         environment.jersey().register(new ExternalServiceResource(client));
+        environment.jersey().register(new ClientResource());
     }
 
     @Override
