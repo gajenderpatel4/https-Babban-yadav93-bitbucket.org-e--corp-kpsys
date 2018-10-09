@@ -53,11 +53,26 @@ kpsysApp.factory('settings', ['$rootScope', function ($rootScope) {
 }]);
 
 /* Setup App Main Controller */
-kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER_ROLES, AuthService) {
+kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $location, USER_ROLES, AuthService, ClientService) {
     $scope.$on('$viewContentLoaded', function () {
         App.initComponents(); // init core components
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
     });
+
+    $scope.init = function () {
+        var currentClientId = $window.sessionStorage.clientId;
+        if (currentClientId === undefined) {
+            var hostname = $location.host();
+            ClientService.findByHostname({hostname: hostname})
+                .then(function (response) {
+                    var clientId = response.entity.result;
+                    $rootScope.setCurrentClientId(clientId);
+                    console.log(response);
+                }, function (ex) {
+                    console.log(ex);
+                });
+        }
+    };
 
     $scope.hasSidebar = false;
 
@@ -72,8 +87,13 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, USER
         }
     };
     $rootScope.setCurrentUser($window.sessionStorage.user);
-
-
+    $rootScope.setCurrentClientId = function (clientId) {
+        $rootScope.currentClientId = clientId;
+        if (clientId !== undefined) {
+            $window.sessionStorage.clientId = clientId;
+        }
+    };
+    $rootScope.setCurrentClientId($window.sessionStorage.clientId);
 });
 
 /***
