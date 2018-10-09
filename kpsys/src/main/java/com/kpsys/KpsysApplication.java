@@ -11,9 +11,9 @@ import com.kpsys.common.multitenancy.MultitenantHibernateBundle;
 import com.kpsys.common.resource.AuthResource;
 import com.kpsys.common.resource.ClientResource;
 import com.kpsys.common.resource.PayPalResource;
-import com.kpsys.resource.ExternalServiceResource;
 import com.kpsys.common.security.OAuth2Authenticator;
 import com.kpsys.domain.User;
+import com.kpsys.resource.ExternalServiceResource;
 import com.kpsys.security.UserRoleAuthorizer;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -30,6 +30,7 @@ import javax.ws.rs.client.Client;
 public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
     private static final int DEFAULT_HTTP_PORT = 8087;
+
     public static void main(String[] args) throws Exception {
         new KpsysApplication().run(args);
     }
