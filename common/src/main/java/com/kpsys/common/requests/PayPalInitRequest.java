@@ -30,4 +30,6 @@ public class PayPalInitRequest {
     String paymentUntilTimestamp;
     String paymentId;
     String paymentTimestamp;
+    @NotNull
+    Integer clientId;
 }
