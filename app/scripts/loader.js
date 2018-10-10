@@ -12,6 +12,8 @@ var applications = {
             addScripts(['app.js'], application, function () {
                 addScripts(commonScripts, 'common', function () {
                     addScripts([
+                        'resources/client-resource.js',
+                        'services/client-service.js',
                         'controllers/auth.js',
                         'resources/user-resource.js',
                         'services/user-service.js',
