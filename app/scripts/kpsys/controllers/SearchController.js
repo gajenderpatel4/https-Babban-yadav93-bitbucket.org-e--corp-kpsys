@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope, $rootScope, LicensePlatesService, PayPalService) {
+angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window, $scope, $rootScope, LicensePlatesService, PayPalService) {
 
     $scope.init = function () {
         if ($scope.query.length > 0) {
@@ -64,7 +64,8 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $scope,
                 parkingId: licensePlate.parkingId,
                 paymentFromTimestamp: licensePlate.startTimestamp,
                 paymentUntilTimestamp: licensePlate.endTimestamp,
-                paymentId: ""
+                paymentId: "",
+                clientId: $window.sessionStorage.clientId || 0
             };
 
             PayPalService.proceed(p)

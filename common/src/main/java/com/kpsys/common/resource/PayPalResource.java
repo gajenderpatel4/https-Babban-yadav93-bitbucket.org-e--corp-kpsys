@@ -2,12 +2,13 @@ package com.kpsys.common.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import com.kpsys.common.requests.PayPalConfirmRequest;
-import com.kpsys.common.requests.PayPalInitRequest;
 import com.kpsys.common.config.PayPalConfiguration;
+import com.kpsys.common.dao.ClientDao;
 import com.kpsys.common.dao.PaymentDao;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
+import com.kpsys.common.requests.PayPalConfirmRequest;
+import com.kpsys.common.requests.PayPalInitRequest;
 import com.kpsys.common.utils.Storage;
 import com.kpsys.domain.Result;
 import com.kpsys.domain.Url;
@@ -55,6 +56,8 @@ public class PayPalResource {
     private final int httpPort;
     @Inject
     private PaymentDao paymentDao;
+    @Inject
+    private ClientDao clientDao;
 
     public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort) {
         this.payPalConfiguration = payPalConfiguration;
@@ -102,14 +105,31 @@ public class PayPalResource {
             throw new KpsysException("Error during preparing confirm PayPal request: wrong parameters", Response.Status.BAD_REQUEST);
         }
 
+        Integer clientId = payPalInitRequest.getClientId();
+        if (clientId == null || clientId <= 0) {
+            LOGGER.error("Error during preparing confirm PayPal request: clientId was not specified");
+            throw new KpsysException("Error during preparing confirm PayPal request: clientId was not specified", Response.Status.BAD_REQUEST);
+        }
+
+        final com.kpsys.domain.Client client = clientDao.getClient(clientId);
+        if (client == null) {
+            LOGGER.error("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId);
+            throw new KpsysException("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId, Response.Status.BAD_REQUEST);
+        }
+
+        String paypalClientId = client.getPaypal_client_id();
+        String paypalClientSecret = client.getPaypal_client_secret();
+
         Payment payment = new Payment();
         payment.setId(paymentId);
 
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(payerID);
         try {
-            APIContext apiContext = new APIContext(payPalConfiguration.getClientId(),
-                payPalConfiguration.getClientSecret(),
+            APIContext apiContext = new APIContext(/*payPalConfiguration.getClientId(),
+                payPalConfiguration.getClientSecret()*/
+                paypalClientId,
+                paypalClientSecret,
                 payPalConfiguration.getMode());
             Payment createdPayment = payment.execute(apiContext, paymentExecution);
             LOGGER.debug(createdPayment.toString());
