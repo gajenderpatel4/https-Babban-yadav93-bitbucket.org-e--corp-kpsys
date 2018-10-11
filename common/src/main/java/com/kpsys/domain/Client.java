@@ -41,7 +41,7 @@ public class Client implements Tenant<Long> {
     @Column(name = "paypal_client_secret", length = 80)
     private String paypalClientSecret;
 
-    @Column(name = "hostname", length = 255)
+    @Column(name = "hostname")
     private String hostname;
 
     @Override
