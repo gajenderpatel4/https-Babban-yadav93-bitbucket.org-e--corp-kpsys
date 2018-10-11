@@ -36,10 +36,10 @@ public class Client implements Tenant<Long> {
     private Long clientId;
 
     @Column(name = "paypal_client_id", length = 80)
-    private String paypal_client_id;
+    private String paypalClientId;
 
     @Column(name = "paypal_client_secret", length = 80)
-    private String paypal_client_secret;
+    private String paypalClientSecret;
 
     @Column(name = "hostname", length = 255)
     private String hostname;

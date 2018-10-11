@@ -117,8 +117,8 @@ public class PayPalResource {
             throw new KpsysException("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId, Response.Status.BAD_REQUEST);
         }
 
-        String paypalClientId = client.getPaypal_client_id();
-        String paypalClientSecret = client.getPaypal_client_secret();
+        String paypalClientId = client.getPaypalClientId();
+        String paypalClientSecret = client.getPaypalClientSecret();
 
         Payment payment = new Payment();
         payment.setId(paymentId);
