@@ -111,11 +111,7 @@ public class PayPalResource {
             throw new KpsysException("Error during preparing confirm PayPal request: clientId was not specified", Response.Status.BAD_REQUEST);
         }
 
-        final com.kpsys.domain.Client client = clientDao.getClient(clientId);
-        if (client == null) {
-            LOGGER.error("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId);
-            throw new KpsysException("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId, Response.Status.BAD_REQUEST);
-        }
+        final com.kpsys.domain.Client client = getClientById(clientId);
 
         String paypalClientId = client.getPaypalClientId();
         String paypalClientSecret = client.getPaypalClientSecret();
@@ -174,6 +170,8 @@ public class PayPalResource {
     @Path("/proceed")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Timed
+    @UnitOfWork
     public EntityResponse<Url> proceed(@Valid PayPalInitRequest payPalInitRequest) {
 
         Amount amount = new Amount();
@@ -199,16 +197,26 @@ public class PayPalResource {
         String guid = UUID.randomUUID().toString().replaceAll("-", "");
         String query = payPalInitRequest.getQuery();
 
+        Integer clientId = payPalInitRequest.getClientId();
+        if (clientId == null || clientId <= 0) {
+            LOGGER.error("Error during preparing confirm PayPal request: clientId was not specified");
+            throw new KpsysException("Error during preparing confirm PayPal request: clientId was not specified", Response.Status.BAD_REQUEST);
+        }
+
+        final com.kpsys.domain.Client client = getClientById(clientId);
+
+        String paypalClientId = client.getPaypalClientId();
+        String paypalClientSecret = client.getPaypalClientSecret();
+        String hostname = client.getHostname();
+
         RedirectUrls redirectUrls = new RedirectUrls();
         try {
-            //TODO: provide hostname and port programmatically
             // an url for user cancelled payment during "Paypal checkout - review your payment"
-            String cancelUrl = String.format("http://localhost:%d/#/home?query=%s", httpPort, URLEncoder.encode(query, "UTF-8"));
+            String cancelUrl = String.format("http://%s:%d/#/home?query=%s", hostname, httpPort, URLEncoder.encode(query, "UTF-8"));
             redirectUrls.setCancelUrl(cancelUrl);
 
-            //TODO: provide hostname and port programmatically
             // an url for user pressed "continue" during "Paypal checkout - review your payment"
-            String returnUrl = String.format("http://localhost:%d/#/confirm?guid=%s", httpPort, URLEncoder.encode(guid, "UTF-8"));
+            String returnUrl = String.format("http://%s:%d/#/confirm?guid=%s", hostname, httpPort, URLEncoder.encode(guid, "UTF-8"));
             redirectUrls.setReturnUrl(returnUrl);
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied");
@@ -218,8 +226,10 @@ public class PayPalResource {
         payment.setRedirectUrls(redirectUrls);
 
         try {
-            APIContext apiContext = new APIContext(payPalConfiguration.getClientId(),
-                payPalConfiguration.getClientSecret(),
+            APIContext apiContext = new APIContext(/*payPalConfiguration.getClientId(),
+                payPalConfiguration.getClientSecret(),*/
+                paypalClientId,
+                paypalClientSecret,
                 payPalConfiguration.getMode());
             Payment createdPayment = payment.create(apiContext);
 
@@ -374,5 +384,21 @@ public class PayPalResource {
             LOGGER.error("Unable to parse timestamp: " + src, e);
             return null;
         }
+    }
+
+    private com.kpsys.domain.Client getClientById(Integer clientId) {
+
+        if (clientId == null || clientId <= 0) {
+            LOGGER.error("Error during making PayPal request: clientId was not specified");
+            throw new KpsysException("Error during making PayPal request: clientId was not specified", Response.Status.BAD_REQUEST);
+        }
+
+        final com.kpsys.domain.Client client = clientDao.getClient(clientId);
+        if (client == null) {
+            LOGGER.error("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId);
+            throw new KpsysException("Error during preparing confirm PayPal request: unable to retrieve Client entry for specified clientId: " + clientId, Response.Status.BAD_REQUEST);
+        }
+
+        return client;
     }
 }
