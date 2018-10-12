@@ -131,8 +131,6 @@ public class PayPalResource {
             payPalInitRequest.setApiKey("12345");
             payPalInitRequest.setParkingZone("Z01");
 
-            Storage.getInstance().remove(guid);
-
             // make a request to an external service api ("/payment")
             String result = externalServicePayment(payPalInitRequest);
             if (!result.equals(EXTERNAL_SERVICE_PAYMENT_SUCCESS_MESSAGE)) {
@@ -141,6 +139,8 @@ public class PayPalResource {
 
             // save payment in our DB table
             savePayment(payPalInitRequest, paymentId);
+
+            Storage.getInstance().remove(guid);
 
             return EntityResponse.of(new Result<>(result));
         } catch (PayPalRESTException e) {
