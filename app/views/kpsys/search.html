@@ -21,6 +21,12 @@
                     <span class="text-info">We could not find any results for {{query}}.</span>
                 </div>
                 <div class="form-group alert alert-danger"
+                     ng-if="unableToDetermineClientForHostname">
+                    <span class="text-danger">
+                        Unable to determine client for this hostname
+                    </span>
+                </div>
+                <div class="form-group alert alert-danger"
                      ng-if="responseError && isArray(responseError) && searchForm.$valid">
                     <span class="text-danger" ng-repeat="e in responseError">
                         {{e}}<br/>
