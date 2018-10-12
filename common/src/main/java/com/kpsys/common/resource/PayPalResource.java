@@ -122,11 +122,7 @@ public class PayPalResource {
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(payerID);
         try {
-            APIContext apiContext = new APIContext(/*payPalConfiguration.getClientId(),
-                payPalConfiguration.getClientSecret()*/
-                paypalClientId,
-                paypalClientSecret,
-                payPalConfiguration.getMode());
+            APIContext apiContext = new APIContext(paypalClientId, paypalClientSecret, payPalConfiguration.getMode());
             Payment createdPayment = payment.execute(apiContext, paymentExecution);
             LOGGER.debug(createdPayment.toString());
 
@@ -226,11 +222,7 @@ public class PayPalResource {
         payment.setRedirectUrls(redirectUrls);
 
         try {
-            APIContext apiContext = new APIContext(/*payPalConfiguration.getClientId(),
-                payPalConfiguration.getClientSecret(),*/
-                paypalClientId,
-                paypalClientSecret,
-                payPalConfiguration.getMode());
+            APIContext apiContext = new APIContext(paypalClientId, paypalClientSecret, payPalConfiguration.getMode());
             Payment createdPayment = payment.create(apiContext);
 
             for (Links link : createdPayment.getLinks()) {
