@@ -19,9 +19,7 @@ Important parameters:
 * paypal:
     * `mode` -- defines PayPal mode, which is `sandbox` for testing or `live` for production.
     In order to go live, please refer to the following docs: https://developer.paypal.com/docs/integration/paypal-here/sdk-dev/going-live/#obtain-live-credentials
-    * `clientId` -- To get a client ID and secret, use the developer dashboard to create a PayPal app: https://developer.paypal.com/docs/api/overview/#make-your-first-call
-    * `clientSecret` -- To get a client ID and secret, use the developer dashboard to create a PayPal app: https://developer.paypal.com/docs/api/overview/#make-your-first-call
-
+   
 ### Build
 Download 4.2 package: https://www.microsoft.com/en-us/download/details.aspx?id=11774 (OR /lib folder)
 Install sqljdbc42.jar library to the local maven repository:
