@@ -60,8 +60,8 @@
                     <th>License Plate</th>
                     <th>Currency</th>
                     <th>Due Amount</th>
-                    <th>Start Timestamp</th>
-                    <th>End Timestamp</th>
+                    <th>Start Date</th>
+
                     <th></th>
                 </tr>
                 </thead>
@@ -71,8 +71,8 @@
                     <td>{{lp.licensePlate}}</td>
                     <td>{{lp.currency}}</td>
                     <td>{{lp.dueAmount}}</td>
-                    <td>{{lp.startTimestamp}}</td>
-                    <td>{{lp.endTimestamp}}</td>
+                    <td>{{lp.startTimestamp| date:'yyyy-MM-dd'}}</td>
+
                     <td>
                         <button type="button" class="btn btn-default" ng-click="pay($index)">Make payment</button>
                     </td>
