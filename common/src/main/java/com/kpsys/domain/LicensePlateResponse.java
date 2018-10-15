@@ -11,4 +11,5 @@ public class LicensePlateResponse {
     private String dueAmount;
     private String parkingId;
     private String description;
+    private String clientId;
 }

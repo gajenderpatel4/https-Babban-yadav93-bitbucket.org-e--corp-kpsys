@@ -54,6 +54,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
             $scope.responseError = "";
 
             var licensePlate = $scope.licensePlates[index];
+            var clientId = $window.sessionStorage.clientId !== "undefined" ? $window.sessionStorage.clientId : licensePlate.clientId;
 
             var p = {
                 amount: licensePlate.dueAmount,
@@ -65,7 +66,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
                 paymentFromTimestamp: licensePlate.startTimestamp,
                 paymentUntilTimestamp: licensePlate.endTimestamp,
                 paymentId: "",
-                clientId: $window.sessionStorage.clientId || 0
+                clientId: clientId
             };
 
             PayPalService.proceed(p)
