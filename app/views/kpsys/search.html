@@ -20,12 +20,15 @@
                      ng-if="submitted && searchForm.q.$valid && licensePlates.length === 0">
                     <span class="text-info">We could not find any results for {{query}}.</span>
                 </div>
-                <div class="form-group alert alert-info"
-                     ng-if="unableToDetermineClientForHostname">
-                    <span class="text-info">
-                        Unable to determine client for this hostname
-                    </span>
-                </div>
+
+                <!-- TODO: uncomment to use in multitenant environments-->
+                <!--<div class="form-group alert alert-info"-->
+                     <!--ng-if="unableToDetermineClientForHostname">-->
+                    <!--<span class="text-info">-->
+                        <!--Unable to determine client for this hostname-->
+                    <!--</span>-->
+                <!--</div>-->
+
                 <div class="form-group alert alert-danger"
                      ng-if="responseError && isArray(responseError) && searchForm.$valid">
                     <span class="text-danger" ng-repeat="e in responseError">
