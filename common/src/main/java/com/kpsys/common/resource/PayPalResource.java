@@ -244,7 +244,7 @@ public class PayPalResource {
             LOGGER.error("Error during PayPal request: approval_url not retrieved");
             throw new KpsysException("Error during PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
         } catch (PayPalRESTException e) {
-            LOGGER.error("Error during PayPal request: " + e.getDetails());
+            LOGGER.error("Error during PayPal request", e);
             throw new KpsysException("Error during PayPal request: " + e.getDetails().getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         } catch (Exception ex) {
             LOGGER.error("Error during PayPal request: " + ex.getMessage());
