@@ -54,7 +54,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
             $scope.responseError = "";
 
             var licensePlate = $scope.licensePlates[index];
-            var clientId = $window.sessionStorage.clientId !== "undefined" ? $window.sessionStorage.clientId : licensePlate.clientId;
+            var clientId = $window.sessionStorage.clientId !== undefined ? $window.sessionStorage.clientId : licensePlate.clientId;
 
             var p = {
                 amount: licensePlate.dueAmount,
