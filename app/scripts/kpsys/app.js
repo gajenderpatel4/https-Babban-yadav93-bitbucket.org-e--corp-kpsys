@@ -60,7 +60,7 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $loc
     });
 
     $scope.init = function () {
-        $rootScope.unableToDetermineClientForHostname = false;
+        //$rootScope.unableToDetermineClientForHostname = false;
         var currentClientId = $window.sessionStorage.clientId;
         if (currentClientId === undefined) {
             var hostname = $location.host();
@@ -71,7 +71,7 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $loc
                     console.log(response);
                 }, function (ex) {
                     console.log(ex);
-                    $rootScope.unableToDetermineClientForHostname = true;
+                    //$rootScope.unableToDetermineClientForHostname = true;
                 });
         }
     };
