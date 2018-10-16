@@ -53,7 +53,7 @@ public class ClientFilter implements ContainerRequestFilter {
 
             session.close();
         } catch (Exception e) {
-            logger.error("Wrong tenantId: {}", tenantId);
+            logger.error("Wrong tenantId: " + tenantId, e);
             return;
         }
         logger.info("Set tenantId in Provider:" + tenantId);

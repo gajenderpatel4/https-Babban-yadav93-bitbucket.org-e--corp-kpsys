@@ -147,7 +147,7 @@ public class PayPalResource {
 
             return EntityResponse.of(new Result<>(result));
         } catch (PayPalRESTException e) {
-            LOGGER.error("Error during performing confirm PayPal request: " + e.getDetails());
+            LOGGER.error("Error during performing confirm PayPal request",  e);
             throw new KpsysException("Error during performing confirm PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
@@ -218,7 +218,7 @@ public class PayPalResource {
             String returnUrl = String.format("http://%s:%d/#/confirm?guid=%s", hostname, httpPort, URLEncoder.encode(guid, "UTF-8"));
             redirectUrls.setReturnUrl(returnUrl);
         } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied");
+            LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied", e);
             throw new KpsysException("Error during preparing PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
         }
 
@@ -245,7 +245,7 @@ public class PayPalResource {
             throw new KpsysException("Error during PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
         } catch (PayPalRESTException e) {
             LOGGER.error("Error during PayPal request", e);
-            throw new KpsysException("Error during PayPal request: " + e.getDetails().getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
+            throw new KpsysException("Error during PayPal request: " + (e.getDetails() != null ? e.getDetails().getMessage() : ""), Response.Status.INTERNAL_SERVER_ERROR);
         } catch (Exception ex) {
             LOGGER.error("Error during PayPal request: " + ex.getMessage());
             throw new KpsysException("Error during PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
