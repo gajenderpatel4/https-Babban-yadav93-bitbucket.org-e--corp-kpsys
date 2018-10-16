@@ -3,6 +3,7 @@ package com.kpsys.common.resource;
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import com.kpsys.common.config.PayPalConfiguration;
+import com.kpsys.common.config.SiteConfiguration;
 import com.kpsys.common.dao.ClientDao;
 import com.kpsys.common.dao.PaymentDao;
 import com.kpsys.common.dto.EntityResponse;
@@ -52,6 +53,7 @@ public class PayPalResource {
     private static final String EXTERNAL_SERVICE_URL = "http://anpr01.parkingguru.com:8080/api/rest/parking/%s";
     private static final String EXTERNAL_SERVICE_PAYMENT_SUCCESS_MESSAGE = "Payment OK";
     private final PayPalConfiguration payPalConfiguration;
+    private final SiteConfiguration siteConfiguration;
     private final Client client;
     private final int httpPort;
     @Inject
@@ -59,10 +61,11 @@ public class PayPalResource {
     @Inject
     private ClientDao clientDao;
 
-    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort) {
+    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort, SiteConfiguration siteConfiguration) {
         this.payPalConfiguration = payPalConfiguration;
         this.client = client;
         this.httpPort = httpPort;
+        this.siteConfiguration = siteConfiguration;
     }
 
     @POST
@@ -203,7 +206,7 @@ public class PayPalResource {
 
         String paypalClientId = client.getPaypalClientId();
         String paypalClientSecret = client.getPaypalClientSecret();
-        String hostname = client.getHostname();
+        String hostname = siteConfiguration.getHostname(); //client.getHostname();
 
         RedirectUrls redirectUrls = new RedirectUrls();
         try {

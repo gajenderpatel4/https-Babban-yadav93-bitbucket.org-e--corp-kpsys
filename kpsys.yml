@@ -47,3 +47,7 @@ jerseyClient:
 paypal:
   mode: sandbox
 
+site:
+  # put here skypark.no for example
+  hostname: localhost
+

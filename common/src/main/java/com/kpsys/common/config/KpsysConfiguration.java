@@ -26,6 +26,11 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     @JsonProperty
     private PayPalConfiguration paypal;
 
+    @Valid
+    @NotNull
+    @JsonProperty
+    private SiteConfiguration site;
+
     @Override
     public AssetsConfiguration getAssetsConfiguration() {
         return assets;
@@ -56,5 +61,10 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     @JsonProperty("paypal")
     public PayPalConfiguration getPaypal() {
         return paypal;
+    }
+
+    @JsonProperty("site")
+    public SiteConfiguration getSiteConfiguration() {
+        return site;
     }
 }
