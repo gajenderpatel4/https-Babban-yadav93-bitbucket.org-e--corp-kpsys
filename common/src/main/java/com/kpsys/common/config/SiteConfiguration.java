@@ -8,7 +8,15 @@ public class SiteConfiguration {
     @JsonProperty
     private String hostname;
 
+    @NotEmpty
+    @JsonProperty
+    private String parkingApi;
+
     public String getHostname() {
         return hostname;
+    }
+
+    public String getParkingApi() {
+        return parkingApi;
     }
 }

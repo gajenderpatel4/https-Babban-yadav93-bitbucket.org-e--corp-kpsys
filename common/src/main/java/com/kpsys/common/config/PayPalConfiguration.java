@@ -8,7 +8,23 @@ public class PayPalConfiguration {
     @JsonProperty
     private String mode;
 
+    @NotEmpty
+    @JsonProperty
+    private String returnUrlFormat;
+
+    @NotEmpty
+    @JsonProperty
+    private String cancelUrlFormat;
+
     public String getMode() {
         return mode;
+    }
+
+    public String getReturnUrlFormat() {
+        return returnUrlFormat;
+    }
+
+    public String getCancelUrlFormat() {
+        return cancelUrlFormat;
     }
 }

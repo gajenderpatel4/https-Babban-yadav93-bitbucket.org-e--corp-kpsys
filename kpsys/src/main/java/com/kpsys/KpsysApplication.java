@@ -20,16 +20,12 @@ import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.hibernate.HibernateBundle;
-import io.dropwizard.jetty.HttpConnectorFactory;
-import io.dropwizard.server.DefaultServerFactory;
 import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.ws.rs.client.Client;
 
 public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
-
-    private static final int DEFAULT_HTTP_PORT = 8087;
 
     public static void main(String[] args) throws Exception {
         new KpsysApplication().run(args);
@@ -38,8 +34,6 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
     @Override
     public void run(KpsysConfiguration kpsysConfiguration, Environment environment) {
 
-        final int httpPort = findApplicationPort(kpsysConfiguration);
-
         final Client client = new JerseyClientBuilder(environment).using(kpsysConfiguration.getJerseyClientConfiguration())
             .using(environment)
             .build(getName());
@@ -47,7 +41,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new AuthResource());
-        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, httpPort, kpsysConfiguration.getSiteConfiguration()));
+        environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, kpsysConfiguration.getSiteConfiguration()));
 
         environment.jersey().register(new KpsysExceptionMapper());
 
@@ -80,13 +74,4 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         return new Module[]{new KpsysModule()};
     }
 
-    private int findApplicationPort(KpsysConfiguration kpsysConfiguration) {
-        return ((DefaultServerFactory) kpsysConfiguration.getServerFactory())
-            .getApplicationConnectors()
-            .stream()
-            .filter(connector -> connector.getClass().isAssignableFrom(HttpConnectorFactory.class))
-            .map(connector -> ((HttpConnectorFactory) connector).getPort())
-            .findFirst()
-            .orElse(DEFAULT_HTTP_PORT);
-    }
 }

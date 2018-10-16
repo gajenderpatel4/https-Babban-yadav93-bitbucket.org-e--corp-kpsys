@@ -13,7 +13,13 @@ import com.kpsys.common.requests.PayPalInitRequest;
 import com.kpsys.common.utils.Storage;
 import com.kpsys.domain.Result;
 import com.kpsys.domain.Url;
-import com.paypal.api.payments.*;
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
+import com.paypal.api.payments.RedirectUrls;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -31,7 +37,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -50,21 +63,18 @@ import java.util.UUID;
 public class PayPalResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PayPalResource.class);
-    private static final String EXTERNAL_SERVICE_URL = "http://anpr01.parkingguru.com:8080/api/rest/parking/%s";
     private static final String EXTERNAL_SERVICE_PAYMENT_SUCCESS_MESSAGE = "Payment OK";
     private final PayPalConfiguration payPalConfiguration;
     private final SiteConfiguration siteConfiguration;
     private final Client client;
-    private final int httpPort;
     @Inject
     private PaymentDao paymentDao;
     @Inject
     private ClientDao clientDao;
 
-    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, int httpPort, SiteConfiguration siteConfiguration) {
+    public PayPalResource(PayPalConfiguration payPalConfiguration, Client client, SiteConfiguration siteConfiguration) {
         this.payPalConfiguration = payPalConfiguration;
         this.client = client;
-        this.httpPort = httpPort;
         this.siteConfiguration = siteConfiguration;
     }
 
@@ -211,11 +221,11 @@ public class PayPalResource {
         RedirectUrls redirectUrls = new RedirectUrls();
         try {
             // an url for user cancelled payment during "Paypal checkout - review your payment"
-            String cancelUrl = String.format("http://%s:%d/#/home?query=%s", hostname, httpPort, URLEncoder.encode(query, "UTF-8"));
+            String cancelUrl = String.format(payPalConfiguration.getCancelUrlFormat(), hostname, URLEncoder.encode(query, "UTF-8"));
             redirectUrls.setCancelUrl(cancelUrl);
 
             // an url for user pressed "continue" during "Paypal checkout - review your payment"
-            String returnUrl = String.format("http://%s:%d/#/confirm?guid=%s", hostname, httpPort, URLEncoder.encode(guid, "UTF-8"));
+            String returnUrl = String.format(payPalConfiguration.getReturnUrlFormat(), hostname, URLEncoder.encode(guid, "UTF-8"));
             redirectUrls.setReturnUrl(returnUrl);
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Error during preparing PayPal request: malformed cancel/return urls supplied", e);
@@ -344,7 +354,7 @@ public class PayPalResource {
     }
 
     private String externalServicePayment(PayPalInitRequest payPalInitRequest) {
-        String url = String.format(EXTERNAL_SERVICE_URL, "payment");
+        String url = String.format(siteConfiguration.getParkingApi(), "payment");
         WebTarget target = client.target(url);
 
         Invocation.Builder invocationBuilder = target.request().accept(MediaType.APPLICATION_JSON);

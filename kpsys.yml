@@ -46,8 +46,10 @@ jerseyClient:
 
 paypal:
   mode: sandbox
+  returnUrlFormat: https://%s/#/confirm?guid=%s
+  cancelUrlFormat: https://%s/#/home?query=%s
 
 site:
   # put here skypark.no for example
-  hostname: localhost
-
+  hostname: localhost:10443
+  parkingApi: http://anpr01.parkingguru.com:8080/api/rest/parking/%s
