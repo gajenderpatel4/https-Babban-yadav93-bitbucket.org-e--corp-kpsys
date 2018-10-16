@@ -60,7 +60,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 
         environment.jersey().getResourceConfig().register(getTenantFilter());
-        environment.jersey().register(new ExternalServiceResource(client));
+        environment.jersey().register(new ExternalServiceResource(client, kpsysConfiguration.getSiteConfiguration()));
         environment.jersey().register(new ClientResource());
     }
 

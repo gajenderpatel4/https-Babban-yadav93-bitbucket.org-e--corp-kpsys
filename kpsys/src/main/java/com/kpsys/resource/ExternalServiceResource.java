@@ -1,9 +1,10 @@
 package com.kpsys.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kpsys.common.requests.LicensePlateQueryRequest;
+import com.kpsys.common.config.SiteConfiguration;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
+import com.kpsys.common.requests.LicensePlateQueryRequest;
 import com.kpsys.domain.LicensePlateResponse;
 import com.kpsys.domain.LicensePlateResponseList;
 import org.slf4j.Logger;
@@ -24,12 +25,13 @@ import java.util.List;
 public class ExternalServiceResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalServiceResource.class);
-    private static final String EXTERNAL_SERVICE_URL = "http://anpr01.parkingguru.com:8080/api/rest/parking/%s";
-    private final Client client;
     private static final ObjectMapper mapper = new ObjectMapper();
+    private final Client client;
+    private final SiteConfiguration siteConfiguration;
 
-    public ExternalServiceResource(Client client) {
+    public ExternalServiceResource(Client client, SiteConfiguration siteConfiguration) {
         this.client = client;
+        this.siteConfiguration = siteConfiguration;
     }
 
     private <RequestType> String doPost(WebTarget target, RequestType requestType) {
@@ -62,7 +64,7 @@ public class ExternalServiceResource {
         query.setApiKey("12345");
         query.setParkingZone("Z01");
 
-        String url = String.format(EXTERNAL_SERVICE_URL, "query");
+        String url = String.format(siteConfiguration.getParkingApi(), "query");
         WebTarget target = client.target(url);
         String json = doPost(target, query);
         try {
