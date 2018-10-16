@@ -28,9 +28,13 @@
             </span>
         </div>
 
-        <div class="alert alert-success" ng-if="showSuccessMessage">
-            <h3>Your transaction is complete</h3>
-            <span class="text-success">Your payment has been successfully processed. Thank you.</span>
+        <div class="row" ng-if="showSuccessMessage">
+            <div class="alert alert-success">
+                <h3>Your transaction is complete</h3>
+                <span class="text-success">Your payment has been successfully processed. Thank you.</span>
+            </div>
+            <a href="/api/paypal/pdf?paymentId={{paypalParams.paymentId}}"
+               class="btn btn-info" role="button">Download PDF receipt</a>
         </div>
 
         <div ng-if="showConfirm && !showSuccessMessage">
@@ -52,9 +56,6 @@
                 <button type="button" class="btn btn-default" ng-click="confirm()">
                     Confirm
                 </button>
-
-                <a href="/api/paypal/pdf?guid={{paypalParams.guid}}&paymentId={{paypalParams.paymentId}}"
-                   class="btn btn-info" role="button">Download PDF receipt</a>
             </div>
         </div>
 

@@ -13,13 +13,7 @@ import com.kpsys.common.requests.PayPalInitRequest;
 import com.kpsys.common.utils.Storage;
 import com.kpsys.domain.Result;
 import com.kpsys.domain.Url;
-import com.paypal.api.payments.Amount;
-import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.PaymentExecution;
-import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Transaction;
+import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -37,14 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -57,6 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Path("/paypal")
@@ -157,7 +145,7 @@ public class PayPalResource {
 
             return EntityResponse.of(new Result<>(result));
         } catch (PayPalRESTException e) {
-            LOGGER.error("Error during performing confirm PayPal request",  e);
+            LOGGER.error("Error during performing confirm PayPal request", e);
             throw new KpsysException("Error during performing confirm PayPal request: " + e.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
@@ -265,16 +253,15 @@ public class PayPalResource {
     @GET
     @Path("/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadPdfReceipt(@QueryParam("guid") @NotNull @NotEmpty String guid,
-                                       @QueryParam("paymentId") @NotNull @NotEmpty String paymentId) {
+    @Timed
+    @UnitOfWork
+    public Response downloadPdfReceipt(@QueryParam("paymentId") @NotNull @NotEmpty String paymentId) {
 
-        PayPalInitRequest payPalInitRequest = Storage.getInstance().get(guid);
-        boolean checkFailed = payPalInitRequest == null || !payPalInitRequest.getPaymentId().equals(paymentId);
-
-        if (checkFailed) {
+        Optional<com.kpsys.domain.Payment> paymentOptional = paymentDao.getPaymentByPayPalPaymentId(paymentId);
+        com.kpsys.domain.Payment payment = paymentOptional.orElseThrow(() -> {
             LOGGER.error("Error during creating PDF request: wrong parameters");
-            throw new KpsysException("Error during creating PDF request: wrong parameters", Response.Status.BAD_REQUEST);
-        }
+            return new KpsysException("Error during creating PDF request: wrong parameters", Response.Status.BAD_REQUEST);
+        });
 
         final PDDocument doc = new PDDocument();
         PDPage page = new PDPage();
@@ -293,34 +280,29 @@ public class PayPalResource {
             pageContentStream.newLine();
 
             pageContentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
-            pageContentStream.showText("License Plate: " + payPalInitRequest.getLicensePlate());
+            pageContentStream.showText("License Plate: " + payment.getLicensePlate());
             pageContentStream.newLine();
 
-            pageContentStream.showText("Parking Id: " + payPalInitRequest.getParkingId());
+            pageContentStream.showText("Parking Id: " + payment.getParkingId());
             pageContentStream.newLine();
 
-            pageContentStream.showText("Currency: " + payPalInitRequest.getCurrency());
+            pageContentStream.showText("Currency: " + payment.getCurrency());
             pageContentStream.newLine();
 
-            pageContentStream.showText("Amount: " + payPalInitRequest.getAmount());
+            pageContentStream.showText("Amount: " + payment.getAmount());
             pageContentStream.newLine();
 
-            if (payPalInitRequest.getPaymentFromTimestamp() != null && !payPalInitRequest.getPaymentFromTimestamp().isEmpty()) {
-                pageContentStream.showText("Payment From Timestamp: " + payPalInitRequest.getPaymentFromTimestamp());
+            if (payment.getPaymentFromTimestamp() != null && !payment.getPaymentFromTimestamp().toString().isEmpty()) {
+                pageContentStream.showText("Payment From Timestamp: " + payment.getPaymentFromTimestamp());
                 pageContentStream.newLine();
             }
 
-            if (payPalInitRequest.getPaymentUntilTimestamp() != null && !payPalInitRequest.getPaymentUntilTimestamp().isEmpty()) {
-                pageContentStream.showText("Payment Until Timestamp: " + payPalInitRequest.getPaymentUntilTimestamp());
+            if (payment.getPaymentUntilTimestamp() != null && !payment.getPaymentUntilTimestamp().toString().isEmpty()) {
+                pageContentStream.showText("Payment Until Timestamp: " + payment.getPaymentUntilTimestamp());
                 pageContentStream.newLine();
             }
 
-            if (payPalInitRequest.getParkingZone() != null) {
-                pageContentStream.showText("Parking Zone: " + payPalInitRequest.getParkingZone());
-                pageContentStream.newLine();
-            }
-
-            pageContentStream.showText("Payment Id: " + payPalInitRequest.getPaymentId());
+            pageContentStream.showText("Payment Id: " + paymentId);
             pageContentStream.newLine();
 
             pageContentStream.endText();

@@ -7,10 +7,15 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
+import static com.kpsys.common.dao.NamedHQLQueries.GET_PAYMENT_BY_PAYPAL_PAYMENT_ID;
+
 @Entity(name = "Payment")
 @Table(name = "payment")
 @Data
 @Builder
+@NamedQueries({
+    @NamedQuery(name = GET_PAYMENT_BY_PAYPAL_PAYMENT_ID, query = "select p from Payment p where paypal_payment_id = :paypalPaymentId"),
+})
 public class Payment {
 
     @Id
