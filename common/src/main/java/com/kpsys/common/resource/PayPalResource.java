@@ -245,7 +245,7 @@ public class PayPalResource {
             LOGGER.error("Error during PayPal request", e);
             throw new KpsysException("Error during PayPal request: " + (e.getDetails() != null ? e.getDetails().getMessage() : ""), Response.Status.INTERNAL_SERVER_ERROR);
         } catch (Exception ex) {
-            LOGGER.error("Error during PayPal request: " + ex.getMessage());
+            LOGGER.error("Error during PayPal request", ex);
             throw new KpsysException("Error during PayPal request", Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
