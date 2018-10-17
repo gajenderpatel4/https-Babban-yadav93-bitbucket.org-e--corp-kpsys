@@ -154,8 +154,6 @@ td > ticket-field > div > span:nth-child(2) {
 
 @media (max-width: 767px) {
     .page-header.navbar .page-top-custom {
-        padding: 0;
-        display: block;
         clear: none !important;
         width: auto !important;
     }
