@@ -127,8 +127,6 @@ public class PayPalResource {
             Payment createdPayment = payment.execute(apiContext, paymentExecution);
             LOGGER.debug(createdPayment.toString());
 
-            String paymentTime = createdPayment.getCreateTime();
-            payPalInitRequest.setPaymentTimestamp(paymentTime);
             payPalInitRequest.setApiKey("12345");
             payPalInitRequest.setParkingZone("Z01");
 
@@ -230,6 +228,7 @@ public class PayPalResource {
                 if (link.getRel().equalsIgnoreCase("approval_url")) {
                     String createdPaymentId = createdPayment.getId();
                     payPalInitRequest.setPaymentId(createdPaymentId);
+                    payPalInitRequest.setPaymentTimestamp(createdPayment.getCreateTime());
                     Storage.getInstance().add(guid, payPalInitRequest);
 
                     // Redirect the customer to link.getHref()
