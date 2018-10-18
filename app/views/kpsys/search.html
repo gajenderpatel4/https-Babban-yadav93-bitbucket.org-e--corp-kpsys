@@ -6,15 +6,17 @@
 
                 <div class="form-group">
                     <div class="required-field-block">
-                        <input class="form-control" type="text" name="q" ng-model="query" placeholder="Eksempel: BL50000"
+                        <input class="form-control" type="text" name="q" ng-model="query"
+                               placeholder="Eksempel: BL50000"
                                required ng-change="submitted=false">
                         <div class="required-icon" data-original-title="" title="">
                             <div class="text">*</div>
                         </div>
-                        <div>
-                            Se etter ikke oppgjorte parkeringer/passeringer. Ikke oppgjorte parkeringer/passeringer er tilgjengelige i 48 timer etter utpassering før de blir sendt til klargjøring for fakturering.
-                        </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    Se etter ikke oppgjorte parkeringer/passeringer. Ikke oppgjorte parkeringer/passeringer er
+                    tilgjengelige i 48 timer etter utpassering før de blir sendt til klargjøring for fakturering.
                 </div>
                 <div class="form-group alert alert-danger" ng-if="submitted && searchForm.q.$error.required">
                     <span class="text-danger">Kjennemerke påkrevd</span>
@@ -28,10 +30,10 @@
 
                 <!-- TODO: uncomment to use in multitenant environments-->
                 <!--<div class="form-group alert alert-info"-->
-                     <!--ng-if="unableToDetermineClientForHostname">-->
-                    <!--<span class="text-info">-->
-                        <!--Unable to determine client for this hostname-->
-                    <!--</span>-->
+                <!--ng-if="unableToDetermineClientForHostname">-->
+                <!--<span class="text-info">-->
+                <!--Unable to determine client for this hostname-->
+                <!--</span>-->
                 <!--</div>-->
 
                 <div class="form-group alert alert-danger"
@@ -65,23 +67,23 @@
             <table class="table" id="license-plates-tbl">
                 <thead>
                 <tr>
-                    <th>Kjennemerke</th>
-                    <th>Valuta</th>
-                    <th>Skyldig beløp</th>
-                    <th>Dato</th>
+                    <th class="text-left">Kjennemerke</th>
+                    <th class="text-center">Valuta</th>
+                    <th class="text-center">Skyldig beløp</th>
+                    <th class="text-center">Dato</th>
 
-                    <th></th>
+                    <th class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="lp in licensePlates"
                     ng-class="{'danger': checkErrorStatus($index) == true }">
-                    <td>{{lp.licensePlate}}</td>
-                    <td>{{lp.currency}}</td>
-                    <td>{{lp.dueAmount}}</td>
-                    <td>{{lp.startTimestamp| date:'yyyy-MM-dd'}}</td>
+                    <td class="text-left">{{lp.licensePlate}}</td>
+                    <td class="text-center">{{lp.currency}}</td>
+                    <td class="text-center">{{lp.dueAmount}}</td>
+                    <td class="text-center">{{lp.startTimestamp| date:'yyyy-MM-dd'}}</td>
 
-                    <td>
+                    <td class="text-center">
                         <button type="button" class="btn btn-default" ng-click="pay($index)">Betal</button>
                     </td>
                 </tr>
