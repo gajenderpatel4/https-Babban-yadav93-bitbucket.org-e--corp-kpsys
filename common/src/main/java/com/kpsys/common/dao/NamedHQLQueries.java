@@ -15,6 +15,6 @@ public final class NamedHQLQueries {
     public static final String GET_RESET_PASSWORD_BY_PHONE = "getResetPasswordByPhone";
     public static final String GET_RESET_PASSWORD_BY_CODE = "getResetPasswordByCode";
     public static final String GET_CLIENT_BY_HOSTNAME = "getClientByHostname";
-    public static final String GET_PAYMENT_BY_PAYPAL_PAYMENT_ID = "getPaymentByPayPalPaymendId";
+    public static final String GET_PAYMENT_BY_PAYPAL_PAYMENT_ID = "getPaymentByPayPalPaymentId";
 
 }
