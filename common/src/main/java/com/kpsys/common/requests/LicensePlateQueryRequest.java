@@ -12,4 +12,5 @@ public class LicensePlateQueryRequest {
     @NotEmpty
     String licensePlate;
     String parkingZone;
+    Integer clientId;
 }

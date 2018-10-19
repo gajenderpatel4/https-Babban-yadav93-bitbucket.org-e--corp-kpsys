@@ -29,7 +29,15 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
 
         $rootScope.query = $scope.query;
 
-        LicensePlatesService.search($scope.query)
+        var p = {
+          licensePlate: $scope.query
+        };
+
+        if ($window.sessionStorage.clientId !== undefined) {
+            p["clientId"] = $window.sessionStorage.clientId;
+        }
+
+        LicensePlatesService.search(p)
             .then(function (response) {
                 $scope.licensePlates = response.entity.items;
                 $scope.loading = false;
