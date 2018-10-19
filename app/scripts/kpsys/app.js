@@ -53,13 +53,14 @@ kpsysApp.factory('settings', ['$rootScope', function ($rootScope) {
 }]);
 
 /* Setup App Main Controller */
-kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $location, USER_ROLES, AuthService, ClientService) {
+kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $window, $location, USER_ROLES, CLIENT_EVENTS, AuthService, ClientService) {
     $scope.$on('$viewContentLoaded', function () {
         App.initComponents(); // init core components
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
     });
 
     $scope.init = function () {
+        $rootScope.globalLoading = true;
         //$rootScope.unableToDetermineClientForHostname = false;
         var currentClientId = $window.sessionStorage.clientId;
         if (currentClientId === undefined) {
@@ -68,11 +69,20 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $loc
                 .then(function (response) {
                     var clientId = response.entity.result;
                     $rootScope.setCurrentClientId(clientId);
+                    $rootScope.$broadcast(CLIENT_EVENTS.clientFoundByHostname, clientId);
+                    $rootScope.globalLoading = false;
                     console.log(response);
                 }, function (ex) {
                     console.log(ex);
+                    $rootScope.$broadcast(CLIENT_EVENTS.clientNotFoundByHostname);
                     //$rootScope.unableToDetermineClientForHostname = true;
+                    $rootScope.globalLoading = false;
                 });
+        } else {
+            $timeout(function () {
+                $rootScope.$broadcast(CLIENT_EVENTS.clientFoundByHostname, currentClientId);
+                $rootScope.globalLoading = false;
+            });
         }
     };
 
@@ -105,7 +115,7 @@ kpsysApp.controller('AppController', function ($scope, $rootScope, $window, $loc
  ***/
 
 /* Setup Layout Part - Header */
-kpsysApp.controller('HeaderController', ['$scope', 'AuthService', function ($scope, AuthService) {
+kpsysApp.controller('HeaderController', ['$scope', '$rootScope', 'AuthService', 'CLIENT_EVENTS', 'ClientService', function ($scope, $rootScope, AuthService, CLIENT_EVENTS, ClientService) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
     });
@@ -115,6 +125,39 @@ kpsysApp.controller('HeaderController', ['$scope', 'AuthService', function ($sco
     $scope.logout = function () {
         AuthService.logout();
     };
+
+    var createLink = function (id, url) {
+        var link = document.createElement('link');
+        link.id = id;
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = url;
+        return link;
+    };
+
+    $rootScope.$on(CLIENT_EVENTS.clientFoundByHostname, function (event, clientId) {
+        ClientService.findClientCustomData({clientId: clientId})
+            .then(function (response) {
+                var entity = response.entity;
+                if (entity.logoUrl) {
+                    $scope.logoUrl = entity.logoUrl;
+                }
+                if (entity.cssUrl) {
+                    var link = createLink("custom-styles", entity.cssUrl);
+                    angular.element('head').append(link);
+                }
+                $scope.logoUrlCheckCompleted = true;
+                console.log(response.entity);
+            }, function (ex) {
+                console.log(ex);
+                $scope.logoUrlCheckCompleted = true;
+                //$rootScope.unableToDetermineClientForHostname = true;
+            });
+    });
+
+    $scope.$on(CLIENT_EVENTS.clientNotFoundByHostname, function () {
+        $scope.logoUrlCheckCompleted = true;
+    });
 }]);
 
 /* Setup Layout Part - Sidebar */

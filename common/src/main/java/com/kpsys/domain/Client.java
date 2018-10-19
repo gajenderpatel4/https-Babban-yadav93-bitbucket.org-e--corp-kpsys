@@ -44,6 +44,12 @@ public class Client implements Tenant<Long> {
     @Column(name = "hostname")
     private String hostname;
 
+    @Column(name = "logo_url")
+    private String logoUrl;
+
+    @Column(name = "css_url")
+    private String cssUrl;
+
     @Override
     public Long getId() {
         return getClientId();

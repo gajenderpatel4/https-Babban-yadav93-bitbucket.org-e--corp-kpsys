@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import com.kpsys.common.dao.ClientDao;
 import com.kpsys.common.dto.EntityResponse;
 import com.kpsys.common.exceptions.KpsysException;
+import com.kpsys.common.requests.ClientCustomDataRequest;
 import com.kpsys.common.requests.ClientForHostnameRequest;
 import com.kpsys.domain.Client;
+import com.kpsys.domain.ClientCustomDataResponse;
 import com.kpsys.domain.Result;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
@@ -42,5 +44,24 @@ public class ClientResource {
         });
         Long clientId = client.getClientId();
         return EntityResponse.of(new Result<>(clientId));
+    }
+
+    @POST
+    @Path("/findcustomdata")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public EntityResponse<ClientCustomDataResponse> getClientCustomData(@Valid ClientCustomDataRequest clientCustomDataRequest) {
+        Long clientId = clientCustomDataRequest.getClientId();
+        Client client = clientDao.getClient(clientId);
+        if (client == null) {
+            LOGGER.error("Unable to find client for specified id: " + clientId);
+            throw new KpsysException("Unable to find client for specified id: " + clientId, Response.Status.NOT_FOUND);
+        }
+
+        return EntityResponse.of(ClientCustomDataResponse.builder()
+            .cssUrl(client.getCssUrl())
+            .logoUrl(client.getLogoUrl())
+            .build());
     }
 }

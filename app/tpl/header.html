@@ -3,7 +3,7 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
         <a href="#/home">
-            <img src="{{settings.layoutPath}}/img/the-logo.gif" alt="logo" class="logo-default" width="151px" height="80px"/>
+            <img ng-if="logoUrlCheckCompleted" ng-src="{{logoUrl ? logoUrl : settings.layoutPath + '/img/the-logo.gif'}}" alt="logo" class="logo-default" width="151px" height="80px"/>
         </a>
     </div>
     <!-- END LOGO -->

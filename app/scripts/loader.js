@@ -3,7 +3,8 @@ var commonScripts = [
     'i18n.js',
     'directives.js',
     'constants/pagination-constants.js',
-    'constants/internationalization-constants.js'
+    'constants/internationalization-constants.js',
+    'constants/client-constants.js'
 ];
 var applications = {
     kpsys: {
