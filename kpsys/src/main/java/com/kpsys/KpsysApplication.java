@@ -21,11 +21,17 @@ import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Environment;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.FlywayException;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.client.Client;
 
 public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(KpsysApplication.class);
 
     public static void main(String[] args) throws Exception {
         new KpsysApplication().run(args);
@@ -33,6 +39,16 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
     @Override
     public void run(KpsysConfiguration kpsysConfiguration, Environment environment) {
+
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(kpsysConfiguration.getDataSourceFactory().getUrl(),
+            kpsysConfiguration.getDataSourceFactory().getUser(),
+            kpsysConfiguration.getDataSourceFactory().getPassword());
+        try {
+            flyway.migrate();
+        } catch (FlywayException e) {
+            LOGGER.error("Unable to perform SQL migrations", e);
+        }
 
         final Client client = new JerseyClientBuilder(environment).using(kpsysConfiguration.getJerseyClientConfiguration())
             .using(environment)
