@@ -1245,5 +1245,22 @@
     "user_maintenance.add_user": "Legg til bruker",
     "user_maintenance.username": "Brukernavn",
     "user_maintenance.email": "E-post",
-    "user_maintenance.select_location": "Velg plassering ..."
+    "user_maintenance.select_location": "Velg plassering ...",
+    "find": "Søk",
+    "license_plate_search": "Kjennemerke søk",
+    "example": "Eksempel",
+    "we_could_not_found_any_results_for": "Vi finner ikke {{query}}.",
+    "are_you_sure_you_have_entered_the_correct_license_plate": "Er du sikker du har tastet riktig kjennemerke?",
+    "try_again_message": "Prøv igjen. Om vi fortsatt ikke finner kjennemerke kan en faktura bli sendt i posten.",
+    "license_plate_required": "Kjennemerke påkrevd",
+    "license_plate_description": "Se etter ikke oppgjorte parkeringer/passeringer. Ikke oppgjorte parkeringer/passeringer er tilgjengelige i 48 timer etter utpassering før de blir sendt til klargjøring for fakturering.",
+    "license_plate": "Kjennemerke",
+    "currency": "Valuta",
+    "due_amount": "Skyldig beløp",
+    "date": "Dato",
+    "make_payment": "Betal",
+    "confirm_payment": "Bekreft betaling",
+    "parking_id": "Parkerings id.",
+    "amount": "Beløp",
+    "confirm": "Godkjenn betaling"
 }

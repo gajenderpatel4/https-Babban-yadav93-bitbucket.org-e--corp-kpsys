@@ -39,13 +39,13 @@
 
         <div ng-if="showConfirm && !showSuccessMessage">
             <div class="portlet">
-                <h3>Bekreft betaling:</h3>
+                <h3>{{ 'confirm_payment' | translate }}:</h3>
                 <ul class="list-group">
-                    <li class="list-group-item text-info"><b>Kjennemerke:</b> {{paypalResponse.licensePlate}}</li>
-                    <li class="list-group-item text-info"><b>Parkerings id.:</b> {{paypalResponse.parkingId}}</li>
-                    <li class="list-group-item text-info"><b>Valuta:</b> {{paypalResponse.currency}}</li>
-                    <li class="list-group-item text-info"><b>Beløp:</b> {{paypalResponse.amount}}</li>
-                    <li class="list-group-item text-info"><b>Dato:</b> {{paypalResponse.paymentTimestamp| date:'yyyy-MM-dd'}}</li>
+                    <li class="list-group-item text-info"><b>{{ 'license_plate' | translate }}:</b> {{paypalResponse.licensePlate}}</li>
+                    <li class="list-group-item text-info"><b>{{ 'parking_id' | translate }}:</b> {{paypalResponse.parkingId}}</li>
+                    <li class="list-group-item text-info"><b>{{ 'currency' | translate }}:</b> {{paypalResponse.currency}}</li>
+                    <li class="list-group-item text-info"><b>{{ 'amount' | translate }}:</b> {{paypalResponse.amount}}</li>
+                    <li class="list-group-item text-info"><b>{{ 'date' | translate }}:</b> {{paypalResponse.paymentTimestamp| date:'yyyy-MM-dd'}}</li>
                     <!--
                     <li class="list-group-item text-info"><b>Payment From Timestamp:</b>
                         {{paypalResponse.paymentFromTimestamp}}
@@ -57,7 +57,7 @@
                 </ul>
 
                 <button type="button" class="btn btn-default" ng-click="confirm()">
-                    Godkjenn betaling
+                    {{ 'confirm' | translate }}
                 </button>
             </div>
         </div>

@@ -2,12 +2,12 @@
     <div class="row">
         <form name="searchForm" novalidate data-ng-init="init()">
             <div class="col-md-5 bottom-space">
-                <h3>Kjennemerke søk</h3>
+                <h3>{{ 'license_plate_search' | translate }}</h3>
 
                 <div class="form-group">
                     <div class="required-field-block">
                         <input class="form-control" type="text" name="q" ng-model="query"
-                               placeholder="Eksempel: BL50000"
+                               placeholder="{{ 'example' | translate }}: BL50000"
                                required ng-change="submitted=false">
                         <div class="required-icon" data-original-title="" title="">
                             <div class="text">*</div>
@@ -15,17 +15,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    Se etter ikke oppgjorte parkeringer/passeringer. Ikke oppgjorte parkeringer/passeringer er
-                    tilgjengelige i 48 timer etter utpassering før de blir sendt til klargjøring for fakturering.
+                    {{ 'license_plate_description' | translate }}
                 </div>
                 <div class="form-group alert alert-danger" ng-if="submitted && searchForm.q.$error.required">
-                    <span class="text-danger">Kjennemerke påkrevd</span>
+                    <span class="text-danger">{{ 'license_plate_required' | translate }}</span>
                 </div>
                 <div class="form-group alert alert-info"
                      ng-if="submitted && searchForm.q.$valid && licensePlates.length === 0">
-                    <span class="text-info">Vi finner ikke {{query}}.<br/>
-                        Er du sikker du har tastet riktig kjennemerke?<br/>
-                        Prøv igjen. Om vi fortsatt ikke finner kjennemerke kan en faktura bli sendt i posten.</span>
+                    <span class="text-info" translate="unable_to_find_results_message"
+                          translate-values='{ query: query}'><br/>
+                        {{ 'are_you_sure_you_have_entered_the_correct_license_plate' | translate }}<br/>
+                        {{ 'try_again_message' | translate }}</span>
                 </div>
 
                 <!-- TODO: uncomment to use in multitenant environments-->
@@ -49,7 +49,7 @@
                     </span>
                 </div>
                 <button type="submit" class="btn btn-default" ng-click="submitted=true; searchForm.$valid && submit(q)">
-                    Søk
+                    {{ 'find' | translate }}
                 </button>
             </div>
         </form>
@@ -67,10 +67,10 @@
             <table class="table" id="license-plates-tbl">
                 <thead>
                 <tr>
-                    <th class="text-left">Kjennemerke</th>
-                    <th class="text-center">Valuta</th>
-                    <th class="text-center">Skyldig beløp</th>
-                    <th class="text-center">Dato</th>
+                    <th class="text-left">{{ 'license_plate' | translate }}</th>
+                    <th class="text-center">{{ 'currency' | translate }}</th>
+                    <th class="text-center">{{ 'due_amount' | translate }}</th>
+                    <th class="text-center">{{ 'date' | translate }}</th>
 
                     <th class="text-center"></th>
                 </tr>
@@ -84,7 +84,9 @@
                     <td class="text-center">{{lp.startTimestamp| date:'yyyy-MM-dd'}}</td>
 
                     <td class="text-center">
-                        <button type="button" class="btn btn-default" ng-click="pay($index)">Betal</button>
+                        <button type="button" class="btn btn-default" ng-click="pay($index)">{{ 'make_payment' |
+                            translate }}
+                        </button>
                     </td>
                 </tr>
                 </tbody>

@@ -1192,5 +1192,22 @@
     "user_maintenance.add_user": "Add user",
     "user_maintenance.username": "Username",
     "user_maintenance.email": "Email",
-    "user_maintenance.select_location": "Select location..."
+    "user_maintenance.select_location": "Select location...",
+    "find": "Find",
+    "license_plate_search": "License plate search",
+    "example": "Example",
+    "unable_to_find_results_message": "We could not find any results for {{query}}.",
+    "are_you_sure_you_have_entered_the_correct_license_plate": "Are you sure you have entered the correct license plate?",
+    "try_again_message": "Try again.",
+    "license_plate_required": "License plate required",
+    "license_plate_description": "",
+    "license_plate": "License plate",
+    "currency": "Currency",
+    "due_amount": "Due amount",
+    "date": "Date",
+    "make_payment": "Make payment",
+    "confirm_payment": "Confirm payment",
+    "parking_id": "Parking Id",
+    "amount": "Amount",
+    "confirm": "Confirm"
 }
