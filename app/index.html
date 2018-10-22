@@ -51,7 +51,7 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
     <!-- BEGIN SIDEBAR -->
-    <div ng-if="hasSidebar" data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper"></div>
+    <div ng-if="hasSidebar && isAuthenticated()" data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper"><b>LALALA</b></div>
     <!-- END SIDEBAR -->
     <div class="page-content-wrapper">
         <div class="page-content">

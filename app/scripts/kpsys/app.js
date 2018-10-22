@@ -59,6 +59,10 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
     });
 
+    $scope.isAuthenticated = function () {
+        return AuthService.isAuthenticated();
+    };
+
     $scope.init = function () {
         $rootScope.customClientDataLoading = true;
         //TODO: uncomment to use in multitenant environments
@@ -88,7 +92,7 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
         }
     };
 
-    $scope.hasSidebar = false;
+    $scope.hasSidebar = true;
 
     $rootScope.query = null;
     $rootScope.currentUser = null;
