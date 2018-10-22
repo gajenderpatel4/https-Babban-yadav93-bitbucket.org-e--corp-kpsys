@@ -60,7 +60,7 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
     });
 
     $scope.init = function () {
-        $rootScope.globalLoading = true;
+        $rootScope.customClientDataLoading = true;
         //TODO: uncomment to use in multitenant environments
         //$rootScope.unableToDetermineClientForHostname = false;
         var currentClientId = $window.sessionStorage.clientId;
@@ -71,19 +71,19 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
                     var clientId = response.entity.result;
                     $rootScope.setCurrentClientId(clientId);
                     $rootScope.$broadcast(CLIENT_EVENTS.clientFoundByHostname, clientId);
-                    $rootScope.globalLoading = false;
+                    $rootScope.customClientDataLoading = false;
                     console.log(response);
                 }, function (ex) {
                     console.log(ex);
                     $rootScope.$broadcast(CLIENT_EVENTS.clientNotFoundByHostname);
                     //TODO: uncomment to use in multitenant environments
                     //$rootScope.unableToDetermineClientForHostname = true;
-                    $rootScope.globalLoading = false;
+                    $rootScope.customClientDataLoading = false;
                 });
         } else {
             $timeout(function () {
                 $rootScope.$broadcast(CLIENT_EVENTS.clientFoundByHostname, currentClientId);
-                $rootScope.globalLoading = false;
+                $rootScope.customClientDataLoading = false;
             });
         }
     };
