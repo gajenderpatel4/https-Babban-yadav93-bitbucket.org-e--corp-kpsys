@@ -61,6 +61,7 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
 
     $scope.init = function () {
         $rootScope.globalLoading = true;
+        //TODO: uncomment to use in multitenant environments
         //$rootScope.unableToDetermineClientForHostname = false;
         var currentClientId = $window.sessionStorage.clientId;
         if (currentClientId === undefined) {
@@ -75,6 +76,7 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
                 }, function (ex) {
                     console.log(ex);
                     $rootScope.$broadcast(CLIENT_EVENTS.clientNotFoundByHostname);
+                    //TODO: uncomment to use in multitenant environments
                     //$rootScope.unableToDetermineClientForHostname = true;
                     $rootScope.globalLoading = false;
                 });
@@ -151,6 +153,7 @@ kpsysApp.controller('HeaderController', ['$scope', '$rootScope', 'AuthService', 
             }, function (ex) {
                 console.log(ex);
                 $scope.logoUrlCheckCompleted = true;
+                //TODO: uncomment to use in multitenant environments
                 //$rootScope.unableToDetermineClientForHostname = true;
             });
     });
