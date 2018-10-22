@@ -28,7 +28,7 @@ app.config(function ($translateProvider, $windowProvider, InternationalizationCo
         language = InternationalizationConstants.defaultLanguage;
     }
 
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     $translateProvider.preferredLanguage(language);
     $translateProvider.fallbackLanguage(InternationalizationConstants.defaultLanguage);
 
