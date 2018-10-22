@@ -1262,5 +1262,11 @@
     "confirm_payment": "Bekreft betaling",
     "parking_id": "Parkerings id.",
     "amount": "Beløp",
-    "confirm": "Godkjenn betaling"
+    "confirm": "Godkjenn betaling",
+    "status": "Status",
+    "your_request_is_processing_please_wait": "Your request is processing... Please wait.",
+    "error_occurred": "Error occurred",
+    "your_transaction_is_complete": "Your transaction is complete",
+    "your_payment_has_been_successfully_processed_thank_you": "Your payment has been successfully processed. Thank you.",
+    "download_PDF_receipt": "Download PDF receipt"
 }

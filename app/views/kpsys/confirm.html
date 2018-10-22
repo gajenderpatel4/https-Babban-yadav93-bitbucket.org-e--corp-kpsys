@@ -10,19 +10,19 @@
         </div>
 
         <div class="alert alert-info" ng-if="loading">
-            <h3>Status</h3>
-            <span>Your request is processing... Please wait.</span>
+            <h3>{{ 'status' | translate }}</h3>
+            <span>{{ 'your_request_is_processing_please_wait' | translate }}</span>
         </div>
 
         <div class="alert alert-danger" ng-if="responseError && isArray(responseError)">
-            <h3>Error occurred</h3>
+            <h3>{{ 'error_occurred' | translate }}</h3>
             <span class="text-danger" ng-repeat="error in responseError">
                 {{error}}<br/>
             </span>
         </div>
 
         <div class="alert alert-danger" ng-if="responseError && !isArray(responseError)">
-            <h3>Error occurred</h3>
+            <h3>{{ 'error_occurred' | translate }}</h3>
             <span class="text-danger">
                 {{responseError}}
             </span>
@@ -30,11 +30,11 @@
 
         <div class="row" ng-if="showSuccessMessage">
             <div class="alert alert-success">
-                <h3>Your transaction is complete</h3>
-                <span class="text-success">Your payment has been successfully processed. Thank you.</span>
+                <h3>{{ 'your_transaction_is_complete' | translate }}</h3>
+                <span class="text-success">{{ 'your_payment_has_been_successfully_processed_thank_you' | translate }}</span>
             </div>
             <a href="/api/paypal/pdf?paymentId={{paypalParams.paymentId}}"
-               class="btn btn-info" role="button">Download PDF receipt</a>
+               class="btn btn-info" role="button">{{ 'download_PDF_receipt' | translate }}</a>
         </div>
 
         <div ng-if="showConfirm && !showSuccessMessage">
