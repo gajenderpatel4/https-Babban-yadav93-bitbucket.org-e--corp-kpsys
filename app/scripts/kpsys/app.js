@@ -53,7 +53,7 @@ kpsysApp.factory('settings', ['$rootScope', function ($rootScope) {
 }]);
 
 /* Setup App Main Controller */
-kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $window, $location, USER_ROLES, CLIENT_EVENTS, AuthService, ClientService) {
+kpsysApp.controller('AppController', function ($state, $timeout, $scope, $rootScope, $window, $location, USER_ROLES, CLIENT_EVENTS, AuthService, ClientService) {
     $scope.$on('$viewContentLoaded', function () {
         App.initComponents(); // init core components
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
@@ -90,6 +90,9 @@ kpsysApp.controller('AppController', function ($timeout, $scope, $rootScope, $wi
                 $rootScope.customClientDataLoading = false;
             });
         }
+
+        $scope.state = $state;
+        console.log($state.current)
     };
 
     $scope.hasSidebar = true;
@@ -175,7 +178,8 @@ kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, 
     $scope.additionalPage = undefined;
 
     $scope.pages = [];
-    //$scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
+    $scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
+    $scope.hasParkingContractRoles = AuthService.hasParkingContractRoles;
     //$scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
     //$scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
 
@@ -263,7 +267,18 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
-    // Static Pages
+        // User Profile Parking Contracts
+        .state("profile.parking_contracts", {
+            url: "/parking_contracts",
+            templateUrl: "views/kpsys/profile/parking_contracts.html",
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) {
+                    return AuthResolver.resolve();
+                }
+            },
+            data: {pageTitle: 'Parking Contracts'}
+        })
+
         .state('pages', {
             url: '/pages',
             templateUrl: 'views/kpsys/static-pages.html',

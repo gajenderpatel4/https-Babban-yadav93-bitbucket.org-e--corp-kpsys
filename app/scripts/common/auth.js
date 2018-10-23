@@ -8,7 +8,7 @@ app.factory('AuthService', function ($rootScope, $http, $state, AUTH_EVENTS, Ses
             .post('/api/auth', credentials)
             .success(function (res) {
                 Session.create(res.token, res.user.userId, res.user.userType, res.user.tenant.clientId);
-                $state.go('home', {query: $rootScope.query || ""});
+                $state.go('profile');
                 return res.user;
             })
             .error(function () {
@@ -47,12 +47,55 @@ app.factory('AuthService', function ($rootScope, $http, $state, AUTH_EVENTS, Ses
             });
     };
 
+    authService.updateParkingContractRoleAuthorisation = function () {
+        return $http.post('/api/auth/parkingContractRoleAuthorisation')
+            .success(function (response) {
+                if (angular.isArray(response)) {
+                    var parkingContractRoles = {};
+                    response.map(function (role) {
+                        var entityType = role.entity_type;
+                        if (parkingContractRoles[entityType] === undefined) {
+                            parkingContractRoles[entityType] = {};
+                        }
+
+                        var roleType = role.role_type;
+                        if (parkingContractRoles[entityType][roleType] === undefined) {
+                            parkingContractRoles[entityType][roleType] = [];
+                        }
+                        parkingContractRoles[entityType][roleType].push(role.item_id);
+                    });
+                    Session.updateAuthorisation(parkingContractRoles);
+                } else {
+                    console.log('ParkingContractRole authorisation response: ' + response);
+                }
+            })
+            .error(function () {
+                Session.updateAuthorisation('');
+            });
+    };
+
     authService.getStaticPages = function () {
         return $http.get('/api/editor/staticPages');
     };
 
     authService.isAuthenticated = function () {
         return !!Session.accessToken();
+    };
+
+    authService.hasParkingContractRoles = function (action) {
+        var authorisations = Session.getAuthorisation();
+        if (authorisations == null) return false;
+
+        var authorisation = authorisations["parking_contracts"];
+        if (authorisation === undefined) {
+            return false;
+        } else {
+            if (action !== undefined) {
+                return authorisation[action] !== undefined && authorisation[action].length > 0;
+            } else {
+                return true;
+            }
+        }
     };
 
     authService.hasRoleAuthorisationUser = function () {
@@ -109,6 +152,8 @@ app.service('Session', function ($http, $window) {
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.user;
         delete $window.sessionStorage.tenantId;
+
+        delete $window.sessionStorage.authorisation;
     };
     this.accessToken = function () {
         return $window.sessionStorage.token;

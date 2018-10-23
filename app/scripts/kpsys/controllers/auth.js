@@ -21,6 +21,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $window, $state, $tran
             $scope.setCurrentUser(res.data.user.userId);
             // role authorisation
             //AuthService.updateRoleAuthorisation();
+            AuthService.updateParkingContractRoleAuthorisation();
         }, function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });
