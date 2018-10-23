@@ -1,15 +1,10 @@
 package com.kpsys.common.resource;
 
 import com.google.inject.Inject;
-import com.kpsys.common.dao.AuthDao;
-import com.kpsys.common.dao.LoginLogDao;
-import com.kpsys.common.dao.RoleAuthorisationDao;
-import com.kpsys.common.dao.UserLoginDao;
+import com.kpsys.common.dao.*;
 import com.kpsys.common.exceptions.KpsysException;
 import com.kpsys.common.security.LoginRequest;
-import com.kpsys.domain.AccessToken;
-import com.kpsys.domain.RoleAuthorisation;
-import com.kpsys.domain.User;
+import com.kpsys.domain.*;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.joda.time.DateTime;
@@ -39,6 +34,12 @@ public class AuthResource {
 
     @Inject
     private LoginLogDao loginLogDao;
+
+    @Inject
+    private ItemRoleDao itemRoleDao;
+
+    @Inject
+    private ParkingContractDao parkingContractDao;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -72,4 +73,13 @@ public class AuthResource {
         return roleAuthorisationDao.getRoleAuthorisation(userId);
     }
 
+    @Path("parkingContractRoleAuthorisation")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public List<ItemRole> getParkingContractRoleAuthorisation(@Auth User principal) {
+        Long userId = principal.getUserId();
+        return itemRoleDao.getParkingContractsIdsWithRolesForUser(userId);
+    }
 }
