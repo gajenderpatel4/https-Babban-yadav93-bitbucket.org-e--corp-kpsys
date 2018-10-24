@@ -1,10 +1,11 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
+
     <li>
-        <a href="#">Home</a>
+        <a href="#home">Home</a>
         <i class="fa fa-circle"></i>
     </li>
-    <li class="active"> User Profile </li>
+    <li ng-class="{'active': state.current.name.indexOf('profile') === 0 }"> User Profile </li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN PAGE CONTENT-->

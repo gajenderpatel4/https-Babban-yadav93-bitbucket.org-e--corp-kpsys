@@ -1,7 +1,6 @@
 <div ng-controller="ParkingContractsCtrl" data-ng-init="init()">
     <div class="col-md-12">
-        <!-- BEGIN PROFILE CONTENT -->
-
+        <!-- BEGIN PARKING CONTRACTS CONTENT -->
         <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading">Parking Contracts</h3>
@@ -27,12 +26,75 @@
                     </span>
                 </div>
 
-                <div class="inner-content">
-                    <button class="btn btn-success">
-                        <i class="icon-settings"></i> Save Changes
-                    </button>
+                <div ng-if="loading" class="row loading-message">
+                    <div class="page-spinner-bar">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
                 </div>
+
+                <form ng-show="parkingContract" name="parkingContractForm"
+                      ng-submit="parkingContractForm.$valid && saveParkingContract(parkingContract)">
+                    <div class="form-group">
+                        <label class="control-label" for="name">Name:</label>
+                        <input id="name" name="name" class="form-control" type="text" required
+                               ng-model="parkingContract.name"
+                               maxlength="35">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="zoneId">Zone:</label>
+                        <input id="zoneId" name="zone" class="form-control" type="text" required
+                               ng-model="parkingContract.zoneId"
+                               maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="clientId">Client:</label>
+                        <input id="clientId" name="clientId" class="form-control" type="text" required
+                               ng-model="parkingContract.clientId"
+                               maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="maxItemCount">Max item count:</label>
+                        <input id="maxItemCount" name="maxItemCount" class="form-control" type="text" placeholder="10"
+                               ng-model="parkingContract.maxItemCount"
+                               maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="description">Description:</label>
+                        <input id="description" name="description" class="form-control" type="text"
+                               placeholder="Description"
+                               ng-model="parkingContract.description"
+                               maxlength="200">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="contractType">Contract type:</label>
+                        <input id="contractType" name="contractType" class="form-control" type="text" placeholder=""
+                               ng-model="parkingContract.contractType"
+                               maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="maxUtilizationCount">Max utilization count:</label>
+                        <input id="maxUtilizationCount" name="maxUtilizationCount" class="form-control" type="text"
+                               placeholder=""
+                               ng-model="parkingContract.maxUtilizationCount"
+                               maxlength="10">
+                    </div>
+
+                    <div class="inner-content">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon-settings"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+
             </div>
-            <!-- END PROFILE CONTENT -->
+            <!-- END PARKING CONTRACTS CONTENT -->
         </div>
     </div>

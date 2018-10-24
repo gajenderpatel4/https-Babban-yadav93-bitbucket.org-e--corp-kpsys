@@ -91,8 +91,7 @@ kpsysApp.controller('AppController', function ($state, $timeout, $scope, $rootSc
             });
         }
 
-        $scope.state = $state;
-        console.log($state.current)
+        $rootScope.state = $state;
     };
 
     $scope.hasSidebar = true;

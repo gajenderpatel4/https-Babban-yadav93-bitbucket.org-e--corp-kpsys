@@ -22,27 +22,27 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class ParkingContract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "zone_id")
+    @Column(name = "zone_id", nullable = false)
     private Long zoneId;
 
-    @Column(name = "client_id")
+    @Column(name = "client_id", nullable = false)
     private Long clientId;
 
-    @Column(name = "name", length = 35)
+    @Column(name = "name", length = 35, nullable = false)
     private String name;
 
-    @Column(name = "max_item_count")
+    @Column(name = "max_item_count", length = 10)
     private Long maxItemCount;
 
     @Column(name = "description", length = 200)
     private String description;
 
-    @Column(name = "contract_type")
+    @Column(name = "contract_type", length = 10)
     private Long contractType;
 
-    @Column(name = "max_utilization_count")
+    @Column(name = "max_utilization_count", length = 10)
     private Long maxUtilizationCount;
 }

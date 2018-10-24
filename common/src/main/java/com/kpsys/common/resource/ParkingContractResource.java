@@ -40,5 +40,4 @@ public class ParkingContractResource {
         });
         return EntityResponse.of(parkingContract);
     }
-
 }
