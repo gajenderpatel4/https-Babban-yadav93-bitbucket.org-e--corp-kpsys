@@ -52,17 +52,18 @@ app.factory('AuthService', function ($rootScope, $http, $state, AUTH_EVENTS, Ses
             .success(function (response) {
                 if (angular.isArray(response)) {
                     var parkingContractRoles = {};
-                    response.map(function (role) {
-                        var entityType = role.entity_type;
+                    response.map(function (itemRole) {
+                        var entityType = itemRole.entity_type;
                         if (parkingContractRoles[entityType] === undefined) {
                             parkingContractRoles[entityType] = {};
                         }
 
-                        var roleType = role.role_type;
+                        var roleType = itemRole.role_type;
                         if (parkingContractRoles[entityType][roleType] === undefined) {
                             parkingContractRoles[entityType][roleType] = [];
                         }
-                        parkingContractRoles[entityType][roleType].push(role.item_id);
+
+                        parkingContractRoles[entityType][roleType].push(itemRole);
                     });
                     Session.updateAuthorisation(parkingContractRoles);
                 } else {

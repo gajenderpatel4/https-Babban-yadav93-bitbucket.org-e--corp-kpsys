@@ -51,7 +51,7 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
     <!-- BEGIN SIDEBAR -->
-    <div ng-if="hasSidebar && isAuthenticated()" data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper"><b>LALALA</b></div>
+    <div ng-if="hasSidebar && isAuthenticated() && state.current.name.indexOf('profile') === 0" data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper"></div>
     <!-- END SIDEBAR -->
     <div class="page-content-wrapper">
         <div class="page-content">

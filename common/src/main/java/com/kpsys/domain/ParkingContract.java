@@ -16,7 +16,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @AllArgsConstructor
 @Data
 @NamedQueries({
-    @NamedQuery(name = "getParkingContractsByUserId", query = "SELECT DISTINCT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id")
+    @NamedQuery(name = "getParkingContractsByUserId", query = "SELECT DISTINCT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id"),
+    @NamedQuery(name = "getParkingContractByIdAndUserId", query = "SELECT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.parkingContractId = :parking_contract_id")
 })
 public class ParkingContract {
     @Id

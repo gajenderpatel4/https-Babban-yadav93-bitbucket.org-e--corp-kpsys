@@ -14,5 +14,7 @@ public class ItemRole implements Serializable {
     @Id
     private String role_type;
     @Id
+    private String name;
+    @Id
     private String entity_type;
 }

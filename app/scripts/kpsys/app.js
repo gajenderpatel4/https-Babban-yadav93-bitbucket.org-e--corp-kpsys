@@ -270,11 +270,21 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
         // User Profile Parking Contracts
         .state("profile.parking_contracts", {
             url: "/parking_contracts",
+            controller: 'ParkingContractsCtrl',
             templateUrl: "views/kpsys/profile/parking_contracts.html",
             resolve: {
-                auth: function resolveAuthentication(AuthResolver) {
-                    return AuthResolver.resolve();
-                }
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.select',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                'scripts/kpsys/resources/parking-contracts-resource.js',
+                                'scripts/kpsys/services/parking-contracts-service.js',
+                                'scripts/kpsys/controllers/ParkingContractsController.js'
+                            ]
+                        }]);
+                }]
             },
             data: {pageTitle: 'Parking Contracts'}
         })

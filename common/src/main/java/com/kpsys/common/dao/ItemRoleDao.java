@@ -22,7 +22,7 @@ public class ItemRoleDao extends AbstractDAO<ItemRole> {
 
     public List<ItemRole> getParkingContractsIdsWithRolesForUser(Long userId) {
 
-        String sql = "SELECT pcr.parking_contract_id AS item_id, pcr.role_type AS role_type, " +
+        String sql = "SELECT pcr.parking_contract_id AS item_id, pc.name AS name, pcr.role_type AS role_type, " +
             "'parking_contracts' AS entity_type " +
             "FROM parking_contract_role AS pcr " +
             "JOIN parking_contract AS pc ON pc.id = pcr.parking_contract_id " +
