@@ -9,17 +9,17 @@ import com.kpsys.common.requests.ClientForHostnameRequest;
 import com.kpsys.domain.Client;
 import com.kpsys.domain.ClientCustomDataResponse;
 import com.kpsys.domain.Result;
+import com.kpsys.domain.User;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/client")
@@ -63,5 +63,14 @@ public class ClientResource {
             .cssUrl(client.getCssUrl())
             .logoUrl(client.getLogoUrl())
             .build());
+    }
+
+    @GET
+    @Path("/list")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public EntityResponse<List<Client>> getAllClients(@Auth User principal) {
+        return EntityResponse.of(clientDao.getClients());
     }
 }

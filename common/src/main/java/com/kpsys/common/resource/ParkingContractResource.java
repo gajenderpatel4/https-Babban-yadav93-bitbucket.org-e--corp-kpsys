@@ -11,10 +11,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
@@ -28,7 +25,7 @@ public class ParkingContractResource {
     private ParkingContractDao parkingContractDao;
 
     @GET
-    @Path("read/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public EntityResponse<ParkingContract> findParkingContractById(@Auth User principal, @PathParam("id") Long id) {
@@ -39,5 +36,13 @@ public class ParkingContractResource {
             return new KpsysException("Unable to find parking contract with id: " + id, Response.Status.NOT_FOUND);
         });
         return EntityResponse.of(parkingContract);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public EntityResponse<ParkingContract> saveParkingContract(@Auth User principal, ParkingContract parkingContract) {
+        return EntityResponse.of(parkingContractDao.save(parkingContract));
     }
 }
