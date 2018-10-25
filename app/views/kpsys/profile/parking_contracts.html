@@ -1,7 +1,16 @@
 <div ng-controller="ParkingContractsCtrl" data-ng-init="init()">
     <div class="col-md-12">
+
+        <div ng-if="loading" class="row loading-message">
+            <div class="page-spinner-bar">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+
         <!-- BEGIN PARKING CONTRACTS CONTENT -->
-        <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
+        <div ng-show="!loading" class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading">Parking Contracts</h3>
                 <ul class="list-items borderless">
@@ -9,6 +18,7 @@
                         <select ng-model="selectedParkingContract" ng-change="loadParkingContract()"
                                 class="form-control input-inline input-medium"
                                 ng-options="y.name for (x, y) in parkingContracts">
+                            <option value="">-- please choose a parking contract --</option>
                         </select>
                     </li>
                 </ul>
@@ -26,12 +36,9 @@
                     </span>
                 </div>
 
-                <div ng-if="loading" class="row loading-message">
-                    <div class="page-spinner-bar">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
+                <div class="form-group alert alert-success"
+                     ng-if="parkingContractSavedOk">
+                    <span class="text-success">Parking contract updated.</span>
                 </div>
 
                 <form ng-show="parkingContract" name="parkingContractForm"
@@ -52,9 +59,11 @@
 
                     <div class="form-group">
                         <label class="control-label" for="clientId">Client:</label>
-                        <input id="clientId" name="clientId" class="form-control" type="text" required
-                               ng-model="parkingContract.clientId"
-                               maxlength="10">
+                        <select ng-model="parkingContract.client" name="clientId" required
+                                class="form-control input-inline input-medium"
+                                ng-options="item.id for item in clients">
+                            <option value="">-- select --</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -74,7 +83,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="contractType">Contract type:</label>
-                        <input id="contractType" name="contractType" class="form-control" type="text" placeholder=""
+                        <input id="contractType" name="contractType" class="form-control" type="text"
                                ng-model="parkingContract.contractType"
                                maxlength="10">
                     </div>
@@ -98,3 +107,4 @@
             <!-- END PARKING CONTRACTS CONTENT -->
         </div>
     </div>
+</div>
