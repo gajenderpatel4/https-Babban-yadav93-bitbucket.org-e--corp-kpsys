@@ -26,6 +26,11 @@ public class ClientDao extends AbstractDAO<Client> {
         return list(q);
     }
 
+    public List<Client> getClients() {
+        Query q = namedQuery("getClients");
+        return list(q);
+    }
+
     public Client getClient(long clientId) {
         return get(clientId);
     }
