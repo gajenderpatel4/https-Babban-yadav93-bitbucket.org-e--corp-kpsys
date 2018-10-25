@@ -52,6 +52,20 @@ kpsysApp.factory('settings', ['$rootScope', function ($rootScope) {
     return settings;
 }]);
 
+kpsysApp.factory('responseErrorService', function () {
+    return {
+        getErrorMessage: function (ex) {
+            if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
+                return ex.data.error.message;
+            } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
+                return ex.data.errors;
+            } else {
+                return "something bad happened";
+            }
+        }
+    };
+});
+
 /* Setup App Main Controller */
 kpsysApp.controller('AppController', function ($state, $timeout, $scope, $rootScope, $window, $location, USER_ROLES, CLIENT_EVENTS, AuthService, ClientService) {
     $scope.$on('$viewContentLoaded', function () {
@@ -253,9 +267,11 @@ kpsysApp.controller('FooterController', ['$scope', function ($scope) {
 }]);
 
 /* Init global settings and run the app */
-kpsysApp.run(function ($rootScope, $location, settings, $state) {
+kpsysApp.run(function ($rootScope, $location, settings, $state, responseErrorService) {
     $rootScope.$state = $state; // state to be accessed from view
     $rootScope.$settings = settings; // state to be accessed from view
+
+    $rootScope.getErrorMessage = responseErrorService.getErrorMessage;
 });
 
 
@@ -266,7 +282,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
-        // User Profile Parking Contracts
+    // User Profile Parking Contracts
         .state("profile.parking_contracts", {
             url: "/parking_contracts",
             controller: 'ParkingContractsCtrl',

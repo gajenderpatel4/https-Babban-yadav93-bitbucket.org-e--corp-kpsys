@@ -16,16 +16,7 @@ angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope
                 $scope.showConfirm = true;
                 console.log(response);
             }, function (ex) {
-                console.log(ex);
-
-                if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
-                    $scope.responseError = ex.data.error.message;
-                } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                    $scope.responseError = ex.data.errors;
-                } else {
-                    $scope.responseError = "something bad happened";
-                }
-
+                $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.loading = false;
             });
     };
@@ -44,16 +35,7 @@ angular.module('kpsysApp').controller('ConfirmCtrl', function ($location, $scope
                 $scope.showSuccessMessage = true;
                 console.log(response);
             }, function (ex) {
-                console.log(ex);
-
-                if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
-                    $scope.responseError = ex.data.error.message;
-                } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                    $scope.responseError = ex.data.errors;
-                } else {
-                    $scope.responseError = "something bad happened";
-                }
-
+                $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.loading = false;
             });
     };

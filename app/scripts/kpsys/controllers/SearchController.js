@@ -30,7 +30,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
         $rootScope.query = $scope.query;
 
         var p = {
-          licensePlate: $scope.query
+            licensePlate: $scope.query
         };
 
         if ($window.sessionStorage.clientId !== undefined) {
@@ -42,13 +42,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
                 $scope.licensePlates = response.entity.items;
                 $scope.loading = false;
             }, function (ex) {
-                if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
-                    $scope.responseError = ex.data.error.message;
-                } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                    $scope.responseError = ex.data.errors;
-                } else {
-                    $scope.responseError = "something bad happened";
-                }
+                $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.loading = false;
             });
     };
@@ -84,16 +78,7 @@ angular.module('kpsysApp').controller('SearchCtrl', function ($location, $window
                     window.location = redirectUrl;
                     $scope.loading = false;
                 }, function (ex) {
-                    console.log(ex);
-
-                    if (angular.isDefined(ex.data) && angular.isDefined(ex.data.error)) {
-                        $scope.responseError = ex.data.error.message;
-                    } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
-                        $scope.responseError = ex.data.errors;
-                    } else {
-                        $scope.responseError = "something bad happened";
-                    }
-
+                    $scope.responseError = $rootScope.getErrorMessage(ex);
                     $scope.errorRowIndex = index;
                     $scope.loading = false;
                 });
