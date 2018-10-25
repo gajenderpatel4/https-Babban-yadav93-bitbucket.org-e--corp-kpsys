@@ -36,4 +36,10 @@ public class ParkingContractDao extends AbstractDAO<ParkingContract> {
             return Optional.empty();
         }
     }
+
+    public ParkingContract save(ParkingContract parkingContract) {
+        ParkingContract pc = persist(parkingContract);
+        currentSession().flush();
+        return pc;
+    }
 }
