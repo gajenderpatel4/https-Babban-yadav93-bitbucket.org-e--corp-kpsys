@@ -19,5 +19,15 @@ angular.module('kpsysApp').service('ClientService', function (ClientResource, $q
             defer.reject(ex);
         });
         return defer.promise;
-    }
+    };
+
+    this.findAllClients = function() {
+        var defer = $q.defer();
+        ClientResource.findAllClients.list(function (result) {
+            defer.resolve(result);
+        }, function (ex) {
+            defer.reject(ex);
+        });
+        return defer.promise;
+    };
 });

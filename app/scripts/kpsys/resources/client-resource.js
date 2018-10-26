@@ -15,6 +15,13 @@ angular.module('kpsysApp').factory('ClientResource', function ($resource) {
                     return JSON.parse(data);
                 }
             }
+        }),
+        findAllClients: $resource('/api/client/list', {}, {
+            'list': {
+                method: 'GET', transformResponse: function (data) {
+                    return JSON.parse(data);
+                }
+            }
         })
     };
 });
