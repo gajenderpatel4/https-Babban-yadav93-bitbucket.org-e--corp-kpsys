@@ -10,4 +10,14 @@ angular.module('kpsysApp').service('ParkingContractsService', function (ParkingC
         });
         return defer.promise;
     };
+
+    this.save = function(parkingContract) {
+        var defer = $q.defer();
+        ParkingContractsResource.save(parkingContract, function (result) {
+            defer.resolve(result);
+        }, function (ex) {
+            defer.reject(ex);
+        });
+        return defer.promise;
+    }
 });
