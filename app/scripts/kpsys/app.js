@@ -294,6 +294,11 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                             name: 'ui.select',
                             insertBefore: '#ng_load_plugins_before',
                             files: [
+                                'scripts/kpsys/resources/zone-resource.js',
+                                'scripts/kpsys/services/zone-service.js',
+                                'scripts/kpsys/resources/client-resource.js',
+                                'scripts/kpsys/services/client-service.js',
+
                                 'scripts/kpsys/resources/parking-contracts-resource.js',
                                 'scripts/kpsys/services/parking-contracts-service.js',
                                 'scripts/kpsys/controllers/ParkingContractsController.js'

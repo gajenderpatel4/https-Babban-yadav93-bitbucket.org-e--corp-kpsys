@@ -1,7 +1,7 @@
 <div ng-controller="ParkingContractsCtrl" data-ng-init="init()">
     <div class="col-md-12">
 
-        <div ng-if="loading" class="row loading-message">
+        <div ng-if="loading || clientsLoading || zonesLoading" class="row loading-message">
             <div class="page-spinner-bar">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
@@ -10,7 +10,7 @@
         </div>
 
         <!-- BEGIN PARKING CONTRACTS CONTENT -->
-        <div ng-show="!loading" class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
+        <div ng-show="!loading && !clientsLoading && !zonesLoading" class="tab-pane page-quick-sidebar-settings">
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading">Parking Contracts</h3>
                 <ul class="list-items borderless">
@@ -18,7 +18,7 @@
                         <select ng-model="selectedParkingContract" ng-change="loadParkingContract()"
                                 class="form-control input-inline input-medium"
                                 ng-options="y.name for (x, y) in parkingContracts">
-                            <option value="">-- please choose a parking contract --</option>
+                            <option value="">-- select --</option>
                         </select>
                     </li>
                 </ul>
@@ -52,9 +52,11 @@
 
                     <div class="form-group">
                         <label class="control-label" for="zoneId">Zone:</label>
-                        <input id="zoneId" name="zone" class="form-control" type="text" required
-                               ng-model="parkingContract.zoneId"
-                               maxlength="10">
+                        <select ng-model="parkingContract.zone" name="zoneId" required
+                                class="form-control input-inline input-medium"
+                                ng-options="item.id for item in zones">
+                            <option value="">-- select --</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
