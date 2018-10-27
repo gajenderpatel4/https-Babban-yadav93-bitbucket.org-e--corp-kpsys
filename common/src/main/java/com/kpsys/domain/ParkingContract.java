@@ -26,8 +26,10 @@ public class ParkingContract {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "zone_id", nullable = false)
-    private Long zoneId;
+    @JoinColumn(name = "zone_id")
+    @ManyToOne(targetEntity = Zone.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Zone zone;
 
     @JoinColumn(name = "client_id")
     @ManyToOne(targetEntity = Client.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
