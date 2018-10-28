@@ -59,6 +59,8 @@ kpsysApp.factory('responseErrorService', function () {
                 return ex.data.error.message;
             } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.errors)) {
                 return ex.data.errors;
+            } else if (angular.isDefined(ex.data) && angular.isDefined(ex.data.message)) {
+                return ex.data.message;
             } else {
                 return "something bad happened";
             }
