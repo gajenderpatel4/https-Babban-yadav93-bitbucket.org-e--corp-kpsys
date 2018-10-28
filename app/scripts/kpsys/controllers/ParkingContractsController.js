@@ -47,6 +47,8 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
 
     $scope.saveParkingContract = function (item) {
         $scope.loading = true;
+        $scope.responseError = false;
+        $scope.parkingContractSavedOk = false;
         ParkingContractsService.save(item)
             .then(function (_) {
                 $scope.loading = false;
@@ -54,7 +56,6 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.loading = false;
-                $scope.parkingContractSavedOk = false;
             });
     };
 
