@@ -7,8 +7,6 @@ import com.kpsys.domain.User;
 import com.kpsys.domain.Zone;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,8 +17,6 @@ import java.util.List;
 
 @Path("/zone")
 public class ZoneResource {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZoneResource.class);
 
     @Inject
     private ZoneDao zoneDao;
