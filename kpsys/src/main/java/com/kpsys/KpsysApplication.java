@@ -78,6 +78,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().register(new ClientResource());
         environment.jersey().register(new ZoneResource());
         environment.jersey().register(new ParkingContractResource());
+        environment.jersey().register(new ParkingContractItemResource());
     }
 
     @Override
