@@ -4,14 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kpsys.common.multitenancy.Tenant;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.kpsys.common.dao.NamedHQLQueries.GET_CLIENT_BY_HOSTNAME;
@@ -28,20 +21,26 @@ import static com.kpsys.common.dao.NamedHQLQueries.GET_CLIENT_BY_HOSTNAME;
     @NamedQuery(name = "getClients", query = "from Client"),
     @NamedQuery(name = GET_CLIENT_BY_HOSTNAME, query = "select c from Client c where hostname = :hostname"),
 })
-public class Client implements Tenant<Long> {
+public class Client implements Tenant<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long clientId;
+    @Column(name = "id", nullable = false)
+    private Integer clientId;
 
-    @Column(name = "paypal_client_id", length = 80)
+    @Column(name = "name", length = 35, nullable = false)
+    private String name;
+
+    @Column(name = "status")
+    private Byte status;
+
+    @Column(name = "paypal_client_id", length = 80, nullable = false)
     private String paypalClientId;
 
-    @Column(name = "paypal_client_secret", length = 80)
+    @Column(name = "paypal_client_secret", length = 80, nullable = false)
     private String paypalClientSecret;
 
-    @Column(name = "hostname")
+    @Column(name = "hostname", nullable = false)
     private String hostname;
 
     @Column(name = "logo_url")
@@ -51,12 +50,12 @@ public class Client implements Tenant<Long> {
     private String cssUrl;
 
     @Override
-    public Long getId() {
+    public Integer getId() {
         return getClientId();
     }
 
     @Override
     public void setId(String id) {
-        this.clientId = Long.parseLong(id);
+        this.clientId = Integer.parseInt(id);
     }
 }

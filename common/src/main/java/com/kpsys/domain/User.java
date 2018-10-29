@@ -45,7 +45,7 @@ public class User extends MainClientAware implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "PASSWORD", length = 256)
     @JsonIgnore
@@ -86,11 +86,11 @@ public class User extends MainClientAware implements Principal {
 
     @Transient
     @JsonProperty
-    private Long clientId;
+    private Integer clientId;
 
     @Transient
     @JsonProperty
-    private List<Long> locationIds;
+    private List<Integer> locationIds;
 
     //@Column(name = "EXTNUSERSIONIDFC", length = 20)
     //private String externalLogin;

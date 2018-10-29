@@ -15,15 +15,15 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @NamedQueries({
     @NamedQuery(name = "getZones", query = "from Zone"),
 })
-public class Zone implements Tenant<Long> {
+public class Zone implements Tenant<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long zoneId;
+    private Integer zoneId;
 
     @Column(name = "client_zone_id", nullable = false, precision = 10)
-    private Long clientZoneId;
+    private Integer clientZoneId;
 
     @Column(name = "name", nullable = false, length = 70)
     private String name;
@@ -32,12 +32,12 @@ public class Zone implements Tenant<Long> {
     private String clientId;
 
     @Override
-    public Long getId() {
+    public Integer getId() {
         return getZoneId();
     }
 
     @Override
     public void setId(String id) {
-        this.zoneId = Long.parseLong(id);
+        this.zoneId = Integer.parseInt(id);
     }
 }

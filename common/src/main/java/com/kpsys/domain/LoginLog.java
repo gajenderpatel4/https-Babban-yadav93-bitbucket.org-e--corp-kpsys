@@ -40,14 +40,14 @@ public class LoginLog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ULLLIDNO") // BIGINT PRIMARY KEY NOT NULL IDENTITY,
-    private Long loginLogId;
+    private Integer loginLogId;
 
     @JoinColumn(name = "USERIDNO") // INT NOT NULL,
     @ManyToOne(targetEntity = User.class, cascade = {}, fetch = FetchType.EAGER)
     private User user;
 
     @Column(name = "CLNTIDNO") // INT NOT NULL,
-    private Long client;
+    private Integer client;
 
     @Column(name = "DRCTNMBR") // TINYINT NOT NULL,
     private Integer drctNumber;

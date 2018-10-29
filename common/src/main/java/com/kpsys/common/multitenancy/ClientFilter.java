@@ -49,7 +49,7 @@ public class ClientFilter implements ContainerRequestFilter {
             session.setFlushMode(FlushMode.MANUAL);
             ManagedSessionContext.bind(session);
 
-            clientProvider.get().setTenant(clientDao.getClient(Long.valueOf(tenantId)));
+            clientProvider.get().setTenant(clientDao.getClient(Integer.valueOf(tenantId)));
 
             session.close();
         } catch (Exception e) {

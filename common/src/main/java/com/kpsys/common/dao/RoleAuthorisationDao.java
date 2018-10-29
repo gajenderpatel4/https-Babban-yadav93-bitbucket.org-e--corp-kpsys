@@ -20,7 +20,7 @@ public class RoleAuthorisationDao extends AbstractDAO<RoleAuthorisation> {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<RoleAuthorisation> getRoleAuthorisation(Long userId) {
+    public List<RoleAuthorisation> getRoleAuthorisation(Integer userId) {
         String sql = "SELECT RA.* " +
             "FROM kp_role_to_user AS RU " +
             "INNER JOIN kp_role AS R ON RU.ROLEIDNO = R.ROLEIDNO " +

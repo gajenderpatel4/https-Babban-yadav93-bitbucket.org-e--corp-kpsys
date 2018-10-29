@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Singleton
-public class ClientProvider implements TenantProvider<Client, Long> {
+public class ClientProvider implements TenantProvider<Client, Integer> {
 
     private Client tenant;
 

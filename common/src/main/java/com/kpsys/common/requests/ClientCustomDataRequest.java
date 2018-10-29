@@ -7,5 +7,5 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ClientCustomDataRequest {
     @NotNull
-    Long clientId;
+    Integer clientId;
 }

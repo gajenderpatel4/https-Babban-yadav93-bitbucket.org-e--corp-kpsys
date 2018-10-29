@@ -28,7 +28,7 @@ public abstract class MainClientAwareDao<T extends MainClientAware> extends Mult
 
 
     protected void addTenantFilterToSession(Session session) {
-        Tenant<Long> client = tenantResolver.resolve();
+        Tenant<Integer> client = tenantResolver.resolve();
         log.info("MainClientAwareDao: Set tenant_id in session filter: {}", client.getId());
         session.enableFilter("mainClient").setParameter("tenant_id", client.getId());
     }

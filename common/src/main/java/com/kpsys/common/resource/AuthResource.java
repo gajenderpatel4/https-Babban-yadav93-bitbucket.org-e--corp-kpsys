@@ -69,7 +69,7 @@ public class AuthResource {
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public List<RoleAuthorisation> getRoleAuthorisation(@Auth User principal) {
-        Long userId = principal.getUserId();
+        Integer userId = principal.getUserId();
         return roleAuthorisationDao.getRoleAuthorisation(userId);
     }
 
@@ -79,7 +79,7 @@ public class AuthResource {
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public List<ItemRole> getParkingContractRoleAuthorisation(@Auth User principal) {
-        Long userId = principal.getUserId();
+        Integer userId = principal.getUserId();
         return itemRoleDao.getParkingContractsIdsWithRolesForUser(userId);
     }
 }

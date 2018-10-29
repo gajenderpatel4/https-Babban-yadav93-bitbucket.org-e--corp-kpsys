@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 public class ItemRole implements Serializable {
     @Id
-    private Long item_id;
+    private Integer item_id;
     @Id
     private String role_type;
     @Id

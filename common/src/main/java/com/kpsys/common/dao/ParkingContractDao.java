@@ -20,13 +20,13 @@ public class ParkingContractDao extends AbstractDAO<ParkingContract> {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<ParkingContract> getParkingContractsByUser(Long userId) {
+    public List<ParkingContract> getParkingContractsByUser(Integer userId) {
         Query q = namedQuery("getParkingContractsByUserId");
         q.setParameter("user_id", userId);
         return list(q);
     }
 
-    public Optional<ParkingContract> getParkingContractByIdAndUserId(Long parkingContractId, Long userId) {
+    public Optional<ParkingContract> getParkingContractByIdAndUserId(Integer parkingContractId, Integer userId) {
         Query q = namedQuery("getParkingContractByIdAndUserId");
         q.setParameter("user_id", userId);
         q.setParameter("parking_contract_id", parkingContractId);

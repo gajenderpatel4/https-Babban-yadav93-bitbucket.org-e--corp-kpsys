@@ -24,15 +24,15 @@ public class ParkingContract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Long id;
+    private Integer id;
 
-    @JoinColumn(name = "zone_id")
-    @ManyToOne(targetEntity = Zone.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "zone_id", nullable = false)
+    @ManyToOne(targetEntity = Zone.class, cascade = {}, fetch = FetchType.EAGER)
     @JsonIgnore
     private Zone zone;
 
-    @JoinColumn(name = "client_id")
-    @ManyToOne(targetEntity = Client.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", nullable = false)
+    @ManyToOne(targetEntity = Client.class, cascade = {}, fetch = FetchType.EAGER)
     @JsonIgnore
     private Client client;
 
@@ -40,14 +40,14 @@ public class ParkingContract {
     private String name;
 
     @Column(name = "max_item_count", precision = 10)
-    private Long maxItemCount;
+    private Integer maxItemCount;
 
     @Column(name = "description", length = 200)
     private String description;
 
     @Column(name = "contract_type", precision = 10)
-    private Long contractType;
+    private Integer contractType;
 
     @Column(name = "max_utilization_count", precision = 10)
-    private Long maxUtilizationCount;
+    private Integer maxUtilizationCount;
 }

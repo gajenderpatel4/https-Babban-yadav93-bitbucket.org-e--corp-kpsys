@@ -15,7 +15,7 @@ public class TestTenantResolver implements TenantResolver {
     @Inject
     public TestTenantResolver(@SuppressWarnings("unused") Provider<ClientProvider> unused) {
         client = new Client();
-        client.setClientId(25L);
+        client.setClientId(25);
         client.setId("25");
         //client.setName("Test client");
         //client.setStatNumber(1);

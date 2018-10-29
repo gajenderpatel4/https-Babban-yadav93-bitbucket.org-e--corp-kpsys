@@ -56,7 +56,7 @@ public class KpsysModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public TenantProvider<Client, Long> getTenantProvider() {
+    public TenantProvider<Client, Integer> getTenantProvider() {
         return new ClientProvider();
     }
 

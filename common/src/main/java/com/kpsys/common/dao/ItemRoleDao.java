@@ -20,7 +20,7 @@ public class ItemRoleDao extends AbstractDAO<ItemRole> {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<ItemRole> getParkingContractsIdsWithRolesForUser(Long userId) {
+    public List<ItemRole> getParkingContractsIdsWithRolesForUser(Integer userId) {
 
         String sql = "SELECT pcr.parking_contract_id AS item_id, pc.name AS name, pcr.role_type AS role_type, " +
             "'parking_contracts' AS entity_type " +

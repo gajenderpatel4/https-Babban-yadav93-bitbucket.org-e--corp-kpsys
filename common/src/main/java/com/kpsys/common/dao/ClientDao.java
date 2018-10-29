@@ -31,7 +31,7 @@ public class ClientDao extends AbstractDAO<Client> {
         return list(q);
     }
 
-    public Client getClient(long clientId) {
+    public Client getClient(Integer clientId) {
         return get(clientId);
     }
 

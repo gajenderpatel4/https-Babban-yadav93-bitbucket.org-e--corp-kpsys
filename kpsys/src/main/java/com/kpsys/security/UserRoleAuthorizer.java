@@ -45,7 +45,7 @@ public class UserRoleAuthorizer implements Authorizer<User> {
             && Boolean.TRUE == roleAuthorisation.getDelete();
     }
 
-    public static boolean authorize(RoleAuthorisationDao roleAuthorisationDao, Long userId, String objCode, String action) {
+    public static boolean authorize(RoleAuthorisationDao roleAuthorisationDao, Integer userId, String objCode, String action) {
         List<RoleAuthorisation> roleAuthorisations = roleAuthorisationDao.getRoleAuthorisation(userId);
         return roleAuthorisations.stream()
             .anyMatch(r -> actionAllowed(r, objCode, action));

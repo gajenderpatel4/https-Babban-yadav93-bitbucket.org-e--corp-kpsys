@@ -42,6 +42,6 @@ public class AccessToken {
     private DateTime created;
 
     @Transient
-    private Long clientId;
+    private Integer clientId;
 
 }

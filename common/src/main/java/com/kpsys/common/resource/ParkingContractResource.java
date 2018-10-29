@@ -11,6 +11,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,8 +29,8 @@ public class ParkingContractResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
-    public EntityResponse<ParkingContract> findParkingContractById(@Auth User principal, @PathParam("id") Long id) {
-        Long userId = principal.getUserId();
+    public EntityResponse<ParkingContract> findParkingContractById(@Auth User principal, @PathParam("id") Integer id) {
+        Integer userId = principal.getUserId();
         Optional<ParkingContract> parkingContractOptional = parkingContractDao.getParkingContractByIdAndUserId(id, userId);
         ParkingContract parkingContract = parkingContractOptional.orElseThrow(() -> {
             LOGGER.error("Unable to find parking contract with id: " + id);
@@ -42,7 +43,7 @@ public class ParkingContractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
-    public EntityResponse<ParkingContract> saveParkingContract(@Auth User principal, ParkingContract parkingContract) {
+    public EntityResponse<ParkingContract> saveParkingContract(@Auth User principal, @Valid ParkingContract parkingContract) {
         return EntityResponse.of(parkingContractDao.save(parkingContract));
     }
 }

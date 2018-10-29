@@ -35,14 +35,14 @@ public class ClientResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
-    public EntityResponse<Result<Long>> getClientIdForHostname(@Valid ClientForHostnameRequest clientForHostnameRequest) {
+    public EntityResponse<Result<Integer>> getClientIdForHostname(@Valid ClientForHostnameRequest clientForHostnameRequest) {
         String hostname = clientForHostnameRequest.getHostname();
         Optional<Client> clientOptional = clientDao.getClientByHostname(hostname);
         Client client = clientOptional.orElseThrow(() -> {
             LOGGER.error("Unable to find client for specified hostname: " + hostname);
             return new KpsysException("Unable to find client for specified hostname", Response.Status.NOT_FOUND);
         });
-        Long clientId = client.getClientId();
+        Integer clientId = client.getClientId();
         return EntityResponse.of(new Result<>(clientId));
     }
 
@@ -52,7 +52,7 @@ public class ClientResource {
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public EntityResponse<ClientCustomDataResponse> getClientCustomData(@Valid ClientCustomDataRequest clientCustomDataRequest) {
-        Long clientId = clientCustomDataRequest.getClientId();
+        Integer clientId = clientCustomDataRequest.getClientId();
         Client client = clientDao.getClient(clientId);
         if (client == null) {
             LOGGER.error("Unable to find client for specified id: " + clientId);

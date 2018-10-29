@@ -25,7 +25,7 @@ public abstract class ClientAwareDao<T extends TenantAware> extends MultitenantD
 
 
     protected void addTenantFilterToSession(Session session) {
-        Tenant<Long> client = tenantResolver.resolve();
+        Tenant<Integer> client = tenantResolver.resolve();
         log.info("ClientAwareDao: Set tenant_id in session filter: {}", client.getId());
         session.enableFilter("client").setParameter("tenant_id", client.getId());
     }

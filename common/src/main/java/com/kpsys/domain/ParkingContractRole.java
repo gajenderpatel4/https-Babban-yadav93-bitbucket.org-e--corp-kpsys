@@ -22,13 +22,13 @@ public class ParkingContractRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "parking_contract_id")
-    private Long parkingContractId;
+    private Integer parkingContractId;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "role_type")
     private String role_type;
