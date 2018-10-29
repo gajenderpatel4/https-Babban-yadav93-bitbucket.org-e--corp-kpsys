@@ -171,7 +171,6 @@ kpsysApp.controller('HeaderController', ['$scope', '$rootScope', 'AuthService', 
                     angular.element('head').append(link);
                 }
                 $scope.logoUrlCheckCompleted = true;
-                console.log(response.entity);
             }, function (ex) {
                 console.log(ex);
                 $scope.logoUrlCheckCompleted = true;
