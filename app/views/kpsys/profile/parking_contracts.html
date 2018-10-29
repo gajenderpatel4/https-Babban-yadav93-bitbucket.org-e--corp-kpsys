@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="zoneId">Zone:</label>
-                        <select ng-model="parkingContract.zone" name="zoneId" required
+                        <select ng-model="parkingContract.zone" name="zoneId" id="zoneId" required
                                 class="form-control input-inline input-medium"
                                 ng-options="item.id for item in zones">
                             <option value="">-- select --</option>
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="clientId">Client:</label>
-                        <select ng-model="parkingContract.client" name="clientId" required
+                        <select ng-model="parkingContract.client" name="clientId" id="clientId" required
                                 class="form-control input-inline input-medium"
                                 ng-options="item.id for item in clients">
                             <option value="">-- select --</option>
