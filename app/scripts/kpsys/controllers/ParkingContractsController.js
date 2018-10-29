@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, $rootScope, ParkingContractsService, ClientService, ZoneService, Session) {
+angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, $rootScope, ParkingContractsService, ParkingContractItemsService, ClientService, ZoneService, Session) {
 
     $scope.isArray = angular.isArray;
 
@@ -13,10 +13,13 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
         $scope.parkingContractSavedOk = false;
         $scope.responseError = "";
         $scope.parkingContract = null;
-        $scope.loading = true;
+        $scope.parkingContractItems = null;
+        $scope.parkingContractLoading = true;
+        $scope.parkingContractItemsLoading = true;
 
         if ($scope.selectedParkingContract === null) {
-            $scope.loading = false;
+            $scope.parkingContractLoading = false;
+            $scope.parkingContractItemsLoading = false;
             return;
         }
 
@@ -38,24 +41,35 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
                 if (selectedZoneId.length === 1) {
                     $scope.parkingContract.zone = selectedZoneId[0];
                 }
-                $scope.loading = false;
+                $scope.parkingContractLoading = false;
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.loading = false;
+                $scope.parkingContractLoading = false;
+            });
+
+        ParkingContractItemsService.findByParkingContract(selectedParkingContractId)
+            .then(function (response) {
+                console.log(angular.isArray(response.entity));
+                $scope.parkingContractItems = response.entity;
+                $scope.parkingContractItemsLoading = false;
+            }, function (ex) {
+                console.log(ex);
+                $scope.parkingContractItems = null;
+                $scope.parkingContractItemsLoading = false;
             });
     };
 
     $scope.saveParkingContract = function (item) {
-        $scope.loading = true;
+        $scope.parkingContractSavingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
         ParkingContractsService.save(item)
             .then(function (_) {
-                $scope.loading = false;
+                $scope.parkingContractSavingInProcess = false;
                 $scope.parkingContractSavedOk = true;
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.loading = false;
+                $scope.parkingContractSavingInProcess = false;
             });
     };
 
