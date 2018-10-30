@@ -1,7 +1,7 @@
 <div ng-controller="ParkingContractsCtrl" data-ng-init="init()">
     <div class="col-md-12">
 
-        <div ng-if="parkingContractLoading || parkingContractItemsLoading || clientsLoading || zonesLoading || parkingContractSavingInProcess" class="row loading-message">
+        <div ng-if="isLoading()" class="row loading-message">
             <div class="page-spinner-bar">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
@@ -10,11 +10,11 @@
         </div>
 
         <!-- BEGIN PARKING CONTRACTS CONTENT -->
-        <div ng-show="!parkingContractLoading && !parkingContractItemsLoading && !clientsLoading && !zonesLoading && !parkingContractSavingInProcess" class="tab-pane page-quick-sidebar-settings">
+        <div ng-show="!isLoading()" class="tab-pane page-quick-sidebar-settings">
             <div class="page-quick-sidebar-settings-list">
                 <h3 class="list-heading">Parking Contracts</h3>
                 <ul class="list-items borderless">
-                    <li> Select Parking Contract
+                    <li> Parking Contract
                         <select ng-model="selectedParkingContract" ng-change="loadParkingContract()"
                                 class="form-control input-inline input-medium"
                                 ng-options="y.name for (x, y) in parkingContracts">

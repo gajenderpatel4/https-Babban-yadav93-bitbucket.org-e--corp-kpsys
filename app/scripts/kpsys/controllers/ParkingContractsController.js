@@ -1,12 +1,29 @@
 'use strict';
 
-angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, $rootScope, ParkingContractsService, ParkingContractItemsService, ClientService, ZoneService, Session) {
+angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $scope, $rootScope, ParkingContractsService, ParkingContractItemsService, ClientService, ZoneService, Session) {
 
     $scope.isArray = angular.isArray;
 
     $scope.init = function () {
-        loadClients();
-        loadZones();
+
+        $scope.clients = [];
+        $scope.zones = [];
+        $scope.parkingContractsLoading = true;
+        $q.all([
+            ClientService.findAllClients(),
+            ZoneService.findAllZones()
+        ]).then(function (result) {
+            var clients = result[0].entity;
+            var zones = result[1].entity;
+
+            $scope.clients = clients;
+            $scope.zones = zones;
+
+            $scope.parkingContractsLoading = false;
+        }).catch(function (err) {
+            $scope.responseError = $rootScope.getErrorMessage(err);
+            $scope.parkingContractsLoading = false;
+        });
     };
 
     $scope.loadParkingContract = function () {
@@ -15,85 +32,55 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
         $scope.parkingContract = null;
         $scope.parkingContractItems = null;
         $scope.parkingContractLoading = true;
-        $scope.parkingContractItemsLoading = true;
 
         if ($scope.selectedParkingContract === null) {
             $scope.parkingContractLoading = false;
-            $scope.parkingContractItemsLoading = false;
             return;
         }
 
         var selectedParkingContractId = $scope.selectedParkingContract.item_id;
 
-        ParkingContractsService.get(selectedParkingContractId)
-            .then(function (response) {
-                $scope.parkingContract = response.entity;
-                var selectedClientId = $scope.clients.filter(function (client) {
-                    return client.id === $scope.parkingContract.client.id;
-                });
-                if (selectedClientId.length === 1) {
-                    $scope.parkingContract.client = selectedClientId[0];
-                }
+        $q.all([
+            ParkingContractsService.get(selectedParkingContractId),
+            ParkingContractItemsService.findByParkingContract(selectedParkingContractId)
+        ]).then(function (result) {
+            $scope.parkingContract = result[0].entity;
+            $scope.parkingContractItems = result[1].entity;
 
-                var selectedZoneId = $scope.zones.filter(function (zone) {
-                    return zone.id === $scope.parkingContract.zone.id;
-                });
-                if (selectedZoneId.length === 1) {
-                    $scope.parkingContract.zone = selectedZoneId[0];
-                }
-                $scope.parkingContractLoading = false;
-            }, function (ex) {
-                $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.parkingContractLoading = false;
+            // find currently selected client id
+            var selectedClientId = $scope.clients.filter(function (client) {
+                return client.id === $scope.parkingContract.client.id;
             });
+            if (selectedClientId.length === 1) {
+                $scope.parkingContract.client = selectedClientId[0];
+            }
 
-        ParkingContractItemsService.findByParkingContract(selectedParkingContractId)
-            .then(function (response) {
-                console.log(angular.isArray(response.entity));
-                $scope.parkingContractItems = response.entity;
-                $scope.parkingContractItemsLoading = false;
-            }, function (ex) {
-                console.log(ex);
-                $scope.parkingContractItems = null;
-                $scope.parkingContractItemsLoading = false;
+            // find currently selected zone id
+            var selectedZoneId = $scope.zones.filter(function (zone) {
+                return zone.id === $scope.parkingContract.zone.id;
             });
+            if (selectedZoneId.length === 1) {
+                $scope.parkingContract.zone = selectedZoneId[0];
+            }
+
+            $scope.parkingContractLoading = false;
+        }).catch(function (err) {
+            $scope.responseError = $rootScope.getErrorMessage(err);
+            $scope.parkingContractLoading = false;
+        });
     };
 
     $scope.saveParkingContract = function (item) {
-        $scope.parkingContractSavingInProcess = true;
+        $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
         ParkingContractsService.save(item)
             .then(function (_) {
-                $scope.parkingContractSavingInProcess = false;
+                $scope.parkingContractUpdatingInProcess = false;
                 $scope.parkingContractSavedOk = true;
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.parkingContractSavingInProcess = false;
-            });
-    };
-
-    var loadClients = function () {
-        $scope.clientsLoading = true;
-        ClientService.findAllClients()
-            .then(function (response) {
-                $scope.clients = response.entity;
-                $scope.clientsLoading = false;
-            }, function (ex) {
-                $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.clientsLoading = false;
-            });
-    };
-
-    var loadZones = function () {
-        $scope.zonesLoading = true;
-        ZoneService.findAllZones()
-            .then(function (response) {
-                $scope.zones = response.entity;
-                $scope.zonesLoading = false;
-            }, function (ex) {
-                $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.zonesLoading = false;
+                $scope.parkingContractUpdatingInProcess = false;
             });
     };
 
@@ -101,6 +88,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($scope, 
     var parkingContracts = authorisation['parking_contracts'];
     parkingContracts = parkingContracts["edit"] !== undefined ? parkingContracts["edit"] : [];
     $scope.parkingContracts = parkingContracts;
-    $scope.clients = null;
-    $scope.zones = null;
+
+    $scope.isLoading = function () {
+        return $scope.parkingContractsLoading
+            || $scope.parkingContractLoading
+            || $scope.parkingContractUpdatingInProcess;
+    };
 });
