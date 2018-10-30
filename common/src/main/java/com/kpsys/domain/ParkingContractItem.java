@@ -8,11 +8,14 @@ import javax.persistence.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@Entity
+@Entity(name = "ParkingContractItem")
 @Table(name = "parking_contract_item")
 @JsonInclude(NON_NULL)
 @Data
 @NamedQueries({
+    @NamedQuery(name = "getParkingContractItemsByUserIdAndParkingContractId", query = "SELECT DISTINCT pci FROM ParkingContractItem pci " +
+        "JOIN ParkingContract pc ON pc.id = pci.parkingContract.id " +
+        "JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.role_type = 'edit' AND pci.parkingContract.id = :parking_contract_id")
 })
 public class ParkingContractItem {
     @Id
@@ -20,14 +23,13 @@ public class ParkingContractItem {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @JoinColumn(name = "parking_contract_id", nullable = false)
+    @JoinColumn(name = "parking_contract_id", nullable = false, updatable = false)
     @ManyToOne(targetEntity = ParkingContract.class, cascade = {}, fetch = FetchType.EAGER)
     @JsonIgnore
     private ParkingContract parkingContract;
 
     @JoinColumn(name = "client_id", nullable = false)
     @ManyToOne(targetEntity = Client.class, cascade = {}, fetch = FetchType.EAGER)
-    @JsonIgnore
     private Client client;
 
     @Column(name = "identificator", length = 70)
@@ -36,9 +38,9 @@ public class ParkingContractItem {
     @Column(name = "pre_register_identificator", length = 70)
     private String preRegisterIdentificator;
 
+    //TODO: update user
     @JoinColumn(name = "user_id")
     @ManyToOne(targetEntity = User.class, cascade = {}, fetch = FetchType.EAGER)
-    @JsonIgnore
     private User user;
 
     @Column(name = "status", nullable = false)

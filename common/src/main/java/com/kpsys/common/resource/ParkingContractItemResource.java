@@ -10,6 +10,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -24,11 +25,18 @@ public class ParkingContractItemResource {
 
     @GET
     @Path("/findByParkingContract/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     public EntityResponse<List<ParkingContractItem>> findByParkingContract(@Auth User principal, @PathParam("id") Integer parkingContractId) {
         Integer userId = principal.getUserId();
-        return EntityResponse.of(parkingContractItemDao.findByParkingContract(userId, parkingContractId));
+        return EntityResponse.of(parkingContractItemDao.getByParkingContractByUserIdAndParkingContractId(userId, parkingContractId));
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public EntityResponse<ParkingContractItem> saveParkingContractItem(@Auth User principal, @Valid ParkingContractItem parkingContractItem) {
+        return EntityResponse.of(parkingContractItemDao.save(parkingContractItem));
     }
 }
