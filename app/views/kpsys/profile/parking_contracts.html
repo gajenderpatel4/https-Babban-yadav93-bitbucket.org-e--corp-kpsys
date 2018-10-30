@@ -1,138 +1,279 @@
-<div ng-controller="ParkingContractsCtrl" data-ng-init="init()">
+<div ng-controller="ParkingContractsCtrl" data-ng-init="init()" class="row">
     <div class="col-md-12">
+        <div class="portlet light">
 
-        <div ng-if="isLoading()" class="row loading-message">
-            <div class="page-spinner-bar">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-        </div>
-
-        <!-- BEGIN PARKING CONTRACTS CONTENT -->
-        <div ng-show="!isLoading()">
-
-            <h3 class="list-heading">Parking Contracts</h3>
-
-            <div class="row">
-                <div class="form-group col-xs-7">
-                    <label class="control-label" for="parkingcontractId">Parking contract:</label>
-                    <select ng-model="selectedParkingContract" id="parkingcontractId" ng-change="loadParkingContract()"
-                            class="form-control input-inline input-medium"
-                            ng-options="y.name for (x, y) in parkingContracts">
-                        <option value="">-- select --</option>
-                    </select>
-                </div>
+            <div class="portlet-title tabbable-line">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#" data-target="#tab_1_1" data-toggle="tab">Parking contracts</a>
+                    </li>
+                    <li>
+                        <a href="#" data-target="#tab_1_2" data-toggle="tab">Parking contract items</a>
+                    </li>
+                </ul>
             </div>
 
-            <form ng-show="parkingContract" name="parkingContractForm"
-                  ng-submit="parkingContractForm.$valid && saveParkingContract(parkingContract)">
+            <div class="portlet-body">
+                <div class="tab-content">
 
-                <div class="row">
-                    <div class="form-group alert alert-danger"
-                         ng-if="responseError && isArray(responseError)">
-                        <h4>Error occurred</h4>
-                        <span class="text-danger" ng-repeat="e in responseError">
-                            {{e}}<br/>
-                        </span>
+                    <div ng-if="isLoading()" class="row loading-message">
+                        <div class="page-spinner-bar">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group alert alert-danger"
-                         ng-if="responseError && !isArray(responseError)">
-                        <h4>Error occurred</h4>
-                        <span class="text-danger">
-                            {{responseError}}
-                        </span>
+                    <div class="row">
+                        <div class="form-group alert alert-danger"
+                             ng-if="responseError && isArray(responseError)">
+                            <h4>Error occurred</h4>
+                            <span class="text-danger" ng-repeat="e in responseError">
+                                {{e}}<br/>
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group alert alert-success"
-                         ng-if="parkingContractSavedOk">
-                        <h4>Status</h4>
-                        <span class="text-success">Parking contract updated</span>
+                    <div class="row">
+                        <div class="form-group alert alert-danger"
+                             ng-if="responseError && !isArray(responseError)">
+                            <h4>Error occurred</h4>
+                            <span class="text-danger">
+                                {{responseError}}
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="name">Name:</label>
-                        <input id="name" name="name" class="form-control" type="text" required
-                               ng-model="parkingContract.name"
-                               maxlength="35">
+                    <div class="row">
+                        <div class="form-group alert alert-success"
+                             ng-if="parkingContractSavedOk">
+                            <h4>Status</h4>
+                            <span class="text-success">Parking contract updated</span>
+                        </div>
                     </div>
-                </div>
 
+                    <!-- PARKING CONTRACTS TAB -->
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div id="accordion1" class="panel-group">
 
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="zoneId">Zone:</label>
-                        <select ng-model="parkingContract.zone" name="zoneId" id="zoneId" required
-                                class="form-control input-inline input-medium"
-                                ng-options="item.id for item in zones">
-                            <option value="">-- select --</option>
-                        </select>
+                            <div ng-show="!isLoading()" class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3 class="list-heading">Parking Contracts</h3>
+                                    <div class="row">
+                                        <div class="form-group col-xs-7">
+                                            <label class="control-label" for="parkingcontractId">Select Parking
+                                                contract:</label>
+                                            <select ng-model="selectedParkingContract" id="parkingcontractId"
+                                                    ng-change="loadParkingContract()"
+                                                    class="form-control input-inline input-medium"
+                                                    ng-options="y.name for (x, y) in parkingContracts">
+                                                <option value="">-- select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <form ng-show="parkingContract" name="parkingContractForm"
+                                          ng-submit="parkingContractForm.$valid && saveParkingContract(parkingContract)">
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="name">Name:</label>
+                                                <input id="name" name="name" class="form-control" type="text" required
+                                                       ng-model="parkingContract.name"
+                                                       maxlength="35">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="zoneId">Zone:</label>
+                                                <select ng-model="parkingContract.zone" name="zoneId" id="zoneId"
+                                                        required
+                                                        class="form-control input-inline input-medium"
+                                                        ng-options="item.id for item in zones">
+                                                    <option value="">-- select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="clientId">Client:</label>
+                                                <select ng-model="parkingContract.client" name="clientId" id="clientId"
+                                                        required
+                                                        class="form-control input-inline input-medium"
+                                                        ng-options="item.id for item in clients">
+                                                    <option value="">-- select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="maxItemCount">Max item count:</label>
+                                                <input id="maxItemCount" name="maxItemCount" class="form-control"
+                                                       type="text" placeholder="10"
+                                                       ng-model="parkingContract.maxItemCount"
+                                                       maxlength="10">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="description">Description:</label>
+                                                <input id="description" name="description" class="form-control"
+                                                       type="text"
+                                                       placeholder="Description"
+                                                       ng-model="parkingContract.description"
+                                                       maxlength="200">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="contractType">Contract type:</label>
+                                                <input id="contractType" name="contractType" class="form-control"
+                                                       type="text"
+                                                       ng-model="parkingContract.contractType"
+                                                       maxlength="10">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="maxUtilizationCount">Max utilization
+                                                    count:</label>
+                                                <input id="maxUtilizationCount" name="maxUtilizationCount"
+                                                       class="form-control" type="text"
+                                                       placeholder=""
+                                                       ng-model="parkingContract.maxUtilizationCount"
+                                                       maxlength="10">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="icon-settings"></i> Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <!-- END PARKING CONTRACTS TAB -->
 
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="clientId">Client:</label>
-                        <select ng-model="parkingContract.client" name="clientId" id="clientId" required
-                                class="form-control input-inline input-medium"
-                                ng-options="item.id for item in clients">
-                            <option value="">-- select --</option>
-                        </select>
+                    <!-- PARKING CONTRACTS ITEMS TAB -->
+                    <div class="tab-pane" id="tab_1_2">
+                        <div id="accordion2" class="panel-group">
+
+                            <div ng-show="!isLoading()" class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3 class="list-heading">Parking Contract Items</h3>
+                                    <div class="row">
+                                        <div class="form-group col-xs-7">
+                                            <label class="control-label" for="parkingcontractForItems">Select Parking
+                                                contract:</label>
+                                            <select ng-model="selectedParkingContract" id="parkingcontractForItems"
+                                                    ng-change="loadParkingContract()"
+                                                    class="form-control input-inline input-medium"
+                                                    ng-options="y.name for (x, y) in parkingContracts">
+                                                <option value="">-- select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-7">
+                                            <label class="control-label" for="parkingcontractItemId">Select Parking
+                                                contract Item:</label>
+                                            <select ng-model="selectedParkingContractItem" id="parkingcontractItemId"
+                                                    ng-change="parkingContractItemChange()"
+                                                    class="form-control input-inline input-medium"
+                                                    ng-options="y.identificator for (x, y) in parkingContractItems">
+                                                <option value="">-- select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <form ng-show="selectedParkingContractItem" name="parkingContractItemForm"
+                                          ng-submit="parkingContractItemForm.$valid && saveParkingContractItem(parkingContractItem)">
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="identificator">Identificator:</label>
+                                                <input id="identificator" name="identificator" class="form-control"
+                                                       type="text" required
+                                                       ng-model="parkingContractItem.identificator"
+                                                       maxlength="70">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="preRegisterIdentificator">Pre Register
+                                                    Identificator:</label>
+                                                <input id="preRegisterIdentificator" name="preRegisterIdentificator"
+                                                       class="form-control" type="text" required
+                                                       ng-model="parkingContractItem.preRegisterIdentificator"
+                                                       maxlength="70">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label" for="clientId2">Client:</label>
+                                                <select ng-model="parkingContractItem.client" name="clientId2" id="clientId2"
+                                                        required
+                                                        class="form-control input-inline input-medium"
+                                                        ng-options="item.id for item in clients">
+                                                    <option value="">-- select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label"
+                                                       for="parkingContractItemStatus">Status:</label>
+                                                <input id="parkingContractItemStatus" name="maxItemCount"
+                                                       class="form-control"
+                                                       type="text"
+                                                       ng-model="parkingContractItem.status">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <label class="control-label"
+                                                       for="parkingContractItemComment">Comment:</label>
+                                                <input id="parkingContractItemComment" name="parkingContractItemComment"
+                                                       class="form-control"
+                                                       type="text"
+                                                       placeholder="Comment"
+                                                       ng-model="parkingContractItem.comment"
+                                                       maxlength="200">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-7">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="icon-settings"></i> Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- END PARKING CONTRACTS ITEMS TAB -->
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="maxItemCount">Max item count:</label>
-                        <input id="maxItemCount" name="maxItemCount" class="form-control" type="text" placeholder="10"
-                               ng-model="parkingContract.maxItemCount"
-                               maxlength="10">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="description">Description:</label>
-                        <input id="description" name="description" class="form-control" type="text"
-                               placeholder="Description"
-                               ng-model="parkingContract.description"
-                               maxlength="200">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="contractType">Contract type:</label>
-                        <input id="contractType" name="contractType" class="form-control" type="text"
-                               ng-model="parkingContract.contractType"
-                               maxlength="10">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-xs-7">
-                        <label class="control-label" for="maxUtilizationCount">Max utilization count:</label>
-                        <input id="maxUtilizationCount" name="maxUtilizationCount" class="form-control" type="text"
-                               placeholder=""
-                               ng-model="parkingContract.maxUtilizationCount"
-                               maxlength="10">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <button type="submit" class="btn btn-default">
-                        <i class="icon-settings"></i> Save changes
-                    </button>
-                </div>
-            </form>
-            <!-- END PARKING CONTRACTS CONTENT -->
         </div>
     </div>
 </div>
