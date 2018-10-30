@@ -3,10 +3,10 @@ package com.kpsys.common.dao;
 import com.google.inject.Inject;
 import com.kpsys.domain.ParkingContractItem;
 import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.*;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ParkingContractItemDao extends AbstractDAO<ParkingContractItem> {
 
