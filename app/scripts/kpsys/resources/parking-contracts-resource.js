@@ -11,6 +11,11 @@ angular.module('kpsysApp').factory('ParkingContractsResource', function ($resour
             method: 'POST', transformResponse: function (data) {
                 return JSON.parse(data);
             }
+        },
+        'delete': {
+            method: 'DELETE', transformResponse: function (data) {
+                return JSON.parse(data);
+            }
         }
     });
 });

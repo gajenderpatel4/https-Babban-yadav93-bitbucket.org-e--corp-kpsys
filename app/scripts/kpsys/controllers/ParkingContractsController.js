@@ -27,13 +27,16 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     $scope.parkingContractItemChange = function() {
-      $scope.parkingContractItem = angular.copy($scope.selectedParkingContractItem);
+        if ($scope.selectedParkingContractItem === null) {
+            return;
+        }
+        $scope.parkingContractItem = angular.copy($scope.selectedParkingContractItem);
 
         // find currently selected client id
         var selectedClientId = $scope.clients.filter(function (client) {
             return client.id === $scope.parkingContractItem.client.id;
         });
-        if (selectedClientId.length === 1) { console.log("YSE")
+        if (selectedClientId.length === 1) {
             $scope.parkingContractItem.client = selectedClientId[0];
         }
     };
@@ -80,6 +83,55 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
             $scope.responseError = $rootScope.getErrorMessage(err);
             $scope.parkingContractLoading = false;
         });
+    };
+
+    $scope.deleteParkingContractItem = function(parkingContractItem) {
+
+        $scope.parkingContractUpdatingInProcess = true;
+        $scope.responseError = false;
+        $scope.parkingContractSavedOk = false;
+
+        var parkingContractItemId = parkingContractItem.id;
+        ParkingContractItemsService.delete(parkingContractItemId)
+            .then(function (_) {
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+
+                var tmpParkingContractItems = $scope.parkingContractItems.filter(function (parkingContractItem) {
+                    return parkingContractItem.id !== parkingContractItemId;
+                });
+                $scope.parkingContractItems = tmpParkingContractItems;
+            }, function (ex) {
+                $scope.responseError = $rootScope.getErrorMessage(ex);
+                $scope.parkingContractUpdatingInProcess = false;
+            });
+    };
+
+    //TODO: is it needed?
+    $scope.deleteParkingContract = function (parkingContract) {
+
+        $scope.parkingContractUpdatingInProcess = true;
+        $scope.responseError = false;
+        $scope.parkingContractSavedOk = false;
+
+        var parkingContractId = parkingContract.id;
+        ParkingContractsService.delete(parkingContractId)
+            .then(function (_) {
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+
+                var tmpParkingContracts = angular.copy($scope.parkingContracts);
+                tmpParkingContracts = tmpParkingContracts.filter(function (parkingContract) {
+                   return parkingContract.item_id !== parkingContractId;
+                });
+
+                $scope.parkingContracts = tmpParkingContracts;
+
+                AuthService.updateParkingContractRoleAuthorisation();
+            }, function (ex) {
+                $scope.responseError = $rootScope.getErrorMessage(ex);
+                $scope.parkingContractUpdatingInProcess = false;
+            });
     };
 
     $scope.saveParkingContract = function (parkingContract) {

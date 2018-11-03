@@ -16,6 +16,13 @@ angular.module('kpsysApp').factory('ParkingContractItemsResource', function ($re
                     return JSON.parse(data);
                 }
             }
+        }),
+        parkingContractItem: $resource('/api/parkingcontractitem/:parkingContractItemId', {parkingContractIemId: '@parkingContractItemId'}, {
+            'delete': {
+                method: 'DELETE', transformResponse: function (data) {
+                    return JSON.parse(data);
+                }
+            }
         })
     };
 });

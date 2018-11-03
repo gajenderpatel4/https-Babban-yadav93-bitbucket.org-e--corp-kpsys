@@ -11,7 +11,7 @@ angular.module('kpsysApp').service('ParkingContractItemsService', function (Park
         return defer.promise;
     };
 
-    this.save = function(parkingContractItem) {
+    this.save = function (parkingContractItem) {
         var defer = $q.defer();
         ParkingContractItemsResource.save.save(parkingContractItem, function (result) {
             defer.resolve(result);
@@ -19,5 +19,15 @@ angular.module('kpsysApp').service('ParkingContractItemsService', function (Park
             defer.reject(ex);
         });
         return defer.promise;
-    }
+    };
+
+    this.delete = function (parkingContractItemId) {
+        var defer = $q.defer();
+        ParkingContractItemsResource.parkingContractItem.delete({parkingContractItemId: parkingContractItemId}, function (result) {
+            defer.resolve(result);
+        }, function (result) {
+            defer.reject(result);
+        });
+        return defer.promise;
+    };
 });

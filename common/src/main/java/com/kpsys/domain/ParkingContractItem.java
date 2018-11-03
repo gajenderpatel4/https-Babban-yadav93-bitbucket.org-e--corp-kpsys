@@ -15,8 +15,12 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @NamedQueries({
     @NamedQuery(name = "getParkingContractItemsByUserIdAndParkingContractId", query = "SELECT DISTINCT pci FROM ParkingContractItem pci " +
         "JOIN ParkingContract pc ON pc.id = pci.parkingContract.id " +
-        "JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.role_type = 'edit' AND pci.parkingContract.id = :parking_contract_id")
-})
+        "JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.role_type = 'edit' AND pci.parkingContract.id = :parking_contract_id"),
+    @NamedQuery(name = "getParkingContractItemByUserIdAndId", query = "SELECT pci FROM ParkingContractItem pci " +
+        "WHERE EXISTS (SELECT pc FROM ParkingContract pc " +
+        "JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id " +
+        "WHERE pcr.userId = :user_id and pcr.role_type = 'edit' and pc.id = pci.parkingContract.id) " +
+        "AND pci.id = :id")})
 public class ParkingContractItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

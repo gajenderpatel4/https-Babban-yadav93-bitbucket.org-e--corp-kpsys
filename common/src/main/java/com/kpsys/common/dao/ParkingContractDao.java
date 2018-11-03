@@ -42,4 +42,10 @@ public class ParkingContractDao extends AbstractDAO<ParkingContract> {
         currentSession().flush();
         return pc;
     }
+
+    public ParkingContract delete(ParkingContract parkingContract) {
+        currentSession().delete(parkingContract);
+        currentSession().flush();
+        return parkingContract;
+    }
 }
