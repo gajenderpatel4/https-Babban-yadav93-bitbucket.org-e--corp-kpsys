@@ -92,9 +92,7 @@ kpsysApp.controller('AppController', function ($state, $timeout, $scope, $rootSc
                     $rootScope.setCurrentClientId(clientId);
                     $rootScope.$broadcast(CLIENT_EVENTS.clientFoundByHostname, clientId);
                     $rootScope.customClientDataLoading = false;
-                    console.log(response);
                 }, function (ex) {
-                    console.log(ex);
                     $rootScope.$broadcast(CLIENT_EVENTS.clientNotFoundByHostname);
                     //TODO: uncomment to use in multitenant environments
                     //$rootScope.unableToDetermineClientForHostname = true;
