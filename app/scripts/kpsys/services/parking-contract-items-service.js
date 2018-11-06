@@ -3,7 +3,7 @@
 angular.module('kpsysApp').service('ParkingContractItemsService', function (ParkingContractItemsResource, $q) {
     this.findByParkingContract = function (p) {
         var defer = $q.defer();
-        ParkingContractItemsResource.findByParkingContract.find({parkingContractId: p}, function (result) {
+        ParkingContractItemsResource.list.get({parkingContractId: p}, function (result) {
             defer.resolve(result);
         }, function (ex) {
             defer.reject(ex);
@@ -11,9 +11,9 @@ angular.module('kpsysApp').service('ParkingContractItemsService', function (Park
         return defer.promise;
     };
 
-    this.save = function (parkingContractItem) {
+    this.add = function (parkingContractItem) {
         var defer = $q.defer();
-        ParkingContractItemsResource.save.save(parkingContractItem, function (result) {
+        ParkingContractItemsResource.item.add(parkingContractItem, function (result) {
             defer.resolve(result);
         }, function (ex) {
             defer.reject(ex);
@@ -23,10 +23,21 @@ angular.module('kpsysApp').service('ParkingContractItemsService', function (Park
 
     this.delete = function (parkingContractItemId) {
         var defer = $q.defer();
-        ParkingContractItemsResource.parkingContractItem.delete({parkingContractItemId: parkingContractItemId}, function (result) {
+        ParkingContractItemsResource.actions.delete({parkingContractItemId: parkingContractItemId}, function (result) {
             defer.resolve(result);
-        }, function (result) {
-            defer.reject(result);
+        }, function (ex) {
+            defer.reject(ex);
+        });
+        return defer.promise;
+    };
+
+    //TODO: update
+    this.update = function (parkingContractItemId, update) {
+        var defer = $q.defer();
+        ParkingContractItemsResource.actions.update({parkingContractItemId: parkingContractItemId}, update, function (result) {
+            defer.resolve(result);
+        }, function (ex) {
+            defer.reject(ex);
         });
         return defer.promise;
     };

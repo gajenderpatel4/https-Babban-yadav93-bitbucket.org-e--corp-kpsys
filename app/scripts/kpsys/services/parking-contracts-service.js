@@ -25,8 +25,8 @@ angular.module('kpsysApp').service('ParkingContractsService', function (ParkingC
         var defer = $q.defer();
         ParkingContractsResource.delete({parkingContractId: parkingContractId}, function (result) {
             defer.resolve(result);
-        }, function (result) {
-            defer.reject(result);
+        }, function (ex) {
+            defer.reject(ex);
         });
         return defer.promise;
     }
