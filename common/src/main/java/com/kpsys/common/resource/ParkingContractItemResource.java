@@ -31,11 +31,11 @@ public class ParkingContractItemResource {
     private ParkingContractItemDao parkingContractItemDao;
 
     @GET
-    @Path("/findByParkingContract/{id}")
+    @Path("/{parkingContractId}/list")
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @UnitOfWork
-    public EntityResponse<List<ParkingContractItem>> findByParkingContract(@Auth User principal, @PathParam("id") Integer parkingContractId) {
+    public EntityResponse<List<ParkingContractItem>> findByParkingContract(@Auth User principal, @PathParam("parkingContractId") Integer parkingContractId) {
         Integer userId = principal.getUserId();
         return EntityResponse.of(parkingContractItemDao.getByParkingContractByUserIdAndParkingContractId(userId, parkingContractId));
     }
@@ -45,7 +45,7 @@ public class ParkingContractItemResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @UnitOfWork
-    public EntityResponse<ParkingContractItem> saveParkingContractItem(@Auth User principal, @Valid ParkingContractItem parkingContractItem) {
+    public EntityResponse<ParkingContractItem> addParkingContractItem(@Auth User principal, @Valid ParkingContractItem parkingContractItem) {
         return EntityResponse.of(parkingContractItemDao.save(parkingContractItem));
     }
 
@@ -54,7 +54,7 @@ public class ParkingContractItemResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @UnitOfWork
-    public BaseResponse deleteUser(@Auth User principal, @PathParam("id") Integer parkingContractItemId) {
+    public BaseResponse deleteParkingContractItem(@Auth User principal, @PathParam("id") Integer parkingContractItemId) {
         Integer userId = principal.getUserId();
         Optional<ParkingContractItem> parkingContractItemOptional = parkingContractItemDao.getByUserIdAndId(userId, parkingContractItemId);
 
@@ -65,5 +65,23 @@ public class ParkingContractItemResource {
 
         parkingContractItemDao.delete(parkingContractItem);
         return ok();
+    }
+
+    @Path("{id}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Timed
+    @UnitOfWork
+    public BaseResponse updateParkingContractItem(@Auth User principal, @PathParam("id") Integer parkingContractItemId, @Valid ParkingContractItem update) {
+        Integer userId = principal.getUserId();
+        Optional<ParkingContractItem> parkingContractItemOptional = parkingContractItemDao.getByUserIdAndId(userId, parkingContractItemId);
+
+        ParkingContractItem parkingContractItem = parkingContractItemOptional.orElseThrow(() -> {
+            LOGGER.error("Unable to find parking contract item with id: " + parkingContractItemId);
+            return new KpsysException("Unable to find parking contract item with id: " + parkingContractItemId, Response.Status.NOT_FOUND);
+        });
+
+        parkingContractItem.shallowCopy(update);
+        return EntityResponse.of(parkingContractItemDao.save(parkingContractItem));
     }
 }
