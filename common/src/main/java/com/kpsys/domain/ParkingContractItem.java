@@ -29,7 +29,6 @@ public class ParkingContractItem {
 
     @JoinColumn(name = "parking_contract_id", nullable = false, updatable = false)
     @ManyToOne(targetEntity = ParkingContract.class, cascade = {}, fetch = FetchType.EAGER)
-    @JsonIgnore
     private ParkingContract parkingContract;
 
     @JoinColumn(name = "client_id", nullable = false)
@@ -42,7 +41,7 @@ public class ParkingContractItem {
     @Column(name = "pre_register_identificator", length = 70)
     private String preRegisterIdentificator;
 
-    //TODO: update user
+    //TODO: update user?
     @JoinColumn(name = "user_id")
     @ManyToOne(targetEntity = User.class, cascade = {}, fetch = FetchType.EAGER)
     private User user;
@@ -52,4 +51,14 @@ public class ParkingContractItem {
 
     @Column(name = "comment", length = 200)
     private String comment;
+
+    @JsonIgnore
+    public void shallowCopy(ParkingContractItem update) {
+        this.setClient(update.getClient());
+        this.setIdentificator(update.getIdentificator());
+        this.setPreRegisterIdentificator(update.getPreRegisterIdentificator());
+        this.setUser(update.getUser());
+        this.setStatus(update.getStatus());
+        this.setComment(update.getComment());
+    }
 }
