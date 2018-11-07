@@ -11,9 +11,9 @@ angular.module('kpsysApp').service('ParkingContractsService', function (ParkingC
         return defer.promise;
     };
 
-    this.save = function(parkingContract) {
+    this.update = function(parkingContractId, update) {
         var defer = $q.defer();
-        ParkingContractsResource.save(parkingContract, function (result) {
+        ParkingContractsResource.update({parkingContractId: parkingContractId}, update, function (result) {
             defer.resolve(result);
         }, function (ex) {
             defer.reject(ex);

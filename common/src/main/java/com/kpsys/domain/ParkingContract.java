@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-
 import javax.persistence.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -14,8 +13,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 @Data
 @NamedQueries({
-    @NamedQuery(name = "getParkingContractsByUserId", query = "SELECT DISTINCT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id"),
-    @NamedQuery(name = "getParkingContractByIdAndUserId", query = "SELECT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.parkingContractId = :parking_contract_id")
+    //@NamedQuery(name = "getParkingContractsByUserId", query = "SELECT DISTINCT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id"),
+    @NamedQuery(name = "getParkingContractByIdAndUserId", query = "SELECT pc FROM ParkingContract pc JOIN ParkingContractRole pcr ON pcr.parkingContractId = pc.id WHERE pcr.userId = :user_id AND pcr.parkingContractId = :parking_contract_id AND pcr.role_type = 'edit'")
 })
 public class ParkingContract {
     @Id
@@ -45,4 +44,15 @@ public class ParkingContract {
 
     @Column(name = "max_utilization_count", precision = 10)
     private Integer maxUtilizationCount;
+
+    @JsonIgnore
+    public void shallowCopy(ParkingContract update) {
+        this.setZone(update.getZone());
+        this.setClient(update.getClient());
+        this.setName(update.getName());
+        this.setMaxItemCount(update.getMaxItemCount());
+        this.setDescription(update.getDescription());
+        this.setContractType(update.getContractType());
+        this.setMaxUtilizationCount(update.getMaxUtilizationCount());
+    }
 }

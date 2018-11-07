@@ -38,7 +38,7 @@ public class ParkingContractResource {
     @UnitOfWork
     public EntityResponse<ParkingContract> findParkingContractById(@Auth User principal, @PathParam("id") Integer id) {
         Integer userId = principal.getUserId();
-        Optional<ParkingContract> parkingContractOptional = parkingContractDao.getParkingContractByIdAndUserId(id, userId);
+        Optional<ParkingContract> parkingContractOptional = parkingContractDao.getByIdAndUserId(id, userId);
         ParkingContract parkingContract = parkingContractOptional.orElseThrow(() -> {
             LOGGER.error("Unable to find parking contract with id: " + id);
             return new KpsysException("Unable to find parking contract with id: " + id, Response.Status.NOT_FOUND);
@@ -46,12 +46,21 @@ public class ParkingContractResource {
         return EntityResponse.of(parkingContract);
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @UnitOfWork
-    public EntityResponse<ParkingContract> saveParkingContract(@Auth User principal, @Valid ParkingContract parkingContract) {
+    public BaseResponse updateParkingContract(@Auth User principal, @PathParam("id") Integer parkingContractId, @Valid ParkingContract update) {
+        Integer userId = principal.getUserId();
+        Optional<ParkingContract> parkingContractOptional = parkingContractDao.getByIdAndUserId(userId, parkingContractId);
+
+        ParkingContract parkingContract = parkingContractOptional.orElseThrow(() -> {
+            LOGGER.error("Unable to find parking contract with id: " + parkingContractId);
+            return new KpsysException("Unable to find parking contract with id: " + parkingContractId, Response.Status.NOT_FOUND);
+        });
+
+        parkingContract.shallowCopy(update);
         return EntityResponse.of(parkingContractDao.save(parkingContract));
     }
 
@@ -62,7 +71,7 @@ public class ParkingContractResource {
     @UnitOfWork
     public BaseResponse delete(@Auth User principal, @PathParam("id") Integer parkingContractId) {
         Integer userId = principal.getUserId();
-        Optional<ParkingContract> parkingContractOptional = parkingContractDao.getParkingContractByIdAndUserId(parkingContractId, userId);
+        Optional<ParkingContract> parkingContractOptional = parkingContractDao.getByIdAndUserId(parkingContractId, userId);
         ParkingContract parkingContract = parkingContractOptional.orElseThrow(() -> {
             LOGGER.error("Unable to find parking contract with id: " + parkingContractId);
             return new KpsysException("Unable to find parking contract with id: " + parkingContractId, Response.Status.NOT_FOUND);

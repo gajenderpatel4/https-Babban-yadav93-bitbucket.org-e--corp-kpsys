@@ -33,10 +33,10 @@ public class ParkingContractItemDao extends AbstractDAO<ParkingContractItem> {
         return pci;
     }
 
-    public Optional<ParkingContractItem> getByUserIdAndId(Integer userId, Integer parkingContractId) {
+    public Optional<ParkingContractItem> getByUserIdAndId(Integer userId, Integer parkingContractItemId) {
         Query q = namedQuery("getParkingContractItemByUserIdAndId");
         q.setParameter("user_id", userId);
-        q.setParameter("id", parkingContractId);
+        q.setParameter("id", parkingContractItemId);
         try {
             return Optional.ofNullable(uniqueResult(q));
         } catch (NonUniqueResultException __) {

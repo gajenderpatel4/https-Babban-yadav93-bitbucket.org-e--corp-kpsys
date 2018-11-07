@@ -7,8 +7,8 @@ angular.module('kpsysApp').factory('ParkingContractsResource', function ($resour
                 return JSON.parse(data);
             }
         },
-        'save': {
-            method: 'POST', transformResponse: function (data) {
+        'update': {
+            method: 'PUT', transformResponse: function (data) {
                 return JSON.parse(data);
             }
         },
