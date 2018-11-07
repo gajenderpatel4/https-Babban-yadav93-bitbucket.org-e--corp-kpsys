@@ -57,10 +57,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
                 for (var i = 0; i < $scope.parkingContractItems.length; ++i) {
                     if ($scope.parkingContractItems[i].id === parkingContractItemId) {
                         $scope.parkingContractItems[i] = angular.copy($scope.parkingContractItem);
+                        $scope.selectedParkingContractItem = $scope.parkingContractItems[i];
                         break;
                     }
                 }
-
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
@@ -86,6 +86,8 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
                 $scope.parkingContractSavedOk = true;
 
                 $scope.parkingContractItems.push($scope.parkingContractItem);
+                $scope.selectedParkingContractItem = $scope.parkingContractItem;
+                $scope.initingNewParkingContractItem = false;
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
@@ -136,13 +138,13 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
         });
     };
 
-    $scope.deleteParkingContractItem = function (parkingContractItem) {
+    $scope.deleteParkingContractItem = function () {
 
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
 
-        var parkingContractItemId = parkingContractItem.id;
+        var parkingContractItemId = $scope.parkingContractItem.id;
         ParkingContractItemsService.delete(parkingContractItemId)
             .then(function (_) {
                 $scope.parkingContractUpdatingInProcess = false;
@@ -159,13 +161,13 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     //TODO: is it needed?
-    $scope.deleteParkingContract = function (parkingContract) {
+    $scope.deleteParkingContract = function () {
 
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
 
-        var parkingContractId = parkingContract.id;
+        var parkingContractId = $scope.parkingContract.id;
         ParkingContractsService.delete(parkingContractId)
             .then(function (_) {
                 $scope.parkingContractUpdatingInProcess = false;
@@ -185,11 +187,11 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
             });
     };
 
-    $scope.saveParkingContract = function (parkingContract) {
+    $scope.saveParkingContract = function () {
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
-        ParkingContractsService.save(parkingContract)
+        ParkingContractsService.save($scope.parkingContract)
             .then(function (_) {
                 $scope.parkingContractUpdatingInProcess = false;
                 $scope.parkingContractSavedOk = true;
@@ -207,6 +209,5 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     $scope.isLoading = function () {
         return $scope.parkingContractsLoading
             || $scope.parkingContractLoading
-            || $scope.parkingContractUpdatingInProcess;
-    };
+            || $scope.parkingContractUpdatingInProcess};
 });
