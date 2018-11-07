@@ -73,7 +73,7 @@
                                     </div>
 
                                     <form ng-show="parkingContract" name="parkingContractForm"
-                                          ng-submit="parkingContractForm.$valid && saveParkingContract()">
+                                          ng-submit="parkingContractForm.$valid && updateParkingContract()">
 
                                         <div class="row">
                                             <div class="form-group col-xs-7">
@@ -189,7 +189,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row" ng-show="selectedParkingContract">
                                         <div class="form-group col-xs-10">
                                             <label class="control-label" for="parkingcontractItemId">Select Parking
                                                 contract Item:</label>
