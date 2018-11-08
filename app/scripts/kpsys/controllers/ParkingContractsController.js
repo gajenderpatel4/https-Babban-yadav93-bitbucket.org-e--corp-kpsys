@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $scope, $rootScope, ParkingContractsService, ParkingContractItemsService, ClientService, ZoneService, Session, AuthService) {
+angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $scope, $rootScope, ParkingContractsService, ParkingContractItemsService, ClientService, ZoneService, Session) {
 
     $scope.isArray = angular.isArray;
 
@@ -84,13 +84,16 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
         $scope.parkingContractItem.parkingContract = $scope.parkingContract;
 
         ParkingContractItemsService.add($scope.parkingContractItem)
-            .then(function (_) {
+            .then(function (response) {
                 $scope.parkingContractUpdatingInProcess = false;
                 $scope.parkingContractSavedOk = true;
 
                 $scope.parkingContractItems.push($scope.parkingContractItem);
                 $scope.selectedParkingContractItem = $scope.parkingContractItem;
                 $scope.initingNewParkingContractItem = false;
+
+                // assign an id
+                $scope.parkingContractItem.id = response.entity.id;
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
