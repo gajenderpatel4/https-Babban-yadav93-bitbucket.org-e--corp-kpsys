@@ -20,14 +20,4 @@ angular.module('kpsysApp').service('ParkingContractsService', function (ParkingC
         });
         return defer.promise;
     };
-
-    this.delete = function(parkingContractId) {
-        var defer = $q.defer();
-        ParkingContractsResource.delete({parkingContractId: parkingContractId}, function (result) {
-            defer.resolve(result);
-        }, function (ex) {
-            defer.reject(ex);
-        });
-        return defer.promise;
-    }
 });

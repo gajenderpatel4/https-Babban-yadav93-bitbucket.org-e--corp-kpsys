@@ -165,34 +165,6 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
             });
     };
 
-    //TODO: is it needed?
-    $scope.deleteParkingContract = function () {
-
-        $scope.parkingContractUpdatingInProcess = true;
-        $scope.responseError = false;
-        $scope.parkingContractSavedOk = false;
-
-        var parkingContractId = $scope.parkingContract.id;
-        ParkingContractsService.delete(parkingContractId)
-            .then(function (_) {
-                $scope.parkingContractUpdatingInProcess = false;
-                $scope.parkingContractSavedOk = true;
-
-                var tmpParkingContracts = angular.copy($scope.parkingContracts);
-                tmpParkingContracts = tmpParkingContracts.filter(function (parkingContract) {
-                    return parkingContract.item_id !== parkingContractId;
-                });
-
-                $scope.parkingContracts = tmpParkingContracts;
-
-                //TODO: implement better way
-                AuthService.updateParkingContractRoleAuthorisation();
-            }, function (ex) {
-                $scope.responseError = $rootScope.getErrorMessage(ex);
-                $scope.parkingContractUpdatingInProcess = false;
-            });
-    };
-
     $scope.updateParkingContract = function () {
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;

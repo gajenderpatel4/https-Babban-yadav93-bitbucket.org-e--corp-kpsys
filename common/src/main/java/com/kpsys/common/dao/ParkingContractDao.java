@@ -7,7 +7,6 @@ import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import java.util.List;
 import java.util.Optional;
 
 public class ParkingContractDao extends AbstractDAO<ParkingContract> {
@@ -35,11 +34,5 @@ public class ParkingContractDao extends AbstractDAO<ParkingContract> {
         ParkingContract pc = persist(parkingContract);
         currentSession().flush();
         return pc;
-    }
-
-    public ParkingContract delete(ParkingContract parkingContract) {
-        currentSession().delete(parkingContract);
-        currentSession().flush();
-        return parkingContract;
     }
 }
