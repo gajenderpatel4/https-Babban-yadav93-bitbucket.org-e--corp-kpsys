@@ -22,11 +22,11 @@ public class ParkingContract {
     private Integer id;
 
     @JoinColumn(name = "zone_id", nullable = false)
-    @ManyToOne(targetEntity = Zone.class, cascade = {}, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Zone.class, fetch = FetchType.EAGER)
     private Zone zone;
 
     @JoinColumn(name = "client_id", nullable = false)
-    @ManyToOne(targetEntity = Client.class, cascade = {}, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Client.class, fetch = FetchType.EAGER)
     private Client client;
 
     @Column(name = "name", length = 35, nullable = false)

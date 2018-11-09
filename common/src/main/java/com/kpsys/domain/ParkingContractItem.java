@@ -28,11 +28,11 @@ public class ParkingContractItem {
     private Integer id;
 
     @JoinColumn(name = "parking_contract_id", nullable = false, updatable = false)
-    @ManyToOne(targetEntity = ParkingContract.class, cascade = {}, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = ParkingContract.class, fetch = FetchType.EAGER)
     private ParkingContract parkingContract;
 
     @JoinColumn(name = "client_id", nullable = false)
-    @ManyToOne(targetEntity = Client.class, cascade = {}, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Client.class, fetch = FetchType.EAGER)
     private Client client;
 
     @Column(name = "identificator", length = 70)
@@ -43,7 +43,7 @@ public class ParkingContractItem {
 
     //TODO: update user?
     @JoinColumn(name = "user_id")
-    @ManyToOne(targetEntity = User.class, cascade = {}, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     private User user;
 
     @Column(name = "status", nullable = false)
