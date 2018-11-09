@@ -48,6 +48,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     $scope.updateParkingContractItem = function () {
+        if ($scope.parkingContractUpdatingInProcess) {
+            return;
+        }
+
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
@@ -77,6 +81,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     $scope.addParkingContractItem = function () {
+        if ($scope.parkingContractUpdatingInProcess) {
+            return;
+        }
+
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
@@ -145,6 +153,9 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     $scope.deleteParkingContractItem = function () {
+        if ($scope.parkingContractUpdatingInProcess) {
+            return;
+        }
 
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
@@ -166,6 +177,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
     };
 
     $scope.updateParkingContract = function () {
+        if ($scope.parkingContractUpdatingInProcess) {
+            return;
+        }
+
         $scope.parkingContractUpdatingInProcess = true;
         $scope.responseError = false;
         $scope.parkingContractSavedOk = false;
