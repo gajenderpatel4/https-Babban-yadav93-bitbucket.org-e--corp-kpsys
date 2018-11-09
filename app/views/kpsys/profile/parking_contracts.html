@@ -204,8 +204,8 @@
                                         </div>
                                     </div>
 
-                                    <form ng-show="selectedParkingContractItem || initingNewParkingContractItem"
-                                          name="parkingContractItemForm">
+                                    <form ng-show="(selectedParkingContractItem || initingNewParkingContractItem) && selectedParkingContract"
+                                        name="parkingContractItemForm">
 
                                         <div class="row">
                                             <div class="form-group col-xs-7">
