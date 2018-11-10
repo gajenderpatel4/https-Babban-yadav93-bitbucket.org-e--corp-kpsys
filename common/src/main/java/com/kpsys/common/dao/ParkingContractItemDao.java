@@ -17,7 +17,7 @@ public class ParkingContractItemDao extends AbstractDAO<ParkingContractItem> {
         super(sessionFactory);
     }
 
-    public List<ParkingContractItem> getByParkingContractByUserIdAndParkingContractId(Integer userId, Integer parkingContractId) {
+    public List<ParkingContractItem> getByParkingContractAndUserIdAndParkingContractId(Integer userId, Integer parkingContractId) {
         Query q = namedQuery("getParkingContractItemsByUserIdAndParkingContractId");
         q.setParameter("user_id", userId);
         q.setParameter("parking_contract_id", parkingContractId);

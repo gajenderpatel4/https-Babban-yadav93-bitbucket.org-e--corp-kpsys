@@ -37,7 +37,7 @@ public class ParkingContractItemResource {
     @UnitOfWork
     public EntityResponse<List<ParkingContractItem>> findByParkingContract(@Auth User principal, @PathParam("parkingContractId") Integer parkingContractId) {
         Integer userId = principal.getUserId();
-        return EntityResponse.of(parkingContractItemDao.getByParkingContractByUserIdAndParkingContractId(userId, parkingContractId));
+        return EntityResponse.of(parkingContractItemDao.getByParkingContractAndUserIdAndParkingContractId(userId, parkingContractId));
     }
 
     @POST
