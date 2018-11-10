@@ -41,9 +41,8 @@ public class ParkingContractItemDao extends AbstractDAO<ParkingContractItem> {
         }
     }
 
-    public ParkingContractItem delete(ParkingContractItem parkingContractItem) {
+    public void delete(ParkingContractItem parkingContractItem) {
         currentSession().delete(parkingContractItem);
         currentSession().flush();
-        return parkingContractItem;
     }
 }
