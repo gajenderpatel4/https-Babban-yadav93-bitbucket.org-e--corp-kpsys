@@ -12,12 +12,9 @@ import java.util.Optional;
 
 public class ParkingContractItemDao extends AbstractDAO<ParkingContractItem> {
 
-    private final SessionFactory sessionFactory;
-
     @Inject
     public ParkingContractItemDao(SessionFactory sessionFactory) {
         super(sessionFactory);
-        this.sessionFactory = sessionFactory;
     }
 
     public List<ParkingContractItem> getByParkingContractByUserIdAndParkingContractId(Integer userId, Integer parkingContractId) {

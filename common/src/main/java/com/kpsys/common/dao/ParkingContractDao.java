@@ -11,12 +11,9 @@ import java.util.Optional;
 
 public class ParkingContractDao extends AbstractDAO<ParkingContract> {
 
-    private final SessionFactory sessionFactory;
-
     @Inject
     public ParkingContractDao(SessionFactory sessionFactory) {
         super(sessionFactory);
-        this.sessionFactory = sessionFactory;
     }
 
     public Optional<ParkingContract> getByIdAndUserId(Integer parkingContractId, Integer userId) {
