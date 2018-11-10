@@ -31,7 +31,6 @@ angular.module('kpsysApp').service('ParkingContractItemsService', function (Park
         return defer.promise;
     };
 
-    //TODO: update
     this.update = function (parkingContractItemId, update) {
         var defer = $q.defer();
         ParkingContractItemsResource.actions.update({parkingContractItemId: parkingContractItemId}, update, function (result) {
