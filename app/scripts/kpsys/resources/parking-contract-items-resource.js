@@ -5,28 +5,20 @@ angular.module('kpsysApp').factory('ParkingContractItemsResource', function ($re
     return {
         list: $resource('/api/parkingcontractitem/:parkingContractId/list', {parkingContractId: '@parkingContractId'}, {
             get: {
-                method: 'GET', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'GET'
             }
         }),
         item: $resource('/api/parkingcontractitem', {}, {
             add: {
-                method: 'POST', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'POST'
             }
         }),
         actions: $resource('/api/parkingcontractitem/:parkingContractItemId', {parkingContractIemId: '@parkingContractItemId'}, {
             delete: {
-                method: 'DELETE', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'DELETE'
             },
             update: {
-                method: 'PUT', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'PUT'
             }
         })
     };

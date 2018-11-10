@@ -4,23 +4,17 @@ angular.module('kpsysApp').factory('ClientResource', function ($resource) {
     return {
         findByHostname: $resource('/api/client/findbyhostname', {}, {
             'byHostName': {
-                method: 'POST', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'POST'
             }
         }),
         findClientCustomData: $resource('/api/client/findcustomdata', {}, {
             'clientCustomData': {
-                method: 'POST', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'POST'
             }
         }),
         findAllClients: $resource('/api/client/list', {}, {
             'list': {
-                method: 'GET', transformResponse: function (data) {
-                    return JSON.parse(data);
-                }
+                method: 'GET'
             }
         })
     };
