@@ -192,54 +192,14 @@ kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, 
     $scope.pages = [];
     $scope.hasRoleAuthorisationUser = AuthService.hasRoleAuthorisationUser();
     $scope.hasParkingContractRoles = AuthService.hasParkingContractRoles;
-    //$scope.hasRoleAuthorisationPages = AuthService.hasRoleAuthorisationPages();
-    //$scope.hasRoleAuthorisation = AuthService.hasRoleAuthorisation;
 
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar();
     });
 
-    $rootScope.$on(AUTH_EVENTS.languageChanged, function () {
-        delete $window.localStorage["home-page-authenticated"];
-        delete $window.localStorage["additional-page"];
-        delete $window.localStorage["home-page-anonymous"];
-        //getStaticPages()
-    });
-
-    $scope.init = function () {
-        //getStaticPages();
-    };
-
     $scope.isAuthenticated = function () {
         return AuthService.isAuthenticated();
     };
-
-    function getStaticPages() {
-        AuthService.getStaticPages()
-            .success(function (response) {
-                $scope.pages = response;
-                filterStaticPages();
-            });
-    }
-
-    function filterStaticPages() {
-        var length = $scope.pages.length;
-        var language = $translate.use();
-        for (var i = 0; i < length; i++) {
-            if ($scope.pages[i].language === language) {
-                if ($scope.pages[i].pageType === 0) {
-                    $scope.homePageAnonymous = $scope.pages[i];
-                    $window.localStorage["home-page-anonymous"] = $scope.homePageAnonymous.content;
-                } else if ($scope.pages[i].pageType === 1) {
-                    $scope.additionalPage = $scope.pages[i];
-                    $window.localStorage["additional-page"] = $scope.additionalPage.content;
-                } else if ($scope.pages[i].pageType === 10) {
-                    $scope.homePageAuthenticated = $scope.pages[i];
-                    $window.localStorage["home-page-authenticated"] = $scope.homePageAuthenticated.content;
-                }
-            }
-        }
-    }
 });
 
 /* Setup Layout Part - Quick Sidebar */
@@ -272,7 +232,6 @@ kpsysApp.run(function ($rootScope, $location, settings, $state, responseErrorSer
 
     $rootScope.getErrorMessage = responseErrorService.getErrorMessage;
 });
-
 
 kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -309,7 +268,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
             },
             data: {pageTitle: 'Parking Contracts'}
         })
-
+        /*
         .state('pages', {
             url: '/pages',
             templateUrl: 'views/kpsys/static-pages.html',
@@ -348,7 +307,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-        /*
+
         .state('home', {
             url: '/home',
             templateUrl: 'views/kpsys/static-page-viewer.html',
@@ -365,7 +324,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        })*/
+        })
 
         // Editor
         .state('editor', {
@@ -699,7 +658,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
-        })
+        })*/
 
         // User Profile
         .state("profile", {
@@ -742,7 +701,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
             },
             data: {pageTitle: 'User Profile'}
         })
-
+        /*
         // User Profile Account
         .state("profile.account", {
             url: "/account",
@@ -765,7 +724,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }
             },
             data: {pageTitle: 'User Help'}
-        })
+        })*/
         .state('login', {
             url: '/login',
             templateUrl: 'views/kpsys/login.html',
@@ -795,6 +754,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
 
             }
         })
+        /*
         // user maintenance
         .state('userMaintenanceUsers', {
             url: '/user/:filter',
@@ -1111,7 +1071,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-        /*
+
         .state('todo', {
             url: "/todo",
             templateUrl: "views/kpsys/todo.html",
