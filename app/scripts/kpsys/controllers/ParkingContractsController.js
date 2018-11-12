@@ -192,9 +192,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
                 var tmpParkingContract = $scope.parkingContracts.find(function (parkingContract) {
                     return parkingContract.item_id === $scope.parkingContract.id;
                 });
-                tmpParkingContract.name = $scope.parkingContract.name;
-
-                updateAuthorisationItemName("edit", $scope.parkingContract.id, $scope.parkingContract.name);
+                if (tmpParkingContract !== undefined && tmpParkingContract.name !== $scope.parkingContract.name) {
+                    tmpParkingContract.name = $scope.parkingContract.name;
+                    updateAuthorisationItemName("edit", $scope.parkingContract.id, $scope.parkingContract.name);
+                }
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
