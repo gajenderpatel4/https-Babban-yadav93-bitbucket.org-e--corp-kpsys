@@ -60,15 +60,15 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
 
         ParkingContractItemsService.update(parkingContractItemId, $scope.parkingContractItem)
             .then(function (_) {
-                $scope.parkingContractUpdatingInProcess = false;
-                $scope.parkingContractSavedOk = true;
-                $scope.statusMessage = "Parking contract item updated.";
-
                 // update property "identificator" in place
                 var tmpParkingContractItem = $scope.parkingContractItems.find(function (parkingContractItem) {
                     return parkingContractItem.id === parkingContractItemId;
                 });
                 tmpParkingContractItem.identificator = $scope.parkingContractItem.identificator;
+
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+                $scope.statusMessage = "Parking contract item updated.";
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
@@ -94,16 +94,16 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
 
         ParkingContractItemsService.add($scope.parkingContractItem)
             .then(function (response) {
-                $scope.parkingContractUpdatingInProcess = false;
-                $scope.parkingContractSavedOk = true;
-                $scope.statusMessage = "Parking contract item added.";
-
                 $scope.parkingContractItems.push($scope.parkingContractItem);
                 $scope.selectedParkingContractItem = $scope.parkingContractItem;
                 $scope.initingNewParkingContractItem = false;
 
                 // assign an id
                 $scope.parkingContractItem.id = response.entity.id;
+
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+                $scope.statusMessage = "Parking contract item added.";
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
@@ -166,13 +166,13 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
         var parkingContractItemId = $scope.parkingContractItem.id;
         ParkingContractItemsService.delete(parkingContractItemId)
             .then(function (_) {
-                $scope.parkingContractUpdatingInProcess = false;
-                $scope.parkingContractSavedOk = true;
-                $scope.statusMessage = "Parking contract item deleted.";
-
                 $scope.parkingContractItems = $scope.parkingContractItems.filter(function (parkingContractItem) {
                     return parkingContractItem.id !== parkingContractItemId;
                 });
+
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+                $scope.statusMessage = "Parking contract item deleted.";
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
@@ -189,10 +189,6 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
         $scope.parkingContractSavedOk = false;
         ParkingContractsService.update($scope.parkingContract.id, $scope.parkingContract)
             .then(function (_) {
-                $scope.parkingContractUpdatingInProcess = false;
-                $scope.parkingContractSavedOk = true;
-                $scope.statusMessage = "Parking contract updated.";
-
                 // update property "name" in place
                 var tmpParkingContract = $scope.parkingContracts.find(function (parkingContract) {
                     return parkingContract.item_id === $scope.parkingContract.id;
@@ -201,6 +197,10 @@ angular.module('kpsysApp').controller('ParkingContractsCtrl', function ($q, $sco
                     tmpParkingContract.name = $scope.parkingContract.name;
                     updateAuthorisationItemName("edit", $scope.parkingContract.id, $scope.parkingContract.name);
                 }
+
+                $scope.parkingContractUpdatingInProcess = false;
+                $scope.parkingContractSavedOk = true;
+                $scope.statusMessage = "Parking contract updated.";
             }, function (ex) {
                 $scope.responseError = $rootScope.getErrorMessage(ex);
                 $scope.parkingContractUpdatingInProcess = false;
