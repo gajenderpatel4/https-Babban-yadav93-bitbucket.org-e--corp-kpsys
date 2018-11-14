@@ -32,14 +32,11 @@ public class AuthResource {
     @Inject
     private RoleAuthorisationDao roleAuthorisationDao;
 
-    @Inject
-    private LoginLogDao loginLogDao;
+    //@Inject
+    //private LoginLogDao loginLogDao;
 
     @Inject
     private ItemRoleDao itemRoleDao;
-
-    @Inject
-    private ParkingContractDao parkingContractDao;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
