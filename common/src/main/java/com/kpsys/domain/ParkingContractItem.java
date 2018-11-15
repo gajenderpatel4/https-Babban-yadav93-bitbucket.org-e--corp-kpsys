@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -36,9 +38,11 @@ public class ParkingContractItem {
     private Client client;
 
     @Column(name = "identificator", length = 70)
+    @Size(max = 70)
     private String identificator;
 
     @Column(name = "pre_register_identificator", length = 70)
+    @Size(max = 70)
     private String preRegisterIdentificator;
 
     //TODO: update user?
@@ -47,9 +51,11 @@ public class ParkingContractItem {
     private User user;
 
     @Column(name = "status", nullable = false)
-    private Byte status;
+    @Max(value = 127)
+    private Integer status;
 
     @Column(name = "comment", length = 200)
+    @Size(max = 200)
     private String comment;
 
     @JsonIgnore

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -30,12 +31,14 @@ public class ParkingContract {
     private Client client;
 
     @Column(name = "name", length = 35, nullable = false)
+    @Size(max = 35)
     private String name;
 
     @Column(name = "max_item_count", precision = 10)
     private Integer maxItemCount;
 
     @Column(name = "description", length = 200)
+    @Size(max = 200)
     private String description;
 
     @Column(name = "contract_type", precision = 10)
