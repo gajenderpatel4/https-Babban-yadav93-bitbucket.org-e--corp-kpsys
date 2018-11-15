@@ -689,7 +689,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-
+        /*
         // User Profile Dashboard
         .state("profile.dashboard", {
             url: "/dashboard",
@@ -701,7 +701,7 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
             },
             data: {pageTitle: 'User Profile'}
         })
-        /*
+
         // User Profile Account
         .state("profile.account", {
             url: "/account",
