@@ -56,6 +56,10 @@ public class ParkingContractResource {
             return new KpsysException("Unable to find parking contract with id: " + parkingContractId, Response.Status.NOT_FOUND);
         });
 
+        if (update.getMaxUtilizationCount() > update.getMaxItemCount()) {
+            throw new KpsysException("Unable to update parking contract: max. utilization count  should not be greater than max. item count.");
+        }
+
         parkingContract.shallowCopy(update);
         return EntityResponse.of(parkingContractDao.save(parkingContract));
     }
