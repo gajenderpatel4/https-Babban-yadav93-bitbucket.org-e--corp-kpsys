@@ -16,8 +16,8 @@ var applications = {
                         'resources/client-resource.js',
                         'services/client-service.js',
                         'controllers/auth.js',
-                        'resources/user-resource.js',
-                        'services/user-service.js',
+                        'resources/users-resource.js',
+                        'services/users-service.js',
                         'directives.js'
                     ].reverse(), application, function () {
                         angular.bootstrap(document, [application + 'App']);

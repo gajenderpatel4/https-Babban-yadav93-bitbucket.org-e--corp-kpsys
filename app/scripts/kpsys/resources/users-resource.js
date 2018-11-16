@@ -2,7 +2,7 @@
 
 angular.module('kpsysApp').factory('UsersResource', function ($resource, PaginationConstants) {
     return {
-        getUsersFiltered : $resource('/api/dashboard/users/filtered', {}, {}),
+        /*getUsersFiltered : $resource('/api/dashboard/users/filtered', {}, {}),
         getUsers : $resource('/api/dashboard/users', {}, {
             get : {
                 method: 'GET', isArray: true, transformResponse: function (data, headers) {
@@ -18,6 +18,15 @@ angular.module('kpsysApp').factory('UsersResource', function ($resource, Paginat
             create : {
                 method:'POST', data: { user: {} }
             }
+        }),*/
+        user: $resource('/api/users', {}, {
+            get: {
+                method: "POST"
+            },
+            update: {
+                method: "PUT"
+            }
         })
+
     };
 });
