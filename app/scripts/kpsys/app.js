@@ -239,6 +239,27 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/home");
 
     $stateProvider
+    //user profile edit
+        .state("profile.edit", {
+            url: "/edit",
+            controller: 'ProfileEditCtrl',
+            templateUrl: "views/kpsys/profile/edit.html",
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) {
+                    return AuthResolver.resolve();
+                },
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'kpsysApp',
+                        insertBefore: '#ng_load_plugins_before',
+                        files: [
+                            'scripts/kpsys/controllers/ProfileEditController.js'
+                        ]
+                    });
+                }]
+            },
+            data: {pageTitle: 'Parking Contracts'}
+        })
 
     // User Profile Parking Contracts
         .state("profile.parking_contracts", {
