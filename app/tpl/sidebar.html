@@ -16,10 +16,16 @@
                     <span class="title">User Profile</span>
                 </a>
                 <ul class="sub-menu" style="display: block;">
-                    <li ng-show="hasParkingContractRoles('edit')">
+                    <li ng-show="isAuthenticated() && hasParkingContractRoles('edit')" ng-class="{'active': state.current.name.indexOf('edit') === 0 }">
                         <a href="#/profile/parking_contracts">
                             <i class="icon-check"></i>
                             <span class="title">Parking Contracts</span>
+                        </a>
+                    </li>
+                    <li ng-show="isAuthenticated()" ng-class="{'active': state.current.name.indexOf('parking_contracts') === 0 }">
+                        <a href="#/profile/edit">
+                            <i class="icon-check"></i>
+                            <span class="title">Edit profile</span>
                         </a>
                     </li>
                 </ul>
