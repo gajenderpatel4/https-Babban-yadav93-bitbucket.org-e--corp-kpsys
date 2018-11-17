@@ -55,7 +55,7 @@ public class UserDao extends MainClientAwareDao<User> {
         return ((Number) criteria.uniqueResult()).intValue();
     }
 
-    public User getUser(long userId) {
+    public User getUser(int userId) {
         return get(userId);
     }
 
