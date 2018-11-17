@@ -18,6 +18,7 @@ import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper;
 import io.dropwizard.setup.Environment;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
@@ -56,7 +57,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
 
         environment.jersey().register(new AuthResource());
         environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, kpsysConfiguration.getSiteConfiguration()));
-
+        environment.jersey().register(new UsersResource());
         environment.jersey().register(new KpsysExceptionMapper());
 
         HibernateBundle hibernate = getInjector().getInstance(MultitenantHibernateBundle.class);
