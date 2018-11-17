@@ -59,6 +59,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, kpsysConfiguration.getSiteConfiguration()));
         environment.jersey().register(new UsersResource());
         environment.jersey().register(new KpsysExceptionMapper());
+        environment.jersey().register(new JsonProcessingExceptionMapper(true));
 
         HibernateBundle hibernate = getInjector().getInstance(MultitenantHibernateBundle.class);
         AuthDao authDao = new AuthDao(hibernate.getSessionFactory());
