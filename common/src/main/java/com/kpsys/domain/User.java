@@ -1,36 +1,29 @@
 package com.kpsys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.kpsys.common.multitenancy.MainClientAware;
+import com.kpsys.common.requests.UpdateUserRequest;
 import com.kpsys.domain.enums.UserStatus;
 import com.kpsys.domain.enums.UserType;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Tolerate;
+import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.security.Principal;
 import java.util.List;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_LOGIN;
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_TOKEN;
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_USERNAME_AND_PASSWORD;
+import static com.kpsys.common.dao.NamedHQLQueries.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "User")
 @Table(name = "users")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(NON_NULL)
 @Getter
 @Setter
 @ToString(exclude = {"accessToken"})
@@ -44,27 +37,32 @@ public class User extends MainClientAware implements Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer userId;
 
-    @Column(name = "PASSWORD", length = 256)
+    @Column(name = "password", length = 256)
     @JsonIgnore
     private String password;
 
     @Transient
-    @JsonProperty
+    @JsonIgnore
     private String plainPassword;
 
-    @Column(name = "NAME", length = 128)
+    @Column(name = "name", length = 35, nullable = false)
+    @Size(max = 35)
     private String login;
+
+    @Column(name = "city", length = 25)
+    @Size(max = 25)
+    private String city;
 
     //@Column(name = "USERNAME", length = 35)
     //private String username;
 
-    @Column(name = "STATUS")
+    @Column(name = "status", nullable = false)
     private UserStatus userStatus;
 
-    @Column(name = "TYPE")
+    @Column(name = "type", nullable = false)
     private UserType userType;
 
     //@JoinColumn(name = "MAINCLNTIDNO")
@@ -95,26 +93,36 @@ public class User extends MainClientAware implements Principal {
     //@Column(name = "EXTNUSERSIONIDFC", length = 20)
     //private String externalLogin;
 
-    @Column(name = "EMAIL", length = 70)
+    @Email
+    @Column(name = "email", length = 70)
+    @Size(max = 70)
     private String email;
 
-    @Column(name = "PASSWORD_TOKEN", length = 30)
+    @Column(name = "password_token", length = 30, nullable = false)
+    @Size(max = 30)
     private String passwordToken;
 
-    @Column(name = "ADDRESS", length = 70)
+    @Column(name = "address", length = 70)
+    @Size(max = 70)
     private String address;
 
-    @Column(name = "POSTOFFICE_ID", length = 12)
+    @Column(name = "postoffice_id", length = 12)
+    @Size(max = 12)
     private String postOfficeId;
 
-
-    @Column(name = "PHONE", length = 25)
+    @Pattern(regexp = "^(\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4}))?$", message = "Invalid phone number, wrong format.")
+    @Column(name = "phone", length = 25)
+    @Size(max = 25)
     private String phone;
+
+    @Column(name = "country", length = 25)
+    @Size(max = 25)
+    private String country;
 
     //@Column(name = "DATEPTRN", length = 15)
     //private String datePattern;
 
-    @Column(name = "LAST_SEEN")
+    @Column(name = "last_seen")
     private DateTime lastSeen;
 
 
@@ -137,9 +145,20 @@ public class User extends MainClientAware implements Principal {
         return Hashing.sha1().hashString(plainPassword, Charsets.UTF_8).toString();
     }
 
+    @JsonIgnore
     @Override
     public String getName() {
         return login;
     }
 
+    @JsonIgnore
+    public void shallowCopy(UpdateUserRequest update) {
+        this.setLogin(update.getLogin());
+        this.setAddress(update.getAddress());
+        this.setCity(update.getCity());
+        this.setCountry(update.getCountry());
+        this.setEmail(update.getEmail());
+        this.setPostOfficeId(update.getPostOfficeId());
+        this.setPhone(update.getPhone());
+    }
 }
