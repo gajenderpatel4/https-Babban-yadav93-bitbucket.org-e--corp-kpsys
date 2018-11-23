@@ -38,7 +38,7 @@ public class User extends MainClientAware implements Principal {
     @Column(name = "id")
     private Integer userId;
 
-    @Column(name = "password", length = 256)
+    @Column(name = "password", length = 256, nullable = false)
     @JsonIgnore
     private String password;
 
