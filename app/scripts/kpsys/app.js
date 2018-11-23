@@ -183,7 +183,7 @@ kpsysApp.controller('HeaderController', ['$scope', '$rootScope', 'AuthService', 
 }]);
 
 /* Setup Layout Part - Sidebar */
-kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, $translate, AuthService, AUTH_EVENTS) {
+kpsysApp.controller('SidebarController', function ($scope, $rootScope, $window, $translate, AuthService) {
 
     $scope.homePageAnonymous = undefined;
     $scope.homePageAuthenticated = undefined;
