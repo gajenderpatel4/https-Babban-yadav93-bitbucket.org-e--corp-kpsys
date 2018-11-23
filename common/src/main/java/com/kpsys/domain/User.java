@@ -2,8 +2,6 @@ package com.kpsys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hashing;
 import com.kpsys.common.multitenancy.MainClientAware;
 import com.kpsys.common.requests.UpdateUserRequest;
 import com.kpsys.domain.enums.UserStatus;
@@ -56,19 +54,11 @@ public class User extends MainClientAware implements Principal {
     @Size(max = 25)
     private String city;
 
-    //@Column(name = "USERNAME", length = 35)
-    //private String username;
-
     @Column(name = "status", nullable = false)
     private UserStatus userStatus;
 
     @Column(name = "type", nullable = false)
     private UserType userType;
-
-    //@JoinColumn(name = "MAINCLNTIDNO")
-    //@JsonIgnore
-    //@ManyToOne(targetEntity = Client.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    //private Client client;
 
     @Column
     @Transient
@@ -78,10 +68,6 @@ public class User extends MainClientAware implements Principal {
     @OneToMany(mappedBy = "user", targetEntity = AccessToken.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AccessToken> accessToken;
 
-    //@JsonIgnore
-    //@OneToMany(mappedBy = "user", targetEntity = LoginLog.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<LoginLog> loginLog;
-
     @Transient
     @JsonProperty
     private Integer clientId;
@@ -89,9 +75,6 @@ public class User extends MainClientAware implements Principal {
     @Transient
     @JsonProperty
     private List<Integer> locationIds;
-
-    //@Column(name = "EXTNUSERSIONIDFC", length = 20)
-    //private String externalLogin;
 
     @Email
     @Column(name = "email", length = 70)
@@ -119,30 +102,11 @@ public class User extends MainClientAware implements Principal {
     @Size(max = 25)
     private String country;
 
-    //@Column(name = "DATEPTRN", length = 15)
-    //private String datePattern;
-
     @Column(name = "last_seen")
     private DateTime lastSeen;
 
-
-    //@Column(name = "PRNTUSERIDNO")
-    // USERIDNO of the user that created the record if USERTYPENMBR is 16
-    //private Long createdBy;
-
-    //@Column(name = "PSWDCHNGTYPENMBR")
-    //private Long passwordChangeType;
-
-    //@Column(name = "RSETPSWDITRU")
-    // User must reset password before he can proceed.
-    //private Boolean resetPassword;
-
     @Tolerate
     public User() {
-    }
-
-    public static String encodePassword(String plainPassword) {
-        return Hashing.sha1().hashString(plainPassword, Charsets.UTF_8).toString();
     }
 
     @JsonIgnore
