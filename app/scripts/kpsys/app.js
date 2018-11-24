@@ -1190,5 +1190,27 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                         }]);
                 }]
             }
+        })
+        .state('register', {
+            url: '/register',
+            controller: 'RegisterCtrl',
+            templateUrl: 'views/kpsys/register.html',
+            data: {pageTitle: 'Register'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'kpsysApp',
+                        insertBefore: '#ng_load_plugins_before',
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                            '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+
+                            'scripts/kpsys/services/register-service.js',
+                            'scripts/kpsys/controllers/RegisterController.js'
+                        ]
+                    });
+                }]
+            }
         });
 });

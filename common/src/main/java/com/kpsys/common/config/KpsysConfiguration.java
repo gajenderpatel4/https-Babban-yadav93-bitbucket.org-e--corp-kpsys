@@ -6,6 +6,8 @@ import io.dropwizard.bundles.assets.AssetsBundleConfiguration;
 import io.dropwizard.bundles.assets.AssetsConfiguration;
 import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.db.DataSourceFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,7 +31,19 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     @Valid
     @NotNull
     @JsonProperty
+    private VippsConfiguration vipps;
+
+    @Valid
+    @NotNull
+    @JsonProperty
     private SiteConfiguration site;
+
+    //
+    @Getter
+    @Setter
+    @JsonProperty("clickatell")
+    private ClickatellConfiguration clickatellConfiguration = new ClickatellConfiguration();
+    //
 
     @Override
     public AssetsConfiguration getAssetsConfiguration() {
@@ -67,4 +81,14 @@ public class KpsysConfiguration extends Configuration implements AssetsBundleCon
     public SiteConfiguration getSiteConfiguration() {
         return site;
     }
+
+    @JsonProperty("vipps")
+    public VippsConfiguration getVipps() {
+        return vipps;
+    }
+
+    @Getter
+    @Setter
+    @JsonProperty("registration")
+    private RegisterConfiguration registerConfiguration;
 }

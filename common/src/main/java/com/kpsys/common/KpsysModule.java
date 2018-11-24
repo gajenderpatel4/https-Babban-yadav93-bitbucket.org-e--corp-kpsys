@@ -2,6 +2,9 @@ package com.kpsys.common;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.kpsys.clickatell.ClickatellRest;
+import com.kpsys.clickatell.ClickatellService;
+import com.kpsys.clickatell.ClickatellServiceImpl;
 import com.kpsys.common.config.KpsysConfiguration;
 import com.kpsys.common.multitenancy.ClientProvider;
 import com.kpsys.common.multitenancy.KpsysTenantResolver;
@@ -24,6 +27,7 @@ public class KpsysModule extends AbstractModule {
     @Override
     protected void configure() {
         binder().bind(TenantResolver.class).to(KpsysTenantResolver.class);
+        binder().bind(ClickatellService.class).to(ClickatellServiceImpl.class);
     }
 
     @Provides
@@ -60,4 +64,9 @@ public class KpsysModule extends AbstractModule {
         return new ClientProvider();
     }
 
+    @Provides
+    @com.google.inject.Singleton
+    public ClickatellRest provideClickatell(KpsysConfiguration configuration) {
+        return configuration.getClickatellConfiguration().getClient();
+    }
 }
