@@ -25,7 +25,7 @@ angular.module('kpsysApp').controller('RegisterCtrl', function ($scope, $rootSco
             $scope.registerError = res.data;
         });
     };
-    /*
+
     $scope.confirmRegistration = function (confirmCode) {
         $scope.submitted[1] = true;
         if (confirmCode == null) {
@@ -57,7 +57,7 @@ angular.module('kpsysApp').controller('RegisterCtrl', function ($scope, $rootSco
         }, function () {
         })
     };
-    */
+
     $scope.init = function () {
 
         $scope.countries = InternationalizationConstants.supportedLanguages.map(function (lang) {

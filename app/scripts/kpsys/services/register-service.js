@@ -1,5 +1,4 @@
 'use strict';
-//TODO:
 
 angular.module('kpsysApp').service('RegisterService', function ($rootScope, $http, $state, $window, AUTH_EVENTS, Session) {
     var registerService = {};
@@ -21,13 +20,14 @@ angular.module('kpsysApp').service('RegisterService', function ($rootScope, $htt
         return $http
             .post('/api/registration/confirm', confirmation)
             .success(function (res) {
-                Session.create(res.token, res.user.userId, res.user.userType, res.user.tenant.clientId);
+                Session.create(res.token, res.user.userId, res.user.userType, null/*res.user.tenant.clientId*/);
+                $rootScope.setCurrentUser(res.user.userId);
                 $state.go('completeRegistration');
                 return res;
             })
             .error(function (res) {
                 return res;
-            })
+            });
     };
 
     registerService.completeRegistration = function (userProfile) {
@@ -39,7 +39,7 @@ angular.module('kpsysApp').service('RegisterService', function ($rootScope, $htt
             })
             .error(function (res) {
                 return res;
-            })
+            });
     };
 
     return registerService;

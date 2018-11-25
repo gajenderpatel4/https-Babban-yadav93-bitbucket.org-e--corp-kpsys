@@ -31,7 +31,7 @@ public class AuthDao extends AbstractDAO<AccessToken> {
     }
 
     public AccessToken generateNewAccessToken(User user, DateTime date) {
-        return persist(new AccessToken(randomUUID().toString(), user, date, user.getClient().getClientId()));
+        return persist(new AccessToken(randomUUID().toString(), user, date, null/*user.getClient().getClientId()*/));
     }
 
     public void delete(AccessToken token) {

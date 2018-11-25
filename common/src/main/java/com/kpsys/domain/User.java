@@ -2,6 +2,8 @@ package com.kpsys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.kpsys.common.multitenancy.MainClientAware;
 import com.kpsys.common.requests.UpdateUserRequest;
 import com.kpsys.domain.enums.UserStatus;
@@ -12,7 +14,6 @@ import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.security.Principal;
 import java.util.List;
@@ -93,7 +94,7 @@ public class User extends MainClientAware implements Principal {
     @Size(max = 12)
     private String postOfficeId;
 
-    @Pattern(regexp = "^(\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4}))?$", message = "Invalid phone number, wrong format.")
+    //@Pattern(regexp = "^(\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4}))?$", message = "Invalid phone number, wrong format.")
     @Column(name = "phone", length = 25)
     @Size(max = 25)
     private String phone;
@@ -124,5 +125,9 @@ public class User extends MainClientAware implements Principal {
         this.setEmail(update.getEmail());
         this.setPostOfficeId(update.getPostOfficeId());
         this.setPhone(update.getPhone());
+    }
+
+    public static String encodePassword(String plainPassword) {
+        return Hashing.sha1().hashString(plainPassword, Charsets.UTF_8).toString();
     }
 }

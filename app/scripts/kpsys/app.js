@@ -1212,5 +1212,49 @@ kpsysApp.config(function ($stateProvider, $urlRouterProvider) {
                     });
                 }]
             }
+        })
+        .state('confirmRegistration', {
+            url: '/register',
+            controller: 'RegisterCtrl',
+            templateUrl: 'views/kpsys/confirmRegistration.html',
+            data: {pageTitle: 'Confirm'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'kpsysApp',
+                        insertBefore: '#ng_load_plugins_before',
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                            '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+
+                            'scripts/kpsys/services/register-service.js',
+                            'scripts/kpsys/controllers/RegisterController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+        .state('completeRegistration', {
+            url: '/register',
+            controller: 'RegisterCtrl',
+            templateUrl: 'views/kpsys/completeRegistration.html',
+            data: {pageTitle: 'Set your password'},
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'kpsysApp',
+                        insertBefore: '#ng_load_plugins_before',
+                        files: [
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../assets/global/plugins/angularjs/plugins/ui-select/select.min.js',
+                            '../assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css',
+
+                            'scripts/kpsys/services/register-service.js',
+                            'scripts/kpsys/controllers/RegisterController.js'
+                        ]
+                    });
+                }]
+            }
         });
 });

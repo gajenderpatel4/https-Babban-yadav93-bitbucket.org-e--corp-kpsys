@@ -6,12 +6,21 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.inject.Inject;
 import com.kpsys.clickatell.ClickatellService;
 import com.kpsys.common.config.RegisterConfiguration;
+import com.kpsys.common.dao.AuthDao;
+import com.kpsys.common.dao.UserDao;
 import com.kpsys.common.dao.UserLoginDao;
 import com.kpsys.common.dao.UserRegistrationDao;
 import com.kpsys.common.dto.RegisterResponse;
 import com.kpsys.common.exceptions.KpsysException;
+import com.kpsys.common.requests.CompleteRegistrationRequest;
+import com.kpsys.common.requests.ConfirmRequest;
 import com.kpsys.common.requests.RegisterRequest;
+import com.kpsys.domain.AccessToken;
+import com.kpsys.domain.User;
 import com.kpsys.domain.UserRegistration;
+import com.kpsys.domain.enums.UserStatus;
+import com.kpsys.domain.enums.UserType;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -29,11 +38,20 @@ import javax.ws.rs.core.Response;
 import java.util.Optional;
 import java.util.Random;
 
+import static com.kpsys.domain.User.encodePassword;
+
 @Path("/registration")
 public class RegistrationResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientResource.class);
     private static final Long DEFAULT_TENANT_ID = 24L;
+    private static final String NULL_PASSWORD = "eil3thai3yoy3Iwumaicooxa4LohT0Gevoo0va7l";
+
+    @Inject
+    private AuthDao authDao;
+
+    @Inject
+    private UserDao userDao;
 
     @Inject
     private UserRegistrationDao userRegistrationDao;
@@ -109,6 +127,47 @@ public class RegistrationResource {
                 .build()));
         LOGGER.info("Saved user registration request: " + result.toString());
         return new RegisterResponse(DEFAULT_TENANT_ID, normalizedPhone, registerConfiguration.getSmsTimeout());
+    }
+
+    @POST
+    @Path("confirm")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public AccessToken confirmRegistration(@Context HttpServletRequest req, ConfirmRequest confirmRequest) {
+        String code = StringUtils.leftPad(confirmRequest.getCode(), 4, '0');
+        UserRegistration userRegistration = userRegistrationDao.findByPhoneAndCode(confirmRequest.getPhone(), code)
+            .orElseThrow(() -> {
+                LOGGER.info(String.format("Wrong confirmation code %s for number %s", confirmRequest.getCode(), confirmRequest.getPhone()));
+                return new KpsysException("Wrong confirmation code");
+            });
+        LOGGER.info("Confirmed user registration: " + userRegistration.toString());
+        User user = User.builder()
+            //.login(confirmRequest.getPhone())
+            .phone(confirmRequest.getPhone())
+            .userStatus(UserStatus.ACTIVE)
+            .userType(UserType.EXTERNAL_USER)
+            .email(userRegistration.getEmail())
+            .password(NULL_PASSWORD)
+            .login(userRegistration.getFirstName() + " " + userRegistration.getLastName())
+            .build();
+        userDao.save(user);
+        LOGGER.debug("Created user: " + user.toString());
+        userRegistrationDao.delete(userRegistration);
+        return authDao.generateNewAccessToken(user, new DateTime());
+    }
+
+    @POST
+    @Path("completeRegistration")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public User completeRegistration(@Context HttpServletRequest req, @Auth User __, CompleteRegistrationRequest completeRegistrationRequest) {
+        User user = userLoginDao.findUserByToken(completeRegistrationRequest.getToken())
+            .orElseThrow(() -> new KpsysException("Bad token"));
+        user.setPassword(encodePassword(completeRegistrationRequest.getPassword()));
+        userDao.save(user);
+        return user;
     }
 
     private Optional<UserRegistration> throwServiceUnavailable() {
