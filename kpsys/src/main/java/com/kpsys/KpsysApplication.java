@@ -56,6 +56,7 @@ public class KpsysApplication extends CommonApplication<KpsysConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.jersey().register(new AuthResource());
+        environment.jersey().register(new RegistrationResource());
         environment.jersey().register(new PayPalResource(kpsysConfiguration.getPaypal(), client, kpsysConfiguration.getSiteConfiguration()));
         environment.jersey().register(new UsersResource());
         environment.jersey().register(new KpsysExceptionMapper());

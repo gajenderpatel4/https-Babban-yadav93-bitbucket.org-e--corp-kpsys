@@ -6,7 +6,7 @@ angular.module('kpsysApp').service('RegisterService', function ($rootScope, $htt
 
     registerService.register = function (registerData) {
         return $http
-            .post('/api/auth/register', registerData)
+            .post('/api/registration/register', registerData)
             .success(function (res) {
                 $window.sessionStorage.tenantId = res.tenantId;
                 $state.go('confirmRegistration');
@@ -19,7 +19,7 @@ angular.module('kpsysApp').service('RegisterService', function ($rootScope, $htt
 
     registerService.confirmRegistration = function (confirmation) {
         return $http
-            .post('/api/auth/confirm', confirmation)
+            .post('/api/registration/confirm', confirmation)
             .success(function (res) {
                 Session.create(res.token, res.user.userId, res.user.userType, res.user.tenant.clientId);
                 $state.go('completeRegistration');
@@ -32,7 +32,7 @@ angular.module('kpsysApp').service('RegisterService', function ($rootScope, $htt
 
     registerService.completeRegistration = function (userProfile) {
         return $http
-            .post('/api/auth/completeRegistration', userProfile)
+            .post('/api/registration/completeRegistration', userProfile)
             .success(function (res) {
                 $state.go('home');
                 return res;
