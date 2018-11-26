@@ -65,7 +65,7 @@ public class RegistrationResource {
     @Inject
     private UserLoginDao userLoginDao;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private static String normalizePhone(String phone) {
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
