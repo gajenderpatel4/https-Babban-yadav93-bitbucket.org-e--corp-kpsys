@@ -53,3 +53,9 @@ site:
   # put here skypark.no for example
   hostname: localhost:10443
   parkingApi: http://anpr01.parkingguru.com:8080/api/rest/parking/%s
+
+clickatell:
+  apiKey: o4iRbQHNG4XjfapeqQ4tZJpahjjcmQbMjLcjnCWjj1aAsWE0I.RXw2hCdJMRypLYXPohWacXdsM.4c6
+
+registration:
+    smsTimeout: 60
