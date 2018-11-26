@@ -98,7 +98,7 @@ public class RegistrationResource {
             throw new KpsysException("Incorrect phone number: " + registerRequest.getPhone());
         }
 
-        if (userLoginDao.findUserByLogin(normalizedPhone).isPresent()) {
+        if (userLoginDao.findUserByPhone(normalizedPhone).isPresent()) {
             LOGGER.info("Phone number already registered: " + registerRequest.toString());
             throw new KpsysException("User with the given phone number already exists");
         }
@@ -143,7 +143,6 @@ public class RegistrationResource {
             });
         LOGGER.info("Confirmed user registration: " + userRegistration.toString());
         User user = User.builder()
-            //.login(confirmRequest.getPhone())
             .phone(confirmRequest.getPhone())
             .userStatus(UserStatus.ACTIVE)
             .userType(UserType.EXTERNAL_USER)
