@@ -2,11 +2,22 @@
     <div class="portlet col-md-4">
         <div class="form-group">
             <label for="firstName">{{ 'First name'}}:</label>
-            <input class="form-control" type="text" id="firstName" ng-model="registerData.firstName">
+            <input class="form-control" type="text" id="firstName" name="firstName" ng-model="registerData.firstName"
+                   required>
+        </div>
+        <div ng-if="form.firstName.$error.required && (form.email.$dirty || submitted[0])">
+            <div class="field-error">
+                First name is required.
+            </div>
         </div>
         <div class="form-group">
             <label for="lastName">{{ 'Last name'}}:</label>
-            <input class="form-control" type="text" id="lastName" ng-model="registerData.lastName">
+            <input class="form-control" type="text" id="lastName" name="lastName" ng-model="registerData.lastName">
+        </div>
+        <div ng-if="form.firstName.$error.required && (form.email.$dirty || submitted[0])">
+            <div class="field-error">
+                Last name is required.
+            </div>
         </div>
         <div class="form-group">
             <label for="email">{{ 'user_maintenance.email' | translate}}:</label>
