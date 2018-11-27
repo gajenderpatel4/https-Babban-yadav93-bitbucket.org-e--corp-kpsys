@@ -169,7 +169,7 @@ public class RegistrationResource {
         return user;
     }
 
-    private Optional<UserRegistration> throwServiceUnavailable() {
+    private void throwServiceUnavailable() {
         throw new KpsysException("Service is unavailable at the moment", Response.Status.BAD_REQUEST);
     }
 }
