@@ -11,9 +11,7 @@ import org.hibernate.SessionFactory;
 
 import java.util.Optional;
 
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_LOGIN;
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_TOKEN;
-import static com.kpsys.common.dao.NamedHQLQueries.GET_USER_BY_USERNAME_AND_PASSWORD;
+import static com.kpsys.common.dao.NamedHQLQueries.*;
 
 public class UserLoginDao extends AbstractDAO<User> {
 
@@ -47,6 +45,16 @@ public class UserLoginDao extends AbstractDAO<User> {
     public Optional<User> findUserByLogin(String login) {
         Query query = namedQuery(GET_USER_BY_LOGIN);
         query.setString("login", login);
+        try {
+            return Optional.ofNullable(uniqueResult(query));
+        } catch (NonUniqueResultException __) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<User> findUserByPhone(String phone) {
+        Query query = namedQuery(GET_USER_BY_PHONE);
+        query.setString("phone", phone);
         try {
             return Optional.ofNullable(uniqueResult(query));
         } catch (NonUniqueResultException __) {

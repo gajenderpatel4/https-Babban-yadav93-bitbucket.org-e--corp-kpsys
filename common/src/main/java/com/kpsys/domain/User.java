@@ -30,7 +30,8 @@ import static com.kpsys.common.dao.NamedHQLQueries.*;
 @NamedQueries({
     @NamedQuery(name = GET_USER_BY_USERNAME_AND_PASSWORD, query = "from User where login = :login and password = :password and userStatus = 0"),
     @NamedQuery(name = GET_USER_BY_TOKEN, query = "select at.user from AccessToken at where token = :token "),
-    @NamedQuery(name = GET_USER_BY_LOGIN, query = "from User where login = :login")
+    @NamedQuery(name = GET_USER_BY_LOGIN, query = "from User where login = :login"),
+    @NamedQuery(name = GET_USER_BY_PHONE, query = "from User where phone = :phone")
 })
 public class User extends MainClientAware implements Principal {
 
